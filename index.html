@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宮崎トレカ 予約まとめ</title>
+  <meta name="theme-color" content="#0f1117" />
+  <meta name="description" content="宮崎県内のトレカ（新品パック・BOX）の取扱・予約・抽選情報まとめ" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/favicon.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="宮崎トレカ" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🃏 宮崎トレカ 予約まとめ</h1>
+    <p class="sub">宮崎県内のトレカ取扱・予約受付情報（遊戯王 / ワンピ / ポケカ / ガンダム / ナルト）</p>
+    <p class="scope">🆕 <b>新品パック・BOX の販売／予約のみ</b>（中古・シングルカードは対象外）</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-view="list">📋 一覧</button>
+    <button class="tab" data-view="restock">🔄 再販</button>
+    <button class="tab" data-view="online">🛒 通販</button>
+    <button class="tab" data-view="topps">⚾ Topps</button>
+    <button class="tab" data-view="calendar">📅 カレンダー</button>
+    <button class="tab" data-view="search">🔍 探す</button>
+    <button class="tab" data-view="add">➕ 情報を追加</button>
+    <button id="refresh-btn" class="refresh">🔄 更新</button>
+  </nav>
+  <div id="refresh-status" class="refresh-status"></div>
+
+  <!-- 一覧ビュー -->
+  <section id="view-list" class="view">
+    <div id="list-summary" class="summary"></div>
+
+    <!-- ジャンル別タブ -->
+    <div id="genre-tabs" class="genre-tabs"></div>
+
+    <!-- パック名で検索 -->
+    <div class="searchbar">
+      <input id="f-q" type="search" placeholder="🔍 パック名・商品名で検索（例: 30th、OP-17、スターター）" />
+      <button id="f-q-clear" title="検索をクリア">✕</button>
+    </div>
+
+    <div class="filters">
+      <select id="f-kind">
+        <option value="">全種別</option>
+        <option value="shop">店舗</option>
+        <option value="convenience">コンビニ</option>
+        <option value="maker">メーカー公式</option>
+        <option value="online">オンライン通販</option>
+      </select>
+      <select id="f-shop"><option value="">全店舗</option></select>
+      <select id="f-status">
+        <option value="">全ステータス</option>
+        <option value="published">公開済み</option>
+        <option value="review">要確認</option>
+      </select>
+    </div>
+    <div id="cards" class="cards"></div>
+  </section>
+
+  <!-- カレンダービュー -->
+  <section id="view-calendar" class="view hidden">
+    <h3 class="sec">🗓 最新弾の公式発売日</h3>
+    <div id="next-releases" class="releases"></div>
+
+    <div class="cal-head">
+      <button id="cal-prev">◀</button>
+      <span id="cal-label"></span>
+      <button id="cal-next">▶</button>
+    </div>
+    <div id="calendar" class="calendar"></div>
+    <p class="legend"><span class="dot start"></span>予約開始 <span class="dot end"></span>締切 <span class="dot lot"></span>当選発表 <span class="dot rel"></span>発売</p>
+  </section>
+
+  <!-- 再販ビュー -->
+  <section id="view-restock" class="view hidden">
+    <div class="howto">
+      <b>🔄 再販・入荷情報</b>
+      <p class="msg">量販店・コンビニの再販は<b>日時が事前告知されないことが多い</b>ため、
+      ここでは「どこに入荷するか・どういう傾向か」を押さえておき、
+      再販が判明したら「➕ 情報を追加」でURLを貼って日付を登録します。</p>
+      <div id="notify-restock" class="notify-box"></div>
+    </div>
+    <div id="restock-cards" class="cards"></div>
+  </section>
+
+  <!-- 通販ビュー -->
+  <section id="view-online" class="view hidden">
+    <div class="howto">
+      <b>🛒 通販サイトの販売・再入荷</b>
+      <p class="msg">イオンスタイルオンライン・トイザらス等、ウェブでの販売開始をまとめます。</p>
+      <div id="notify-online" class="notify-box"></div>
+    </div>
+    <div id="online-cards" class="cards"></div>
+  </section>
+
+  <!-- Toppsビュー -->
+  <section id="view-topps" class="view hidden">
+    <div class="howto">
+      <b>⚾ Topps（野球）</b>
+      <p class="msg">MLB公式カードのプレオーダー開始日と発売日。日付は米国時間ベースの公表値です。</p>
+      <div id="notify-topps" class="notify-box"></div>
+    </div>
+    <h3 class="sec">📅 発売・プレオーダー カレンダー</h3>
+    <div id="topps-cal" class="topps-cal"></div>
+    <div id="topps-cards" class="cards"></div>
+  </section>
+
+  <!-- 探すビュー -->
+  <section id="view-search" class="view hidden">
+    <div class="howto">
+      <b>使い方</b>
+      <ol>
+        <li>下のボタンを押すと、宮崎向けの検索が新しいタブで開きます</li>
+        <li>予約・抽選の告知を見つけたら、その<b>URLをコピー</b></li>
+        <li>「➕ 情報を追加」の<b>「URLから追加」</b>に貼れば登録完了です</li>
+      </ol>
+      <p class="msg">※ 中古・買取・オリパは対象外なので、貼っても自動で除外されます。</p>
+    </div>
+
+    <h3 class="sec">🔄 再販・入荷を探す</h3>
+    <div id="search-restock" class="linkgrid"></div>
+
+    <h3 class="sec">タイトル別に探す（宮崎）</h3>
+    <div id="search-tcg" class="linkgrid"></div>
+
+    <h3 class="sec">宮崎の店舗のXを見る</h3>
+    <div id="search-shops" class="linkgrid"></div>
+
+    <h3 class="sec">コンビニ・通販・公式</h3>
+    <div id="search-official" class="linkgrid"></div>
+  </section>
+
+  <!-- 追加ビュー -->
+  <section id="view-add" class="view hidden">
+    <div class="add-url">
+      <label>URLを貼るだけで、内容を読み取って登録します（X投稿・公式・店舗ページ対応）</label>
+      <div class="row">
+        <input id="draft-url" type="url" placeholder="https://x.com/... または 公式・店舗ページのURL" />
+        <button id="add-btn" class="primary">URLから追加</button>
+      </div>
+      <div class="row">
+        <button id="draft-btn">内容を確認してから追加（下書き）</button>
+      </div>
+      <p id="draft-msg" class="msg"></p>
+    </div>
+
+    <!-- 巡回先の管理 -->
+    <div class="add-url">
+      <label>🔁 自動巡回する情報源（毎回ここを見に行きます）</label>
+      <div class="row">
+        <input id="src-url" type="url" placeholder="巡回したいページのURL" />
+        <input id="src-name" type="text" placeholder="表示名（例: ○○店 予約情報）" />
+      </div>
+      <div class="row">
+        <select id="src-cat">
+          <option value="reserve">予約・抽選として取り込む</option>
+          <option value="restock_ref">再販の参考として取り込む</option>
+          <option value="online">通販として取り込む</option>
+        </select>
+        <button id="src-add" class="primary">巡回先に追加</button>
+      </div>
+      <p id="src-msg" class="msg"></p>
+      <div id="src-list" class="src-list"></div>
+    </div>
+
+    <form id="item-form" class="form">
+      <input type="hidden" id="i-id" />
+      <label>タイトル（商品名・弾名）<input id="i-title" required /></label>
+      <div class="grid2">
+        <label>タイトル種別
+          <select id="i-tcg" required></select>
+        </label>
+        <label>店舗 / 情報源
+          <select id="i-shop"></select>
+        </label>
+      </div>
+      <div class="grid2">
+        <label>受付方法
+          <select id="i-method">
+            <option>未定</option><option>抽選</option><option>先着</option>
+            <option>店頭</option><option>予約</option>
+          </select>
+        </label>
+        <label>ステータス
+          <select id="i-status"><option value="review">要確認</option><option value="published">公開</option></select>
+        </label>
+      </div>
+      <div class="grid2">
+        <label>予約開始 <input id="i-rstart" placeholder="2026-08-01" /></label>
+        <label>予約締切 <input id="i-rend" placeholder="2026-08-10" /></label>
+      </div>
+      <div class="grid2">
+        <label>当選発表日 <input id="i-lot" placeholder="2026-08-15" /></label>
+        <label>発売日 <input id="i-rel" placeholder="2026-09-05" /></label>
+      </div>
+      <label>情報ソースURL <input id="i-url" /></label>
+      <label>メモ <textarea id="i-note" rows="2"></textarea></label>
+      <div class="row">
+        <button type="submit" class="primary">保存</button>
+        <button type="button" id="i-reset">クリア</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    // 公開版は API サーバーが無いので、書き出したデータを使う
+    window.TCG_STATIC = null;
+  </script>
+  <script src="art.js"></script>
+  <script>
+    fetch("data.json").then(function(r){return r.json();})
+      .then(function(d){
+        window.TCG_STATIC = d;
+        var s = document.createElement("script");
+        s.src = "app.js";
+        document.body.appendChild(s);
+      });
+  </script>
+</body>
+</html>
