@@ -248,10 +248,10 @@ button { cursor: pointer; }
   header { padding: 14px 12px 4px; padding-top: calc(14px + env(safe-area-inset-top)); }
   h1 { font-size: 1.2rem; }
   .view { padding: 12px; }
-  /* タブは横スクロールさせて折り返さない */
-  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 10px 12px; gap: 5px; }
+  /* タブが8個あり、横スクロールだと右端のタブに気づけないので折り返して全部見せる */
+  .tabs { flex-wrap: wrap; overflow-x: visible; padding: 10px 12px; gap: 5px; }
   .tab, .refresh { flex: 0 0 auto; padding: 8px 11px; font-size: .82rem; }
-  .refresh { margin-left: 4px; }
+  .refresh { margin-left: auto; }
   /* 指で押しやすいサイズを確保 */
   .card .actions button { padding: 8px 12px; font-size: .8rem; }
   .filters select { flex: 1 1 45%; min-width: 0; }

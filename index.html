@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="宮崎トレカ" />
-  <link rel="stylesheet" href="style.css?v=202608191936" />
+  <link rel="stylesheet" href="style.css?v=202608200725" />
 </head>
 <body>
   <header>
@@ -26,10 +26,8 @@
     <button class="tab" data-view="restock">🔄 再販</button>
     <button class="tab" data-view="online">🛒 通販</button>
     <button class="tab" data-view="topps">⚾ Topps</button>
-    <button class="tab" data-view="history">🎟 応募履歴</button>
     <button class="tab" data-view="calendar">📅 カレンダー</button>
     <button class="tab" data-view="search">🔍 探す</button>
-    <button class="tab" data-view="add">➕ 情報を追加</button>
     <button id="refresh-btn" class="refresh">🔄 更新</button>
   </nav>
   <div id="refresh-status" class="refresh-status"></div>
@@ -113,17 +111,6 @@
     <div id="topps-cards" class="cards"></div>
   </section>
 
-  <!-- 応募履歴ビュー -->
-  <section id="view-history" class="view hidden">
-    <div id="history-summary" class="summary"></div>
-    <div class="howto">
-      <b>使い方</b>
-      <p class="msg">応募したものにチェックを入れると、ここに残ります。
-      当選発表を確認したら「当選」か「落選」を押してください。当選率が出ます。</p>
-    </div>
-    <div id="history-cards" class="cards"></div>
-  </section>
-
   <!-- 探すビュー -->
   <section id="view-search" class="view hidden">
     <div class="howto">
@@ -149,89 +136,17 @@
     <div id="search-official" class="linkgrid"></div>
   </section>
 
-  <!-- 追加ビュー -->
-  <section id="view-add" class="view hidden">
-    <div class="add-url">
-      <label>URLを貼るだけで、内容を読み取って登録します（X投稿・公式・店舗ページ対応）</label>
-      <div class="row">
-        <input id="draft-url" type="url" placeholder="https://x.com/... または 公式・店舗ページのURL" />
-        <button id="add-btn" class="primary">URLから追加</button>
-      </div>
-      <div class="row">
-        <button id="draft-btn">内容を確認してから追加（下書き）</button>
-      </div>
-      <p id="draft-msg" class="msg"></p>
-    </div>
-
-    <!-- 巡回先の管理 -->
-    <div class="add-url">
-      <label>🔁 自動巡回する情報源（毎回ここを見に行きます）</label>
-      <div class="row">
-        <input id="src-url" type="url" placeholder="巡回したいページのURL" />
-        <input id="src-name" type="text" placeholder="表示名（例: ○○店 予約情報）" />
-      </div>
-      <div class="row">
-        <select id="src-cat">
-          <option value="reserve">予約・抽選として取り込む</option>
-          <option value="restock_ref">再販の参考として取り込む</option>
-          <option value="online">通販として取り込む</option>
-        </select>
-        <button id="src-add" class="primary">巡回先に追加</button>
-      </div>
-      <p id="src-msg" class="msg"></p>
-      <div id="src-list" class="src-list"></div>
-    </div>
-
-    <form id="item-form" class="form">
-      <input type="hidden" id="i-id" />
-      <label>タイトル（商品名・弾名）<input id="i-title" required /></label>
-      <div class="grid2">
-        <label>タイトル種別
-          <select id="i-tcg" required></select>
-        </label>
-        <label>店舗 / 情報源
-          <select id="i-shop"></select>
-        </label>
-      </div>
-      <div class="grid2">
-        <label>受付方法
-          <select id="i-method">
-            <option>未定</option><option>抽選</option><option>先着</option>
-            <option>店頭</option><option>予約</option>
-          </select>
-        </label>
-        <label>ステータス
-          <select id="i-status"><option value="review">要確認</option><option value="published">公開</option></select>
-        </label>
-      </div>
-      <div class="grid2">
-        <label>予約開始 <input id="i-rstart" placeholder="2026-08-01" /></label>
-        <label>予約締切 <input id="i-rend" placeholder="2026-08-10" /></label>
-      </div>
-      <div class="grid2">
-        <label>当選発表日 <input id="i-lot" placeholder="2026-08-15" /></label>
-        <label>発売日 <input id="i-rel" placeholder="2026-09-05" /></label>
-      </div>
-      <label>情報ソースURL <input id="i-url" /></label>
-      <label>メモ <textarea id="i-note" rows="2"></textarea></label>
-      <div class="row">
-        <button type="submit" class="primary">保存</button>
-        <button type="button" id="i-reset">クリア</button>
-      </div>
-    </form>
-  </section>
-
   <script>
     // 公開版は API サーバーが無いので、書き出したデータを使う
     window.TCG_STATIC = null;
   </script>
-  <script src="art.js?v=202608191936"></script>
+  <script src="art.js?v=202608200725"></script>
   <script>
-    fetch("data.json?v=202608191936").then(function(r){return r.json();})
+    fetch("data.json?v=202608200725").then(function(r){return r.json();})
       .then(function(d){
         window.TCG_STATIC = d;
         var s = document.createElement("script");
-        s.src = "app.js?v=202608191936";
+        s.src = "app.js?v=202608200725";
         document.body.appendChild(s);
       });
   </script>

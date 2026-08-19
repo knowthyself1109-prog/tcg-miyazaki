@@ -359,32 +359,42 @@ function phaseOf(it) {
 /** 応募ボタン＋応募済みチェック。応募URLが無ければ店舗サイトで代用する。 */
 function applyRow(it) {
   const url = it.apply_url || it.shop_web;
-  if (!url) return "";
+  // リンク先が分からなくても、店頭で応募した等は記録したいのでチェックだけ出す
+  if (!url) {
+    const only = appliedCheck(it);
+    return only ? `<div class="apply-row">${only}</div>` : "";
+  }
   // 応募ページが分からず店舗トップで代用する場合は、その旨を出して誤解を避ける
   const isTop = !it.apply_url && !!it.shop_web;
   const done = !!it.applied;
   const closed = (it._phase && it._phase.key === "closed");
 
-  // 受付が終わったものは応募できないので、チェックは出さず、ボタンも控えめにする
-  if (closed) {
-    return `<div class="apply-row ended">
-      <a class="apply-btn muted" href="${escapeHtml(url)}" target="_blank" rel="noopener">販売ページ</a>
-      <span class="ended-note">受付は終了しています</span>
-    </div>`;
-  }
+  const label = closed ? "販売ページ"
+    : isTop ? "販売サイトを開く"
+      : it.method === "抽選" ? "応募する"
+        : it.method === "先着" ? "購入ページへ" : "予約する";
 
-  const label = isTop ? "販売サイトを開く"
-    : it.method === "抽選" ? "応募する"
-      : it.method === "先着" ? "購入ページへ" : "予約する";
-  return `<div class="apply-row">
-    <a class="apply-btn${isTop ? " muted" : ""}" href="${safeUrl(url)}" target="_blank" rel="noopener">🎫 ${label}</a>
-    ${isTop ? '<span class="ended-note">※応募ページ未特定。サイト内で該当商品を探してください</span>' : ""}
-    ${isStatic() ? "" : `<label class="applied-check${done ? " on" : ""}">
+  // 受付が終わっていてもチェックは残す。
+  // 抽選の結果が分かるのは発表日（＝締切より後）なので、
+  // ここでチェックを消すと「結果を見てから記録する」ができなくなる。
+  return `<div class="apply-row${closed ? " ended" : ""}">
+    <a class="apply-btn${isTop || closed ? " muted" : ""}" href="${safeUrl(url)}" target="_blank" rel="noopener">${closed ? "" : "🎫 "}${label}</a>
+    ${closed ? '<span class="ended-note">受付は終了しています</span>' : ""}
+    ${isTop && !closed ? '<span class="ended-note">※応募ページ未特定。サイト内で該当商品を探してください</span>' : ""}
+    ${appliedCheck(it)}
+  </div>`;
+}
+
+/** 「応募したらチェック」。公開版では保存できないので出さない。 */
+function appliedCheck(it) {
+  if (isStatic()) return "";
+  const done = !!it.applied;
+  return `<label class="applied-check${done ? " on" : ""}">
       <input type="checkbox" ${done ? "checked" : ""} onchange="toggleApplied(${it.id}, this)">
       <span>${done ? "応募済み" : "応募したらチェック"}</span>
     </label>
-    ${it.applied_at ? `<span class="applied-at">${escapeHtml(it.applied_at)}</span>` : ""}`}
-  </div>`;
+    ${done && it.applied_at
+      ? `<span class="applied-at">応募 ${escapeHtml(shortDate(it.applied_at))}</span>` : ""}`;
 }
 
 /** チェックの切り替えをサーバーに保存する。 */
@@ -405,6 +415,22 @@ window.toggleApplied = async (id, el) => {
   wrap.querySelector("span").textContent = on ? "応募済み" : "応募したらチェック";
   const it = ITEMS.find((x) => x.id === id);
   if (it) it.applied = on ? 1 : 0;
+
+  // 当落ボックスは「応募済み」のときだけ出す。ここで出し入れしないと、
+  // チェックしても当落ボタンが出ない／外しても押せてしまう、という食い違いが起きる。
+  document.querySelectorAll(`.applied-check input[onchange^="toggleApplied(${id},"]`)
+    .forEach((box) => {
+      const row = box.closest(".apply-row");
+      const card = row && row.parentElement;
+      if (!card) return;
+      const old = card.querySelector(".result-row");
+      if (on) {
+        if (!old) row.insertAdjacentHTML("afterend",
+          resultBox({ id, applied: 1, result: it ? it.result : null }));
+      } else if (old) {
+        old.remove();
+      }
+    });
 };
 
 // 宮崎から応募・受取できるかの表示（通販は全国どこからでも可）
@@ -671,25 +697,33 @@ async function checkAlerts() {
 }
 
 // ---- 応募履歴と当落 ----
+// 言い方は必ずここに揃える。画面のあちこちで呼び方が変わると分からなくなるため。
+// pending は「まだ結果を確認していない」＝サーバー側では未記録(NULL)。
 const RESULT = {
-  won:     { label: "🎉 当選", cls: "won" },
-  lost:    { label: "😢 落選", cls: "lost" },
-  pending: { label: "⏳ 発表待ち", cls: "pending" },
+  pending: { label: "⏳ 発表待ち" },
+  won:     { label: "🎉 当選" },
+  lost:    { label: "😢 落選" },
 };
+
+/** 「2026-08-19 19:25:29」→「8/19」。秒まで出しても読みにくいだけなので落とす。 */
+function shortDate(s) {
+  const m = String(s || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${Number(m[2])}/${Number(m[3])}` : "";
+}
 
 /** 応募済みの項目に出す「当落を記録する」ボックス */
 function resultBox(it) {
   if (isStatic() || !it.applied) return "";
   const cur = it.result || "pending";
-  const btn = (key, text) =>
+  const btn = (key) =>
     `<button class="res-btn ${key}${cur === key ? " on" : ""}"
-             onclick="setResult(${it.id}, '${key}')">${text}</button>`;
+             onclick="setResult(${it.id}, '${key}')">${RESULT[key].label}</button>`;
   return `<div class="result-row">
-    <span class="res-label">当落:</span>
-    ${btn("pending", "⏳ 未確認")}
-    ${btn("won", "🎉 当選")}
-    ${btn("lost", "😢 落選")}
-    ${it.result_at ? `<span class="applied-at">${escapeHtml(it.result_at)}</span>` : ""}
+    <span class="res-label">結果:</span>
+    ${btn("pending")}
+    ${btn("won")}
+    ${btn("lost")}
+    ${it.result_at ? `<span class="applied-at">記録 ${escapeHtml(shortDate(it.result_at))}</span>` : ""}
   </div>`;
 }
 
@@ -722,16 +756,25 @@ window.setResult = async (id, value) => {
 async function loadHistory() {
   const el = $("history-cards");
   const sum = $("history-summary");
-  const d = await (isStatic()
-    ? Promise.resolve({ items: [], total: 0, won: 0, lost: 0, pending: 0, win_rate: null })
-    : fetch("/api/history").then((r) => r.json()).catch(() => null));
-  if (!d) { el.innerHTML = '<p class="msg">読み込めませんでした</p>'; return; }
+  // 公開版では履歴タブごと消しているので、要素が無ければ何もしない
+  if (!el || !sum || isStatic()) return;
+  const d = await writeFetch("/api/history")
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  if (!d || !Array.isArray(d.items)) {
+    sum.innerHTML = "";
+    el.innerHTML = '<p class="msg">読み込めませんでした</p>';
+    return;
+  }
 
   sum.innerHTML = `<div class="summary-line">🎟 応募 <b>${d.total}</b> 件`
-    + `　｜　🎉 当選 <b>${d.won}</b>　😢 落選 <b>${d.lost}</b>　⏳ 発表待ち <b>${d.pending}</b></div>`
+    + `　｜　${RESULT.won.label} <b>${d.won}</b>`
+    + `　${RESULT.lost.label} <b>${d.lost}</b>`
+    + `　${RESULT.pending.label} <b>${d.pending}</b></div>`
     + (d.win_rate !== null
-      ? `<div class="summary-next">当選率 <b>${d.win_rate}%</b>（結果が出た ${d.won + d.lost} 件のうち）</div>`
-      : `<div class="summary-next">まだ結果が出た応募はありません</div>`);
+      ? `<div class="summary-next">抽選の当選率 <b>${d.win_rate}%</b>`
+        + `（結果が出た抽選 ${d.lottery_decided} 件のうち ${d.lottery_won} 件が当選）</div>`
+      : `<div class="summary-next">まだ結果が出た抽選はありません</div>`);
 
   if (!d.items.length) {
     el.innerHTML = '<p class="msg">応募済みの項目はまだありません。'
