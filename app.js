@@ -379,11 +379,11 @@ function applyRow(it) {
   return `<div class="apply-row">
     <a class="apply-btn${isTop ? " muted" : ""}" href="${safeUrl(url)}" target="_blank" rel="noopener">🎫 ${label}</a>
     ${isTop ? '<span class="ended-note">※応募ページ未特定。サイト内で該当商品を探してください</span>' : ""}
-    <label class="applied-check${done ? " on" : ""}">
+    ${isStatic() ? "" : `<label class="applied-check${done ? " on" : ""}">
       <input type="checkbox" ${done ? "checked" : ""} onchange="toggleApplied(${it.id}, this)">
       <span>${done ? "応募済み" : "応募したらチェック"}</span>
     </label>
-    ${it.applied_at ? `<span class="applied-at">${escapeHtml(it.applied_at)}</span>` : ""}
+    ${it.applied_at ? `<span class="applied-at">${escapeHtml(it.applied_at)}</span>` : ""}`}
   </div>`;
 }
 
