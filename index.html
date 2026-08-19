@@ -26,6 +26,7 @@
     <button class="tab" data-view="restock">🔄 再販</button>
     <button class="tab" data-view="online">🛒 通販</button>
     <button class="tab" data-view="topps">⚾ Topps</button>
+    <button class="tab" data-view="history">🎟 応募履歴</button>
     <button class="tab" data-view="calendar">📅 カレンダー</button>
     <button class="tab" data-view="search">🔍 探す</button>
     <button class="tab" data-view="add">➕ 情報を追加</button>
@@ -110,6 +111,17 @@
     <h3 class="sec">📅 発売・プレオーダー カレンダー</h3>
     <div id="topps-cal" class="topps-cal"></div>
     <div id="topps-cards" class="cards"></div>
+  </section>
+
+  <!-- 応募履歴ビュー -->
+  <section id="view-history" class="view hidden">
+    <div id="history-summary" class="summary"></div>
+    <div class="howto">
+      <b>使い方</b>
+      <p class="msg">応募したものにチェックを入れると、ここに残ります。
+      当選発表を確認したら「当選」か「落選」を押してください。当選率が出ます。</p>
+    </div>
+    <div id="history-cards" class="cards"></div>
   </section>
 
   <!-- 探すビュー -->

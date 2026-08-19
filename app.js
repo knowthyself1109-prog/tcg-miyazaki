@@ -196,7 +196,7 @@ function bindTabs() {
       btn.classList.add("active");
       const view = btn.dataset.view;
       // 公開版では「追加」タブを取り除くので、無い要素を触らないようにする
-      ["list", "restock", "online", "topps", "calendar", "search", "add"].forEach((v) => {
+      ["list", "restock", "online", "topps", "history", "calendar", "search", "add"].forEach((v) => {
         const el = $("view-" + v);
         if (el) el.classList.toggle("hidden", v !== view);
       });
@@ -212,6 +212,7 @@ function bindTabs() {
         });
       if (view === "online") loadCategory("online", "online-cards", "notify-online");
       if (view === "topps") loadTopps();
+      if (view === "history") loadHistory();
     });
   });
 }
@@ -506,6 +507,7 @@ function renderCards() {
         ${dateBox("rel", "発売", it.release_date)}
       </div>
       ${applyRow(it)}
+      ${resultBox(it)}
       <div class="meta">
         <span>🏬 ${it.shop_name ? escapeHtml(it.shop_name) : "未設定"}${it.shop_area ? " / " + it.shop_area : ""}</span>
         ${it.shop_x ? `<a href="https://x.com/${encodeURIComponent(it.shop_x)}" target="_blank" rel="noopener">@${escapeHtml(it.shop_x)}</a>` : ""}
@@ -549,6 +551,7 @@ function itemCardHTML(it) {
       ${dateBox("rel", "発売", it.release_date)}
     </div>
     ${applyRow(it)}
+    ${resultBox(it)}
     <div class="meta">
       <span>🏬 ${it.shop_name ? escapeHtml(it.shop_name) : "未設定"}</span>
       <span>${src}</span>
@@ -664,6 +667,74 @@ async function checkAlerts() {
     sent[key] = 1;
   }
   localStorage.setItem("tcg_sent", JSON.stringify(sent));
+}
+
+// ---- 応募履歴と当落 ----
+const RESULT = {
+  won:     { label: "🎉 当選", cls: "won" },
+  lost:    { label: "😢 落選", cls: "lost" },
+  pending: { label: "⏳ 発表待ち", cls: "pending" },
+};
+
+/** 応募済みの項目に出す「当落を記録する」ボックス */
+function resultBox(it) {
+  if (isStatic() || !it.applied) return "";
+  const cur = it.result || "pending";
+  const btn = (key, text) =>
+    `<button class="res-btn ${key}${cur === key ? " on" : ""}"
+             onclick="setResult(${it.id}, '${key}')">${text}</button>`;
+  return `<div class="result-row">
+    <span class="res-label">当落:</span>
+    ${btn("pending", "⏳ 未確認")}
+    ${btn("won", "🎉 当選")}
+    ${btn("lost", "😢 落選")}
+    ${it.result_at ? `<span class="applied-at">${escapeHtml(it.result_at)}</span>` : ""}
+  </div>`;
+}
+
+/** 当落を保存する。画面は該当箇所だけ更新して、スクロール位置を保つ。 */
+window.setResult = async (id, value) => {
+  const res = await writeFetch(`/api/items/${id}/result`, {
+    method: "PATCH", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ result: value }),
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    alert("保存できませんでした: " + (e.detail || "エラー"));
+    return;
+  }
+  const row = document.querySelector(`.result-row button[onclick*="${id},"]`)?.closest(".result-row");
+  if (row) {
+    row.querySelectorAll(".res-btn").forEach((b) => b.classList.remove("on"));
+    row.querySelector(`.res-btn.${value}`)?.classList.add("on");
+  }
+  const it = ITEMS.find((x) => x.id === id);
+  if (it) it.result = value;
+  // 履歴タブを開いていれば集計も更新する
+  if (!$("view-history").classList.contains("hidden")) loadHistory();
+};
+
+async function loadHistory() {
+  const el = $("history-cards");
+  const sum = $("history-summary");
+  const d = await (isStatic()
+    ? Promise.resolve({ items: [], total: 0, won: 0, lost: 0, pending: 0, win_rate: null })
+    : fetch("/api/history").then((r) => r.json()).catch(() => null));
+  if (!d) { el.innerHTML = '<p class="msg">読み込めませんでした</p>'; return; }
+
+  sum.innerHTML = `<div class="summary-line">🎟 応募 <b>${d.total}</b> 件`
+    + `　｜　🎉 当選 <b>${d.won}</b>　😢 落選 <b>${d.lost}</b>　⏳ 発表待ち <b>${d.pending}</b></div>`
+    + (d.win_rate !== null
+      ? `<div class="summary-next">当選率 <b>${d.win_rate}%</b>（結果が出た ${d.won + d.lost} 件のうち）</div>`
+      : `<div class="summary-next">まだ結果が出た応募はありません</div>`);
+
+  if (!d.items.length) {
+    el.innerHTML = '<p class="msg">応募済みの項目はまだありません。'
+      + '各カードの「応募したらチェック」を入れると、ここに残ります。</p>';
+    return;
+  }
+  d.items.forEach((it) => (it._phase = phaseOf(it)));
+  el.innerHTML = d.items.map(itemCardHTML).join("");
 }
 
 // ---- 探す（検索リンク生成）----

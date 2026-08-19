@@ -258,3 +258,16 @@ button { cursor: pointer; }
   .dates { grid-template-columns: 1fr 1fr; }
   input, select, textarea { font-size: 16px; }  /* iOSの自動ズーム防止 */
 }
+
+/* 当落の記録 */
+.result-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.res-label { font-size: .8rem; color: var(--muted); margin-right: 2px; }
+.res-btn { font-size: .78rem; padding: 5px 10px; border-radius: 999px; cursor: pointer;
+  background: var(--panel2); color: var(--muted); border: 1px solid var(--line); }
+.res-btn:hover { border-color: var(--accent2); }
+.res-btn.on.won { background: #14532d; color: #86efac; border-color: #14532d; font-weight: 700; }
+.res-btn.on.lost { background: #4a2020; color: #fca5a5; border-color: #4a2020; font-weight: 700; }
+.res-btn.on.pending { background: #4a3a12; color: #fcd34d; border-color: #4a3a12; font-weight: 700; }
+/* 当選したカードは枠を金色にして目立たせる */
+.card:has(.res-btn.on.won) { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.card:has(.res-btn.on.won) .pack-visual { opacity: 1; }
