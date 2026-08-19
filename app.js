@@ -173,6 +173,8 @@ async function doRefresh() {
 }
 
 function fillSelect(el, arr, valKey, labelKey, placeholder) {
+  // 公開版では「情報を追加」フォームごと無いので、要素が無ければ何もしない
+  if (!el) return;
   el.innerHTML = "";
   if (placeholder !== null) {
     const o = document.createElement("option");
