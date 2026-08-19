@@ -98,7 +98,8 @@ async function init() {
 
 /** 公開版（静的サイト）の見た目に整える。閲覧に不要なものを消す。 */
 function applyStaticMode() {
-  ["add"].forEach((v) => {
+  // 応募履歴は自分専用の記録。公開サイトには出さない
+  ["add", "history"].forEach((v) => {
     const tab = document.querySelector(`.tab[data-view="${v}"]`);
     if (tab) tab.remove();
     const view = $("view-" + v);
@@ -703,15 +704,19 @@ window.setResult = async (id, value) => {
     alert("保存できませんでした: " + (e.detail || "エラー"));
     return;
   }
-  const row = document.querySelector(`.result-row button[onclick*="${id},"]`)?.closest(".result-row");
-  if (row) {
-    row.querySelectorAll(".res-btn").forEach((b) => b.classList.remove("on"));
-    row.querySelector(`.res-btn.${value}`)?.classList.add("on");
-  }
+  // 同じ商品が一覧タブと履歴タブの両方に出ているので、両方の行を直す。
+  // 「setResult(26,」まで見る。idだけだと 6 が 26 に引っかかる
+  document.querySelectorAll(`.result-row button[onclick^="setResult(${id},"]`)
+    .forEach((b) => {
+      const row = b.closest(".result-row");
+      row.querySelectorAll(".res-btn").forEach((x) => x.classList.remove("on"));
+      row.querySelector(`.res-btn.${value}`)?.classList.add("on");
+    });
   const it = ITEMS.find((x) => x.id === id);
   if (it) it.result = value;
   // 履歴タブを開いていれば集計も更新する
-  if (!$("view-history").classList.contains("hidden")) loadHistory();
+  const hv = $("view-history");
+  if (hv && !hv.classList.contains("hidden")) loadHistory();
 };
 
 async function loadHistory() {
