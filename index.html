@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="宮崎トレカ" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=202608191936" />
 </head>
 <body>
   <header>
@@ -225,13 +225,13 @@
     // 公開版は API サーバーが無いので、書き出したデータを使う
     window.TCG_STATIC = null;
   </script>
-  <script src="art.js"></script>
+  <script src="art.js?v=202608191936"></script>
   <script>
-    fetch("data.json").then(function(r){return r.json();})
+    fetch("data.json?v=202608191936").then(function(r){return r.json();})
       .then(function(d){
         window.TCG_STATIC = d;
         var s = document.createElement("script");
-        s.src = "app.js";
+        s.src = "app.js?v=202608191936";
         document.body.appendChild(s);
       });
   </script>
