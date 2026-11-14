@@ -3,145 +3,157 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: 1カラムの「抽選帳」。上に今日の要点、下に締切順のカード。スマホ優先 */
+/* Layout: 駅の発車標。上に黒帯と「次の締切」、本体は締切時刻の時刻表、タブは画面下に固定 */
 :root{
-  --bg:#f3f5f7; --surface:#ffffff; --ink:#18212b; --muted:#5d6a78; --line:#dde3ea;
-  --accent:#0f6f7a; --accent-soft:#e2f1f2;
-  --open:#1d7a46; --open-soft:#e3f3e9; --soon:#b4321f; --soon-soft:#fbe7e3;
-  --wait:#5b55a8; --wait-soft:#ebeaf8; --done:#7b8592; --done-soft:#eceff2;
-  --warn:#9a6400; --warn-soft:#fbf0d9;
-  --f-display:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
-  --f-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+  --bg:#f4f4f0; --board:#ffffff; --row:#f8f8f4; --band:#16181b; --band-ink:#f2f2ee;
+  --ink:#16181b; --sub:#5f6670; --line:#dcdcd4;
+  --amber:#a86400; --amber-band:#ffb000; --amber-soft:#fff1d1;
+  --green:#1d7a46; --green-soft:#dff3e6; --red:#b8321f; --red-soft:#fbe4df;
+  --violet:#5b55a8; --violet-soft:#ebeaf8; --done:#7b8592; --done-soft:#ececea;
+  --f-ui:"BIZ UDGothic","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",monospace;
+  --barh:64px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#10161c; --surface:#18212a; --ink:#e6ebf0; --muted:#97a4b2; --line:#2a3541;
-  --accent:#5cc3cc; --accent-soft:#163a3e;
-  --open:#62c88d; --open-soft:#173327; --soon:#ff8a73; --soon-soft:#3d1f1a;
-  --wait:#a9a3f2; --wait-soft:#25233f; --done:#8a96a3; --done-soft:#222b34;
-  --warn:#f0b94f; --warn-soft:#3a2d12; color-scheme:dark}}
+  --bg:#101214; --board:#16191c; --row:#1b1f23; --band:#000000; --band-ink:#f2f2ee;
+  --ink:#f2f2ee; --sub:#8d949c; --line:#262a30;
+  --amber:#ffb000; --amber-band:#ffb000; --amber-soft:#3a2a05;
+  --green:#56d38a; --green-soft:#12301f; --red:#ff6b5a; --red-soft:#3d1a15;
+  --violet:#a9a3f2; --violet-soft:#25233f; --done:#8a96a3; --done-soft:#22272d; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#10161c; --surface:#18212a; --ink:#e6ebf0; --muted:#97a4b2; --line:#2a3541;
-  --accent:#5cc3cc; --accent-soft:#163a3e;
-  --open:#62c88d; --open-soft:#173327; --soon:#ff8a73; --soon-soft:#3d1f1a;
-  --wait:#a9a3f2; --wait-soft:#25233f; --done:#8a96a3; --done-soft:#222b34;
-  --warn:#f0b94f; --warn-soft:#3a2d12; color-scheme:dark}
+  --bg:#101214; --board:#16191c; --row:#1b1f23; --band:#000000; --band-ink:#f2f2ee;
+  --ink:#f2f2ee; --sub:#8d949c; --line:#262a30;
+  --amber:#ffb000; --amber-band:#ffb000; --amber-soft:#3a2a05;
+  --green:#56d38a; --green-soft:#12301f; --red:#ff6b5a; --red-soft:#3d1a15;
+  --violet:#a9a3f2; --violet-soft:#25233f; --done:#8a96a3; --done-soft:#22272d; color-scheme:dark}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
-.wrap{max-width:760px;width:100%;min-width:0;margin:0 auto;display:flex;flex-direction:column;gap:20px}
-.group,.panel,.tablewrap{min-width:0;max-width:100%}
-h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
-h1{font-size:26px;font-weight:900;letter-spacing:.02em}
-h2{font-size:18px;font-weight:700}
-a{color:var(--accent)}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.6;padding-block:0 calc(var(--barh) + env(safe-area-inset-bottom,0px) + 24px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+a{color:var(--amber)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.in{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-.muted{color:var(--muted)}
-.small{font-size:12.5px}
-header{display:flex;flex-direction:column;gap:10px}
-.sub{color:var(--muted);font-size:13px}
-.today{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.today div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column}
-.today b{font-family:var(--f-mono);font-size:24px;line-height:1.1}
-.today span{font-size:12px;color:var(--muted)}
-.today .hot b{color:var(--soon)}
-nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
-nav.tabs button{font:inherit;font-weight:700;font-size:14px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer;white-space:nowrap}
-nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.filters select,.filters label{font:inherit;font-size:13px}
-.filters select{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:100%}
-.filters label{display:flex;align-items:center;gap:4px;color:var(--muted)}
-section.group{display:flex;flex-direction:column;gap:10px}
-.group-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.group-head .count{font-family:var(--f-mono);color:var(--muted);font-size:13px}
-.empty{color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:14px;font-size:14px}
-article.item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
-article.item.closed{opacity:.62}
-.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.pill{font-size:12px;font-weight:700;border-radius:999px;padding:1px 9px;white-space:nowrap}
-.st-open{background:var(--open-soft);color:var(--open)}
-.st-soon{background:var(--soon-soft);color:var(--soon)}
-.st-wait{background:var(--wait-soft);color:var(--wait)}
+.muted{color:var(--sub)} .small{font-size:12.5px}
+h1,h2{margin:0;text-wrap:balance}
+/* 上の黒帯 */
+.band{background:var(--band);color:var(--band-ink);border-bottom:3px solid var(--amber-band)}
+.band .in{padding-block:16px 12px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.band h1{font-size:19px;font-weight:700;letter-spacing:.08em}
+.band .now{font-family:var(--f-mono);color:var(--amber-band);font-size:12px}
+/* 次の締切 */
+.main{display:flex;flex-direction:column;gap:18px;padding-block:14px}
+.next{border:1.5px solid var(--amber);border-radius:6px;padding:10px 12px;background:var(--board);display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:end}
+.next .l{font-size:11px;color:var(--amber);letter-spacing:.12em;font-weight:700}
+.next .big{font-family:var(--f-mono);font-size:32px;font-weight:700;color:var(--amber);line-height:1.05}
+.next .big small{font-size:14px;margin-left:8px}
+.next .w{font-size:13.5px;font-weight:700;grid-column:1/-1;overflow-wrap:anywhere}
+.next .cd{font-family:var(--f-mono);font-size:13px;font-weight:700;color:var(--red);text-align:right}
+.next.none .big{font-size:18px}
+.counts{display:flex;gap:16px;font-size:12px;color:var(--sub)}
+.counts b{font-family:var(--f-mono);font-size:16px;color:var(--ink);margin-right:3px}
+.counts .hot b{color:var(--red)}
+/* 絞り込み */
+.filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters select,.filters label{flex:none;font:inherit;font-size:13px}
+.filters select{background:var(--board);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+.filters label{display:flex;align-items:center;gap:4px;color:var(--sub);padding:0 4px}
+/* 時刻表 */
+section.group{display:flex;flex-direction:column;min-width:0}
+.ghead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:0 2px 6px;border-bottom:2px solid var(--ink)}
+.ghead h2{font-size:14px;letter-spacing:.1em}
+.ghead .count{font-family:var(--f-mono);font-size:12px;color:var(--sub)}
+.cap{display:grid;grid-template-columns:64px minmax(0,1fr) 62px;gap:8px;padding:5px 10px;font-size:10.5px;color:var(--sub);letter-spacing:.1em;border-bottom:1px solid var(--line)}
+.board{background:var(--board);border:1px solid var(--line);border-top:0}
+details.rw{border-bottom:1px solid var(--line)}
+details.rw:nth-child(even){background:var(--row)}
+details.rw>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:64px minmax(0,1fr) 62px;gap:8px;padding:10px;align-items:start}
+details.rw>summary::-webkit-details-marker{display:none}
+details.rw.closed{opacity:.55}
+.tm{font-family:var(--f-mono);font-weight:700;font-size:16px;color:var(--amber);line-height:1.15}
+.tm small{display:block;font-size:10.5px;color:var(--sub);font-weight:500;margin-top:2px}
+.tm.plain{color:var(--ink)}
+.wh{min-width:0}
+.wh b{display:block;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.wh .p{display:block;font-size:12.5px;color:var(--sub);line-height:1.45;overflow-wrap:anywhere}
+.wh .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.tag{font-size:10.5px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;white-space:nowrap}
+.tag.mine{border-color:var(--violet);color:var(--violet)}
+.tag.warn{border-color:var(--amber);color:var(--amber)}
+.tag.new{border-color:var(--green);color:var(--green)}
+.stt{font-size:11px;font-weight:700;text-align:center;border-radius:3px;padding:3px 0;line-height:1.2}
+.stt small{display:block;font-family:var(--f-mono);font-size:10px;font-weight:500;margin-top:2px}
+.st-open{background:var(--green-soft);color:var(--green)}
+.st-soon{background:var(--red);color:var(--board)}
+.st-wait{background:var(--violet-soft);color:var(--violet)}
 .st-done{background:var(--done-soft);color:var(--done)}
-.st-warn{background:var(--warn-soft);color:var(--warn)}
-.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px}
-.prod{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.4;overflow-wrap:anywhere}
-.shop{font-weight:700}
-.deadline{margin-left:auto;font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap}
-.deadline.hot{color:var(--soon);font-weight:700}
-dl.facts{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0;font-size:13.5px}
-dl.facts dt{color:var(--muted)}
-dl.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
-details.cond summary{cursor:pointer;font-size:13px;color:var(--muted)}
-details.cond p{margin:6px 0 0;font-size:13.5px;overflow-wrap:anywhere}
-.foot{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
-.foot a{font-weight:700}
-.marks{display:flex;gap:4px;margin-left:auto}
-.marks button{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:2px 8px;cursor:pointer}
-.marks button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:700}
-.note{font-size:12.5px;color:var(--warn)}
-.unv{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:14px}
-.city{display:flex;flex-direction:column;gap:6px}
-.store{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid var(--line)}
+.st-warn,.st-unv{border:1px solid var(--amber);color:var(--amber)}
+.st-ok{background:var(--green-soft);color:var(--green)}
+.det{padding:0 10px 12px calc(10px + 64px + 8px);display:flex;flex-direction:column;gap:8px;font-size:13px}
+.det dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0}
+.det dt{color:var(--sub)} .det dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.det .note{color:var(--amber);font-size:12.5px}
+.det .acts{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.det .acts a{font-weight:700}
+.marks{display:flex;gap:4px}
+.marks button{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--bg);color:var(--sub);border-radius:3px;padding:3px 9px;cursor:pointer}
+.marks button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--board);font-weight:700}
+.mk{font-size:10px;font-weight:700;color:var(--amber)}
+.empty{padding:14px 10px;color:var(--sub);font-size:13.5px;background:var(--board);border:1px solid var(--line);border-top:0}
+.lead{margin:0;font-size:12.5px;color:var(--sub)}
+.dbnote{font-size:12px;color:var(--sub);margin:0}
+/* 店リスト */
+.panel{background:var(--board);border:1px solid var(--line);border-top:0}
+.store{display:flex;flex-direction:column;gap:3px;padding:9px 10px;border-bottom:1px solid var(--line)}
 .store:last-child{border-bottom:0}
 .store .nm{font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
-.chip{font-size:11.5px;border-radius:4px;padding:0 6px;background:var(--accent-soft);color:var(--accent);font-weight:700}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.chip{font-size:11px;border-radius:3px;padding:0 6px;background:var(--amber-soft);color:var(--amber);font-weight:700}
+.pill{font-size:11px;font-weight:700;border-radius:3px;padding:1px 7px;white-space:nowrap}
+.pill.mine{background:var(--violet-soft);color:var(--violet)}
+.cityh{font-size:13px;letter-spacing:.08em;padding:12px 2px 6px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between}
 .tablewrap{overflow-x:auto}
-table{border-collapse:collapse;font-size:13px;width:100%}
+table{border-collapse:collapse;font-size:12.5px;width:100%}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--muted);font-weight:500;white-space:nowrap}
-.dbnote{font-size:12px;color:var(--muted)}
-.upc{display:flex;flex-direction:column;gap:8px}
-.upc-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
-.upc-date{grid-row:span 3;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:56px;border-radius:8px;background:var(--accent-soft);color:var(--accent);padding:6px 4px;text-align:center;line-height:1.2}
-.upc-date b{font-family:var(--f-mono);font-size:17px}
-.upc-date span{font-size:11px}
-.upc-name{font-weight:700;overflow-wrap:anywhere;line-height:1.45}
-.form{display:flex;flex-direction:column;gap:12px}
-.form label,.form .lbl,.form legend{font-size:13px;color:var(--muted);font-weight:500}
-.form input,.form select,.form textarea{font:inherit;font-size:16px;width:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+th{color:var(--sub);font-weight:400;white-space:nowrap}
+/* 追加フォーム */
+.form{display:flex;flex-direction:column;gap:12px;padding:12px;background:var(--board);border:1px solid var(--line)}
+.form label,.form .lbl,.form legend{font-size:12.5px;color:var(--sub)}
+.form input,.form select,.form textarea{font:inherit;font-size:16px;width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
 .field{display:flex;flex-direction:column;gap:4px;min-width:0}
 .field.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .field.two>div{display:flex;flex-direction:column;gap:4px;min-width:0}
 .seg{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
 .seg legend{width:100%;margin-bottom:4px}
-.seg label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink);font-size:14px;cursor:pointer}
-.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
-.seg input{width:auto;accent-color:var(--accent)}
+.seg label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:4px;padding:7px 12px;color:var(--ink);font-size:14px;cursor:pointer}
+.seg label:has(input:checked){border-color:var(--amber);background:var(--amber-soft);color:var(--amber);font-weight:700}
+.seg input,.checks input{width:auto;accent-color:var(--amber)}
 .checks{display:flex;flex-wrap:wrap;gap:6px}
-.checks label{display:flex;align-items:center;gap:4px;color:var(--ink);font-size:14px;border:1px solid var(--line);border-radius:8px;padding:4px 8px}
-.checks input{width:auto;accent-color:var(--accent)}
-button.primary{font:inherit;font-weight:700;background:var(--accent);color:var(--surface);border:0;border-radius:8px;padding:10px 18px;cursor:pointer}
+.checks label{display:flex;align-items:center;gap:4px;color:var(--ink);font-size:14px;border:1px solid var(--line);border-radius:4px;padding:4px 8px}
+button.primary{font:inherit;font-weight:700;background:var(--amber);color:var(--board);border:0;border-radius:4px;padding:11px 18px;cursor:pointer}
 button.primary:disabled{opacity:.5;cursor:default}
-button.link{font:inherit;font-size:12.5px;background:none;border:0;color:var(--soon);cursor:pointer;padding:0}
-.mine{background:var(--wait-soft);color:var(--wait)}
-.st-ok{background:var(--open-soft);color:var(--open)}
-@media (max-width:480px){.today b{font-size:20px}.deadline{margin-left:0}}
+button.link{font:inherit;font-size:12px;background:none;border:0;color:var(--red);cursor:pointer;padding:0}
+/* 下のタブ */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--band);border-top:1px solid #2c3036;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs button{font:inherit;font-size:11px;background:none;border:0;color:#8d949c;padding:8px 0 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:var(--barh);justify-content:center}
+nav.tabs button b{font-family:var(--f-mono);font-size:17px;line-height:1.1}
+nav.tabs button[aria-selected="true"]{color:var(--amber-band);box-shadow:inset 0 3px 0 var(--amber-band)}
+nav.tabs .n{font-family:var(--f-mono);font-size:10px}
+@media (min-width:720px){.next .big{font-size:38px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="wrap">
-  <header>
-    <h1>宮崎トレカ抽選帳</h1>
-    <div class="sub">自分専用。宮崎県内の店と、全国から応募できる通販・アプリ抽選。<span id="built"></span></div>
-    <div class="today" id="today"></div>
-  </header>
+<header class="band"><div class="in"><h1>宮崎トレカ抽選帳</h1><span class="now" id="built"></span></div></header>
 
-  <nav class="tabs" role="tablist">
-    <button role="tab" id="tab-list" aria-selected="true" data-view="list">抽選・販売</button>
-    <button role="tab" id="tab-unv" aria-selected="false" data-view="unv">未確認 <span id="unv-n"></span></button>
-    <button role="tab" id="tab-stores" aria-selected="false" data-view="stores">店リスト</button>
-    <button role="tab" id="tab-add" aria-selected="false" data-view="add">＋ 追加する</button>
-    <button role="tab" id="tab-log" aria-selected="false" data-view="log">更新記録</button>
-  </nav>
-
-  <div id="view-list" class="wrap" style="gap:16px">
+<main class="in main">
+  <div id="view-list" style="display:flex;flex-direction:column;gap:16px">
+    <div id="next"></div>
+    <div class="counts" id="today"></div>
     <div class="filters">
       <select id="f-card" aria-label="カード種"></select>
       <select id="f-type" aria-label="販売方法">
@@ -159,26 +171,22 @@ button.link{font:inherit;font-size:12.5px;background:none;border:0;color:var(--s
     <p class="dbnote" id="marks-note"></p>
   </div>
 
-  <div id="view-unv" class="wrap" hidden style="gap:10px">
-    <p class="muted small" style="margin:0">一次情報（店の公式ページ）で裏が取れていない情報です。一覧には載せていません。気になるものは自分で店の告知を確認してください。</p>
-    <div id="unv-list" class="wrap" style="gap:8px"></div>
+  <div id="view-unv" hidden style="display:flex;flex-direction:column;gap:10px">
+    <p class="lead">一次情報（店の公式ページ）で裏が取れていない情報です。締切の一覧には入れていません。気になるものは店の告知を自分で確認してください。</p>
+    <section class="group" id="unv-list"></section>
   </div>
 
-  <div id="view-stores" class="wrap" hidden style="gap:14px">
-    <p class="muted small" style="margin:0" id="stores-head"></p>
+  <div id="view-stores" hidden style="display:flex;flex-direction:column;gap:16px">
+    <p class="lead" id="stores-head"></p>
     <section class="group" id="my-stores"></section>
     <section class="group" id="online-shops"></section>
-    <h2>宮崎県内の店</h2>
-    <div id="stores-list" class="wrap" style="gap:14px"></div>
-    <div class="panel">
-      <h2 style="font-size:15px;margin-bottom:8px">チェーンの県内店舗の確認状況</h2>
-      <div class="tablewrap"><table id="chains"></table></div>
-    </div>
+    <section class="group"><div class="ghead"><h2>宮崎県内の店</h2><span class="count" id="stores-n"></span></div><div id="stores-list"></div></section>
+    <section class="group"><div class="ghead"><h2>チェーンの県内店舗</h2></div><div class="panel tablewrap"><table id="chains"></table></div></section>
   </div>
 
-  <div id="view-add" class="wrap" hidden style="gap:14px">
-    <p class="muted small" style="margin:0">自分で見つけた店や抽選、店頭で見た在庫を登録できます。登録した内容はすぐ一覧に出て、次の定期収集で一次情報の確認もします。</p>
-    <form id="add-form" class="panel form" novalidate>
+  <div id="view-add" hidden style="display:flex;flex-direction:column;gap:14px">
+    <p class="lead">自分で見つけた店や抽選、店頭で見た在庫を登録できます。登録した内容はすぐ一覧に出て、次の定期収集で一次情報の確認もします。</p>
+    <form id="add-form" class="form" novalidate>
       <fieldset class="seg" id="add-kind">
         <legend>何を追加しますか</legend>
         <label><input type="radio" name="kind" value="store" checked> 店</label>
@@ -206,10 +214,19 @@ button.link{font:inherit;font-size:12.5px;background:none;border:0;color:var(--s
     <section class="group" id="my-entries"></section>
   </div>
 
-  <div id="view-log" class="wrap" hidden style="gap:10px">
-    <div class="panel tablewrap"><table id="runs"></table></div>
+
+  <div id="view-log" hidden style="display:flex;flex-direction:column;gap:10px">
+    <section class="group"><div class="ghead"><h2>更新記録</h2></div><div class="panel tablewrap"><table id="runs"></table></div></section>
   </div>
-</div>
+</main>
+
+<nav class="tabs" role="tablist" aria-label="画面の切り替え">
+  <button role="tab" id="tab-list" aria-selected="true" data-view="list"><b>◷</b>締切</button>
+  <button role="tab" id="tab-unv" aria-selected="false" data-view="unv"><b>?</b><span>未確認 <span class="n" id="unv-n"></span></span></button>
+  <button role="tab" id="tab-stores" aria-selected="false" data-view="stores"><b>⌂</b>店リスト</button>
+  <button role="tab" id="tab-add" aria-selected="false" data-view="add"><b>＋</b>追加</button>
+  <button role="tab" id="tab-log" aria-selected="false" data-view="log"><b>≡</b>記録</button>
+</nav>
 
 <script>
 const DATA = /*__DATA__*/null;
@@ -223,6 +240,7 @@ const VERIFY = {ok:"一次情報と一致", mismatch:"要目視（自動照合�
 
 // 表示は常に日本時間
 const JST_PARTS = new Intl.DateTimeFormat("ja-JP", {timeZone: "Asia/Tokyo", month: "numeric", day: "numeric", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"});
+const JPARTS = (s) => Object.fromEntries(JST_PARTS.formatToParts(new Date(s)).map((x) => [x.type, x.value]));
 function fmt(s, withTime = true) {
   if (!s) return null;
   const p = Object.fromEntries(JST_PARTS.formatToParts(new Date(s)).map((x) => [x.type, x.value]));
@@ -252,7 +270,7 @@ function stateOf(it) {
   if (it.status === "sold_out") return {key: "done", label: "売り切れ"};
   if (it.status === "in_stock") return {key: "open", label: "販売中"};
   if (start && start > NOW) return {key: "wait", label: "受付前"};
-  if (end && end - NOW < 48 * H) return {key: "soon", label: "まもなく締切"};
+  if (end && end - NOW < 48 * H) return {key: "soon", label: "締切間近"};
   if (it.status === "unknown") return {key: "warn", label: "状態不明"};
   return {key: "open", label: "受付中"};
 }
@@ -352,46 +370,52 @@ function filtered() {
 function itemHTML(it) {
   const st = it.mine === "memo" ? {key: "open", label: "店頭で確認"} : stateOf(it);
   const isNew = NOW - new Date(it.first_seen_at) < 24 * H;
-  const price = it.price ? `${it.price.toLocaleString()}円` : "未確認";
-  const lp = it.is_list_price === 1 ? '<span class="tag">定価</span>' : (it.is_list_price === null ? '<span class="tag">定価未確認</span>' : "");
+  const price = it.price ? `${it.price.toLocaleString()}円` : "価格未確認";
+  const lp = it.is_list_price === 1 ? "（定価）" : (it.is_list_price === null ? "（定価未確認）" : "");
   const period = [fmt(it.start_at), fmt(it.end_at)].some(Boolean) ? `${fmt(it.start_at) || "?"} 〜 ${fmt(it.end_at) || "未定"}` : "未定";
   const src = safeUrl(it.source_url), apply = safeUrl(it.apply_url);
   const m = marks[it.id];
+  const MK = {applied: "応募済", won: "当選", lost: "落選"};
   const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="${m === k}">${label}</button>`;
-  return `<article class="item ${st.key === "done" ? "closed" : ""}">
-    <div class="row">
-      <span class="pill st-${st.key}">${st.label}</span>
-      ${stale(it) ? '<span class="pill st-warn">要確認</span>' : ""}
-      ${it.mine ? `<span class="pill mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
-      ${it.memo_old ? '<span class="pill st-warn">古い情報</span>' : ""}
-      ${isNew && !it.mine ? '<span class="pill st-wait">新着</span>' : ""}
-      <span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span>
-      <span class="tag">${TYPE[it.sale_type] || ""}</span>
-      ${it.end_at && st.key !== "done" ? `<span class="deadline ${st.key === "soon" ? "hot" : ""}">${left(it.end_at)}</span>` : ""}
+  const P = it.end_at ? JPARTS(it.end_at) : null;
+  const time = it.mine === "memo" ? `<div class="tm plain">${JPARTS(it.last_checked_at).hour}:${JPARTS(it.last_checked_at).minute}<small>${fmt(it.last_checked_at, false)}見た</small></div>`
+    : P ? `<div class="tm">${P.hour}:${P.minute}<small>${P.month}/${P.day}(${P.weekday})</small></div>` : `<div class="tm plain">--:--<small>締切未定</small></div>`;
+  const cd = it.end_at && st.key !== "done" && st.key !== "wait" ? `<small>${left(it.end_at)}</small>` : (st.key === "wait" && it.start_at ? `<small>${fmt(it.start_at, false)}〜</small>` : "");
+  return `<details class="rw ${st.key === "done" ? "closed" : ""}">
+    <summary>${time}
+      <div class="wh"><b>${esc(it.shop)}</b><span class="p">${esc(it.product_name)} ・ ${price}</span>
+        <span class="tags"><span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span><span class="tag">${TYPE[it.sale_type] || ""}</span>
+        <span class="tag">${it.pickup === "store" ? "店頭受取" : "配送"}</span>
+        ${isNew && !it.mine ? '<span class="tag new">新着</span>' : ""}
+        ${it.mine ? `<span class="tag mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
+        ${stale(it) ? '<span class="tag warn">要確認</span>' : ""}${it.memo_old ? '<span class="tag warn">古い情報</span>' : ""}
+        ${m ? `<span class="mk">● ${MK[m]}</span>` : ""}</span></div>
+      <div class="stt st-${st.key}">${st.label}${cd}</div>
+    </summary>
+    <div class="det">
+      <dl>
+        ${it.mine === "memo" ? "" : `<dt>受付</dt><dd class="mono">${period}</dd>`}
+        ${it.result_at ? `<dt>当選発表</dt><dd class="mono">${fmt(it.result_at)}</dd>` : ""}
+        <dt>価格</dt><dd>${price}${lp}</dd>
+        ${it.pickup === "store" && it.pickup_area ? `<dt>受取</dt><dd>${esc(it.pickup_area)}</dd>` : ""}
+        ${it.conditions ? `<dt>条件</dt><dd>${esc(it.conditions)}</dd>` : ""}
+        ${it.note ? `<dt>メモ</dt><dd>${esc(it.note)}</dd>` : ""}
+        <dt>${it.mine === "memo" ? "見た日時" : it.mine ? "登録" : "最終確認"}</dt><dd class="mono">${fmt(it.last_checked_at)}（${ago(it.last_checked_at)}）</dd>
+      </dl>
+      ${it.verify_status && it.verify_status !== "ok" ? `<div class="note">${VERIFY[it.verify_status] || it.verify_status}${it.verify_note ? "：" + esc(it.verify_note) : ""}</div>` : ""}
+      <div class="acts">
+        ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">一次情報 ↗</a>` : ""}
+        ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ ↗</a>` : ""}
+        <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
+        ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
+      </div>
     </div>
-    <div class="prod">${esc(it.product_name)}</div>
-    <div class="row"><span class="shop">${esc(it.shop)}</span>${it.pickup === "store" ? `<span class="tag">受取：${esc(it.pickup_area || "")}</span>` : '<span class="tag">配送</span>'}</div>
-    <dl class="facts">
-      <dt>受付</dt><dd class="mono">${period}</dd>
-      ${it.result_at ? `<dt>当選発表</dt><dd class="mono">${fmt(it.result_at)}</dd>` : ""}
-      <dt>価格</dt><dd>${price} ${lp}</dd>
-    </dl>
-    ${it.conditions ? `<details class="cond"><summary>応募条件</summary><p>${esc(it.conditions)}</p></details>` : ""}
-    ${it.note ? `<div class="small muted">${esc(it.note)}</div>` : ""}
-    ${it.verify_status && it.verify_status !== "ok" ? `<div class="note">${VERIFY[it.verify_status] || it.verify_status}${it.verify_note ? "：" + esc(it.verify_note) : ""}</div>` : ""}
-    <div class="foot">
-      ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">一次情報</a>` : ""}
-      ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ</a>` : ""}
-      <span>${it.mine === "memo" ? "見た日時" : it.mine ? "登録" : "最終確認"} <span class="mono">${fmt(it.last_checked_at)}</span>（${ago(it.last_checked_at)}）</span>
-      ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
-      <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
-    </div>
-  </article>`;
+  </details>`;
 }
 
 function renderGroup(el, title, items, emptyText) {
-  el.innerHTML = `<div class="group-head"><h2>${title}</h2><span class="count">${items.length}件</span></div>` +
-    (items.length ? items.map(itemHTML).join("") : `<div class="empty">${emptyText}</div>`);
+  el.innerHTML = `<div class="ghead"><h2>${title}</h2><span class="count">${items.length}件</span></div>` +
+    (items.length ? `<div class="cap"><span>締切</span><span>店・商品</span><span>状態</span></div><div class="board">${items.map(itemHTML).join("")}</div>` : `<div class="empty">${emptyText}</div>`);
 }
 
 function renderList() {
@@ -411,40 +435,46 @@ function renderUpcoming() {
   const ps = (DATA.products || []).filter((p) => !card || p.card_type === card);
   const unit = {pack: "1パック", deck: "1個", box: "1BOX", set: "1セット"};
   const W = "日月火水木金土";
-  $("g-upcoming").innerHTML = `<div class="group-head"><h2>これから発売</h2><span class="count">${ps.length}件</span></div>` +
-    (ps.length ? '<div class="upc">' + ps.map((p) => {
+  $("g-upcoming").innerHTML = `<div class="ghead"><h2>これから発売</h2><span class="count">${ps.length}件</span></div>` +
+    (ps.length ? `<div class="cap"><span>発売日</span><span>商品</span><span></span></div><div class="board">` + ps.map((p) => {
       const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(p.release_date || "");
-      const date = m ? `<b>${+m[2]}/${+m[3]}</b><span>${m[1]}・${W[new Date(+m[1], +m[2] - 1, +m[3]).getDay()]}</span>`
-                     : `<b style="font-size:13px">${esc((p.release_date || "未発表").replace(/（.*$/, ""))}</b>`;
+      const date = m ? `<div class="tm plain">${+m[2]}/${+m[3]}<small>${m[1]}(${W[new Date(+m[1], +m[2] - 1, +m[3]).getDay()]})</small></div>`
+                     : `<div class="tm plain" style="font-size:12.5px">${esc((p.release_date || "未発表").replace(/（.*$/, ""))}</div>`;
       const name = safeUrl(p.official_url) ? `<a href="${esc(p.official_url)}" target="_blank" rel="noopener">${esc(p.product_name)}</a>` : esc(p.product_name);
-      return `<div class="upc-item"><div class="upc-date">${date}</div>
-        <div class="row"><span class="tag">${esc(DATA.card_names[p.card_type] || p.card_type)}</span>${p.list_price ? `<span class="small muted">希望小売 ${unit[p.price_unit] || ""} ${p.list_price.toLocaleString()}円</span>` : ""}</div>
-        <div class="upc-name">${name}</div>
-        ${p.note ? `<div class="small muted">${esc(p.note)}</div>` : "<div></div>"}</div>`;
+      return `<details class="rw"><summary>${date}<div class="wh"><b>${name}</b><span class="p">${esc(DATA.card_names[p.card_type] || p.card_type)}${p.list_price ? ` ・ 希望小売 ${unit[p.price_unit] || ""} ${p.list_price.toLocaleString()}円` : ""}</span>${p.note ? `<span class="p">${esc(p.note)}</span>` : ""}</div><div class="stt st-wait">発売</div></summary></details>`;
     }).join("") + "</div>" : '<div class="empty">発売予定の商品はありません。</div>');
 }
 
 function renderToday() {
-  const live = DATA.listings.filter((it) => !["done"].includes(stateOf(it).key));
-  const soon = live.filter((it) => it.end_at && new Date(it.end_at) - NOW < 48 * H);
-  const applied = Object.values(marks).filter((v) => v === "applied").length;
-  $("today").innerHTML = `
-    <div><b>${live.length}</b><span>受付中・受付前</span></div>
-    <div class="hot"><b>${soon.length}</b><span>48時間以内に締切</span></div>
-    <div><b>${DATA.unverified.length}</b><span>未確認の情報</span></div>`;
-  $("built").textContent = ` 最終更新 ${fmt(DATA.built_at)}`;
-  $("unv-n").textContent = DATA.unverified.length ? `(${DATA.unverified.length})` : "";
+  const live = [...DATA.listings, ...entryListings()].filter((it) => !it.memo_old && it.end_at && !["done", "wait"].includes(stateOf(it).key)).sort((a, b) => new Date(a.end_at) - new Date(b.end_at));
+  const all = DATA.listings.filter((it) => stateOf(it).key !== "done");
+  const soon = all.filter((it) => it.end_at && new Date(it.end_at) - NOW < 48 * H);
+  const n = live[0];
+  if (n) {
+    const p = JPARTS(n.end_at);
+    $("next").innerHTML = `<div class="next"><span class="l">次の締切</span><span class="cd">${left(n.end_at)}</span>
+      <div class="big">${p.hour}:${p.minute}<small>${p.month}/${p.day}(${p.weekday})</small></div><div></div>
+      <div class="w">${esc(n.shop)} ・ ${esc(n.product_name)}</div></div>`;
+  } else {
+    $("next").innerHTML = `<div class="next none"><span class="l">次の締切</span><div class="big">受付中の抽選はありません</div></div>`;
+  }
+  $("today").innerHTML = `<span><b>${all.length}</b>受付中・受付前</span><span class="hot"><b>${soon.length}</b>48時間以内</span><span><b>${DATA.unverified.length}</b>未確認</span>`;
+  const b = JPARTS(DATA.built_at);
+  $("built").textContent = `${b.month}/${b.day} ${b.hour}:${b.minute} 更新`;
+  $("unv-n").textContent = DATA.unverified.length || "";
 }
 
 // ---- 未確認 ----
 function renderUnv() {
-  $("unv-list").innerHTML = DATA.unverified.length ? DATA.unverified.map((u) => `
-    <div class="unv">
-      <div class="row"><span class="tag">${esc(DATA.card_names[u.card_type] || u.card_type)}</span><b>${esc(u.shop || "")}</b></div>
-      <div>${esc(u.summary)}</div>
-      <div class="small muted">未確認の理由：${esc(u.reason || "")}</div>
-      <div class="small muted">報告 <span class="mono">${fmt(u.reported_at)}</span>${safeUrl(u.hint_url) ? ` ・ <a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先</a>` : ""}</div>
-    </div>`).join("") : '<div class="empty">未確認の情報はありません。</div>';
+  $("unv-list").innerHTML = `<div class="ghead"><h2>未確認の情報</h2><span class="count">${DATA.unverified.length}件</span></div>` +
+    (DATA.unverified.length ? `<div class="board">` + DATA.unverified.map((u) => {
+      const r = JPARTS(u.reported_at);
+      return `<details class="rw"><summary><div class="tm plain">${r.month}/${r.day}<small>報告</small></div>
+        <div class="wh"><b>${esc(u.shop || "")}</b><span class="p">${esc(u.summary)}</span><span class="tags"><span class="tag">${esc(DATA.card_names[u.card_type] || u.card_type)}</span></span></div>
+        <div class="stt st-unv">未確認</div></summary>
+        <div class="det"><dl><dt>理由</dt><dd>${esc(u.reason || "")}</dd></dl>
+        ${safeUrl(u.hint_url) ? `<div class="acts"><a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a></div>` : ""}</div></details>`;
+    }).join("") + "</div>" : '<div class="empty">未確認の情報はありません。</div>');
 }
 
 // ---- 宮崎の店 ----
@@ -456,8 +486,9 @@ function renderStores() {
   DATA.stores.forEach((s) => { (by[s.city] = by[s.city] || []).push(s); });
   const order = ["宮崎市", "都城市", "延岡市", "日向市", "日南市", "小林市", "西都市", "高鍋町", "国富町"];
   const cities = Object.keys(by).sort((a, b) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99);
+  $("stores-n").textContent = `${DATA.stores.length}店`;
   $("stores-list").innerHTML = cities.filter((c) => !city || c === city).map((c) => `
-    <div class="panel city"><h2 style="font-size:16px">${esc(c)} <span class="muted mono small">${by[c].length}</span></h2>
+    <div class="cityh"><span>${esc(c)}</span><span class="mono muted">${by[c].length}</span></div><div class="panel" style="border-top:1px solid var(--line)">
     ${by[c].sort((a, b) => (a.kind === "card_shop" ? 0 : 1) - (b.kind === "card_shop" ? 0 : 1)).map((s) => `
       <div class="store">
         <div class="row"><span class="nm">${safeUrl(s.official_page) ? `<a href="${esc(s.official_page)}" target="_blank" rel="noopener">${esc(s.name)}</a>` : esc(s.name)}</span>${s.kind === "card_shop" ? '<span class="tag">カードショップ</span>' : ""}</div>
@@ -485,7 +516,7 @@ function renderAll() { renderToday(); renderList(); renderStores(); renderMyEntr
 function renderMyStores() {
   const card = $("f-card").value;
   const mine = entries.filter((e) => e.kind === "store" && (!card || (e.card_types || []).includes(card)));
-  $("my-stores").innerHTML = `<div class="group-head"><h2>自分で追加した店</h2><span class="count">${mine.length}件</span></div>` +
+  $("my-stores").innerHTML = `<div class="ghead"><h2>自分で追加した店</h2><span class="count">${mine.length}件</span></div>` +
     (mine.length ? '<div class="panel">' + mine.map((e) => `
       <div class="store">
         <div class="row"><span class="nm">${safeUrl(e.url) ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.shop)}</a>` : esc(e.shop)}</span>
@@ -500,8 +531,8 @@ function renderOnlineShops() {
   const card = $("f-card").value;
   const S = {confirmed: ["st-ok", "販売を確認"], recheck: ["st-warn", "再確認待ち"], excluded: ["st-done", "対象外"]};
   const shops = (DATA.shops_online || []).filter((s) => !card || s.card_types.includes(card) || (card === "topps" && s.status === "excluded"));
-  $("online-shops").innerHTML = `<div class="group-head"><h2>通販・全国の取扱店</h2><span class="count">${shops.length}件</span></div>` +
-    `<p class="small muted" style="margin:0">Toppsなど、全国から買える専門店の取扱状況です。公式ページで販売を確認できた店だけ「販売を確認」にしています。</p>` +
+  $("online-shops").innerHTML = `<div class="ghead"><h2>通販・全国の取扱店</h2><span class="count">${shops.length}件</span></div>` +
+    `<p class="lead" style="padding:8px 2px">Toppsなど、全国から買える専門店の取扱状況です。公式ページで販売を確認できた店だけ「販売を確認」にしています。</p>` +
     '<div class="panel">' + shops.map((s) => `
       <div class="store">
         <div class="row"><span class="nm">${safeUrl(s.url) ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>` : esc(s.name)}</span>
@@ -575,7 +606,7 @@ async function deleteEntry(id, btn) {
 }
 function renderMyEntries() {
   const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ"};
-  $("my-entries").innerHTML = `<div class="group-head"><h2>追加したもの</h2><span class="count">${entries.length}件</span></div>` +
+  $("my-entries").innerHTML = `<div class="ghead"><h2>追加したもの</h2><span class="count">${entries.length}件</span></div>` +
     (entries.length ? '<div class="panel">' + entries.map((e) => `
       <div class="store"><div class="row"><span class="tag">${K[e.kind] || ""}</span><span class="nm">${esc(e.shop)}</span>${e.product ? `<span class="small">${esc(e.product)}</span>` : ""}
         ${e.imported ? '<span class="pill st-ok">収集に反映済み</span>' : ""}
