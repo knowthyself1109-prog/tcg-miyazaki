@@ -28,6 +28,7 @@
   --open:#62c88d; --open-soft:#173327; --soon:#ff8a73; --soon-soft:#3d1f1a;
   --wait:#a9a3f2; --wait-soft:#25233f; --done:#8a96a3; --done-soft:#222b34;
   --warn:#f0b94f; --warn-soft:#3a2d12; color-scheme:dark}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
 .wrap{max-width:760px;width:100%;min-width:0;margin:0 auto;display:flex;flex-direction:column;gap:20px}
@@ -96,6 +97,31 @@ table{border-collapse:collapse;font-size:13px;width:100%}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--muted);font-weight:500;white-space:nowrap}
 .dbnote{font-size:12px;color:var(--muted)}
+.upc{display:flex;flex-direction:column;gap:8px}
+.upc-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+.upc-date{grid-row:span 3;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:56px;border-radius:8px;background:var(--accent-soft);color:var(--accent);padding:6px 4px;text-align:center;line-height:1.2}
+.upc-date b{font-family:var(--f-mono);font-size:17px}
+.upc-date span{font-size:11px}
+.upc-name{font-weight:700;overflow-wrap:anywhere;line-height:1.45}
+.form{display:flex;flex-direction:column;gap:12px}
+.form label,.form .lbl,.form legend{font-size:13px;color:var(--muted);font-weight:500}
+.form input,.form select,.form textarea{font:inherit;font-size:16px;width:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field.two>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.seg{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
+.seg legend{width:100%;margin-bottom:4px}
+.seg label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink);font-size:14px;cursor:pointer}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.seg input{width:auto;accent-color:var(--accent)}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{display:flex;align-items:center;gap:4px;color:var(--ink);font-size:14px;border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.checks input{width:auto;accent-color:var(--accent)}
+button.primary{font:inherit;font-weight:700;background:var(--accent);color:var(--surface);border:0;border-radius:8px;padding:10px 18px;cursor:pointer}
+button.primary:disabled{opacity:.5;cursor:default}
+button.link{font:inherit;font-size:12.5px;background:none;border:0;color:var(--soon);cursor:pointer;padding:0}
+.mine{background:var(--wait-soft);color:var(--wait)}
+.st-ok{background:var(--open-soft);color:var(--open)}
 @media (max-width:480px){.today b{font-size:20px}.deadline{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -110,7 +136,8 @@ th{color:var(--muted);font-weight:500;white-space:nowrap}
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-list" aria-selected="true" data-view="list">抽選・販売</button>
     <button role="tab" id="tab-unv" aria-selected="false" data-view="unv">未確認 <span id="unv-n"></span></button>
-    <button role="tab" id="tab-stores" aria-selected="false" data-view="stores">宮崎の店</button>
+    <button role="tab" id="tab-stores" aria-selected="false" data-view="stores">店リスト</button>
+    <button role="tab" id="tab-add" aria-selected="false" data-view="add">＋ 追加する</button>
     <button role="tab" id="tab-log" aria-selected="false" data-view="log">更新記録</button>
   </nav>
 
@@ -139,11 +166,44 @@ th{color:var(--muted);font-weight:500;white-space:nowrap}
 
   <div id="view-stores" class="wrap" hidden style="gap:14px">
     <p class="muted small" style="margin:0" id="stores-head"></p>
+    <section class="group" id="my-stores"></section>
+    <section class="group" id="online-shops"></section>
+    <h2>宮崎県内の店</h2>
     <div id="stores-list" class="wrap" style="gap:14px"></div>
     <div class="panel">
       <h2 style="font-size:15px;margin-bottom:8px">チェーンの県内店舗の確認状況</h2>
       <div class="tablewrap"><table id="chains"></table></div>
     </div>
+  </div>
+
+  <div id="view-add" class="wrap" hidden style="gap:14px">
+    <p class="muted small" style="margin:0">自分で見つけた店や抽選、店頭で見た在庫を登録できます。登録した内容はすぐ一覧に出て、次の定期収集で一次情報の確認もします。</p>
+    <form id="add-form" class="panel form" novalidate>
+      <fieldset class="seg" id="add-kind">
+        <legend>何を追加しますか</legend>
+        <label><input type="radio" name="kind" value="store" checked> 店</label>
+        <label><input type="radio" name="kind" value="listing"> 抽選・販売</label>
+        <label><input type="radio" name="kind" value="memo"> 店頭メモ</label>
+      </fieldset>
+      <div class="field" data-for="store listing memo"><label for="a-shop">店・サイトの名前</label><input id="a-shop" required placeholder="例：カードショップ○○ 宮崎店"></div>
+      <div class="field" data-for="store"><label for="a-where">場所</label>
+        <select id="a-where"><option value="miyazaki">宮崎県内の実店舗</option><option value="online">通販・全国</option></select></div>
+      <div class="field" data-for="store"><label for="a-city">市町村</label><input id="a-city" list="city-list" placeholder="例：宮崎市"><datalist id="city-list"></datalist></div>
+      <div class="field" data-for="store"><span class="lbl">扱っているカード</span><div class="checks" id="a-cards"></div></div>
+      <div class="field" data-for="listing memo"><label for="a-card">カード</label><select id="a-card"></select></div>
+      <div class="field" data-for="listing memo"><label for="a-product">商品名</label><input id="a-product" placeholder="例：神の支配【OP-18】BOX"></div>
+      <div class="field" data-for="listing"><label for="a-type">販売方法</label>
+        <select id="a-type"><option value="lottery">抽選</option><option value="first_come">先着</option><option value="restock">再販</option><option value="store">店頭販売</option></select></div>
+      <div class="field" data-for="listing"><label for="a-pickup">受取</label>
+        <select id="a-pickup"><option value="store">宮崎の店で受取</option><option value="online">配送</option></select></div>
+      <div class="field two" data-for="listing"><div><label for="a-start">受付開始</label><input id="a-start" type="datetime-local"></div><div><label for="a-end">締切</label><input id="a-end" type="datetime-local"></div></div>
+      <div class="field" data-for="listing"><label for="a-price">価格（税込・円）</label><input id="a-price" type="number" inputmode="numeric" min="0" placeholder="例：5760"></div>
+      <div class="field" data-for="memo"><label for="a-seen">見た日時</label><input id="a-seen" type="datetime-local"></div>
+      <div class="field" data-for="store listing memo"><label for="a-url">URL（公式ページ・告知。あれば）</label><input id="a-url" type="url" inputmode="url" placeholder="https://"></div>
+      <div class="field" data-for="store listing memo"><label for="a-note">メモ（応募条件・在庫の様子など）</label><textarea id="a-note" rows="3"></textarea></div>
+      <div class="row"><button type="submit" class="primary" id="a-submit">追加する</button><span class="small muted" id="a-msg" role="status"></span></div>
+    </form>
+    <section class="group" id="my-entries"></section>
   </div>
 
   <div id="view-log" class="wrap" hidden style="gap:10px">
@@ -206,6 +266,10 @@ function stale(it) {
 
 // ---- 応募記録（claude.ai のデータ保存。使えないときはこの端末だけに保存） ----
 let marks = {};
+let entries = [];          // 自分で追加した店・抽選・メモ
+let entryStore = null;
+const LS_ENTRIES = "tcg-entries";
+try { entries = JSON.parse(localStorage.getItem(LS_ENTRIES) || "[]"); } catch (e) { entries = []; }
 let markStore = null;
 const LS_KEY = "tcg-marks";
 try { marks = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { marks = {}; }
@@ -214,6 +278,11 @@ async function initMarks() {
     const db = await window.claude?.use?.("db");
     if (!db) { $("marks-note").textContent = "応募記録はこの端末のブラウザに保存しています。"; return; }
     markStore = db.collection("marks");
+    entryStore = db.collection("entries");
+    entryStore.onSnapshot((snap) => {
+      entries = snap.docs.map((d) => ({...d.data(), _id: d.id})).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+      renderAll();
+    }, () => { entryStore = null; });
     let settled = false;
     const timer = setTimeout(() => { if (!settled) $("marks-note").textContent = "応募記録の読み込みに時間がかかっています。"; }, 10000);
     markStore.onSnapshot((snap) => {
@@ -222,7 +291,7 @@ async function initMarks() {
       snap.docs.forEach((d) => { const v = d.data(); if (v && v.state) m[d.id] = v.state; });
       marks = m;
       renderList();
-    }, () => { settled = true; clearTimeout(timer); markStore = null; $("marks-note").textContent = "応募記録を保存できないため、この端末のブラウザに保存しています。"; });
+    }, () => { settled = true; clearTimeout(timer); markStore = null; entryStore = null; $("marks-note").textContent = "応募記録を保存できないため、この端末のブラウザに保存しています。"; });
   } catch (e) { markStore = null; }
 }
 async function setMark(id, state) {
@@ -239,15 +308,35 @@ async function setMark(id, state) {
   try { localStorage.setItem(LS_KEY, JSON.stringify(marks)); } catch (e) {}
 }
 
+// ---- 自分で追加したものを一覧の形にそろえる ----
+const MEMO_STALE = 3 * 24 * H;
+function entryListings() {
+  return entries.filter((e) => e.kind === "listing" || e.kind === "memo").map((e) => {
+    const memo = e.kind === "memo";
+    const seen = e.seen_at || e.created_at;
+    return {
+      id: "u-" + e._id, _entry: e._id, mine: memo ? "memo" : "listing",
+      card_type: e.card_type, product_name: e.product || (memo ? "店頭メモ" : ""), shop: e.shop,
+      sale_type: memo ? "store" : e.sale_type, status: memo ? "in_stock" : "open",
+      start_at: memo ? null : e.start_at, end_at: memo ? null : e.end_at, price: e.price || null, is_list_price: e.price ? null : undefined,
+      pickup: memo ? "store" : (e.pickup || "store"), pickup_area: (memo || e.pickup !== "online") ? "宮崎県 " + e.shop : null,
+      cities: e.city ? [e.city] : [], conditions: memo ? null : e.note, note: memo ? e.note : null,
+      source_url: e.url, last_checked_at: seen, first_seen_at: e.created_at, needs_check: 0,
+      memo_old: memo && NOW - new Date(seen) > MEMO_STALE,
+    };
+  });
+}
+
 // ---- 抽選・販売 ----
 function filtered() {
   const card = $("f-card").value, type = $("f-type").value, pickup = $("f-pickup").value, city = $("f-city").value, showClosed = $("f-closed").checked;
-  return DATA.listings.filter((it) => {
+  return [...DATA.listings, ...entryListings()].filter((it) => {
     if (card && it.card_type !== card) return false;
     if (type && it.sale_type !== type) return false;
     if (pickup && it.pickup !== pickup) return false;
     if (city && !(it.cities || []).includes(city)) return false;
     if (!showClosed && stateOf(it).key === "done") return false;
+    if (!showClosed && it.memo_old) return false;
     return true;
   }).sort((a, b) => {
     // 新着（24時間以内）→ 締切が近い順
@@ -261,7 +350,7 @@ function filtered() {
 }
 
 function itemHTML(it) {
-  const st = stateOf(it);
+  const st = it.mine === "memo" ? {key: "open", label: "店頭で確認"} : stateOf(it);
   const isNew = NOW - new Date(it.first_seen_at) < 24 * H;
   const price = it.price ? `${it.price.toLocaleString()}円` : "未確認";
   const lp = it.is_list_price === 1 ? '<span class="tag">定価</span>' : (it.is_list_price === null ? '<span class="tag">定価未確認</span>' : "");
@@ -273,7 +362,9 @@ function itemHTML(it) {
     <div class="row">
       <span class="pill st-${st.key}">${st.label}</span>
       ${stale(it) ? '<span class="pill st-warn">要確認</span>' : ""}
-      ${isNew ? '<span class="pill st-wait">新着</span>' : ""}
+      ${it.mine ? `<span class="pill mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
+      ${it.memo_old ? '<span class="pill st-warn">古い情報</span>' : ""}
+      ${isNew && !it.mine ? '<span class="pill st-wait">新着</span>' : ""}
       <span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span>
       <span class="tag">${TYPE[it.sale_type] || ""}</span>
       ${it.end_at && st.key !== "done" ? `<span class="deadline ${st.key === "soon" ? "hot" : ""}">${left(it.end_at)}</span>` : ""}
@@ -291,7 +382,8 @@ function itemHTML(it) {
     <div class="foot">
       ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">一次情報</a>` : ""}
       ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ</a>` : ""}
-      <span>最終確認 <span class="mono">${fmt(it.last_checked_at)}</span>（${ago(it.last_checked_at)}）</span>
+      <span>${it.mine === "memo" ? "見た日時" : it.mine ? "登録" : "最終確認"} <span class="mono">${fmt(it.last_checked_at)}</span>（${ago(it.last_checked_at)}）</span>
+      ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
       <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
     </div>
   </article>`;
@@ -318,12 +410,18 @@ function renderUpcoming() {
   const card = $("f-card").value;
   const ps = (DATA.products || []).filter((p) => !card || p.card_type === card);
   const unit = {pack: "1パック", deck: "1個", box: "1BOX", set: "1セット"};
+  const W = "日月火水木金土";
   $("g-upcoming").innerHTML = `<div class="group-head"><h2>これから発売</h2><span class="count">${ps.length}件</span></div>` +
-    (ps.length ? `<div class="panel tablewrap"><table><tr><th>発売日</th><th>商品</th><th>希望小売価格</th></tr>` + ps.map((p) => {
-      const rd = /^\d{4}-\d{2}-\d{2}/.test(p.release_date || "") ? fmt(p.release_date + "T00:00:00+09:00", false) : esc(p.release_date || "未発表");
+    (ps.length ? '<div class="upc">' + ps.map((p) => {
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(p.release_date || "");
+      const date = m ? `<b>${+m[2]}/${+m[3]}</b><span>${m[1]}・${W[new Date(+m[1], +m[2] - 1, +m[3]).getDay()]}</span>`
+                     : `<b style="font-size:13px">${esc((p.release_date || "未発表").replace(/（.*$/, ""))}</b>`;
       const name = safeUrl(p.official_url) ? `<a href="${esc(p.official_url)}" target="_blank" rel="noopener">${esc(p.product_name)}</a>` : esc(p.product_name);
-      return `<tr><td class="mono" style="white-space:nowrap">${rd}</td><td><span class="tag">${esc(DATA.card_names[p.card_type] || p.card_type)}</span> ${name}${p.note ? `<div class="small muted">${esc(p.note)}</div>` : ""}</td><td class="mono" style="white-space:nowrap">${p.list_price ? `${(unit[p.price_unit] || "")} ${p.list_price.toLocaleString()}円` : "未確認"}</td></tr>`;
-    }).join("") + "</table></div>" : '<div class="empty">発売予定の商品はありません。</div>');
+      return `<div class="upc-item"><div class="upc-date">${date}</div>
+        <div class="row"><span class="tag">${esc(DATA.card_names[p.card_type] || p.card_type)}</span>${p.list_price ? `<span class="small muted">希望小売 ${unit[p.price_unit] || ""} ${p.list_price.toLocaleString()}円</span>` : ""}</div>
+        <div class="upc-name">${name}</div>
+        ${p.note ? `<div class="small muted">${esc(p.note)}</div>` : "<div></div>"}</div>`;
+    }).join("") + "</div>" : '<div class="empty">発売予定の商品はありません。</div>');
 }
 
 function renderToday() {
@@ -351,6 +449,7 @@ function renderUnv() {
 
 // ---- 宮崎の店 ----
 function renderStores() {
+  renderMyStores(); renderOnlineShops();
   $("stores-head").textContent = `各カードの公式取扱店リストと、チェーンの公式店舗検索で確認できた店だけを載せています（${DATA.stores.length}店・確認日 ${DATA.stores_updated_at}）。`;
   const city = $("f-city").value;
   const by = {};
@@ -380,8 +479,113 @@ function renderLog() {
   }).join("");
 }
 
+function renderAll() { renderToday(); renderList(); renderStores(); renderMyEntries(); }
+
+// ---- 店リスト：自分で追加した店・通販の取扱店 ----
+function renderMyStores() {
+  const card = $("f-card").value;
+  const mine = entries.filter((e) => e.kind === "store" && (!card || (e.card_types || []).includes(card)));
+  $("my-stores").innerHTML = `<div class="group-head"><h2>自分で追加した店</h2><span class="count">${mine.length}件</span></div>` +
+    (mine.length ? '<div class="panel">' + mine.map((e) => `
+      <div class="store">
+        <div class="row"><span class="nm">${safeUrl(e.url) ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.shop)}</a>` : esc(e.shop)}</span>
+          <span class="tag">${e.where === "online" ? "通販・全国" : esc(e.city || "宮崎県内")}</span><span class="pill mine">自分で追加</span>
+          <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">削除</button></div>
+        <div class="chips">${(e.card_types || []).map((c) => `<span class="chip">${esc(DATA.card_names[c] || c)}</span>`).join("")}</div>
+        ${e.note ? `<div class="small muted">${esc(e.note)}</div>` : ""}
+      </div>`).join("") + "</div>"
+      : '<div class="empty">まだありません。「＋ 追加する」タブから、見つけた店を登録できます。</div>');
+}
+function renderOnlineShops() {
+  const card = $("f-card").value;
+  const S = {confirmed: ["st-ok", "販売を確認"], recheck: ["st-warn", "再確認待ち"], excluded: ["st-done", "対象外"]};
+  const shops = (DATA.shops_online || []).filter((s) => !card || s.card_types.includes(card) || (card === "topps" && s.status === "excluded"));
+  $("online-shops").innerHTML = `<div class="group-head"><h2>通販・全国の取扱店</h2><span class="count">${shops.length}件</span></div>` +
+    `<p class="small muted" style="margin:0">Toppsなど、全国から買える専門店の取扱状況です。公式ページで販売を確認できた店だけ「販売を確認」にしています。</p>` +
+    '<div class="panel">' + shops.map((s) => `
+      <div class="store">
+        <div class="row"><span class="nm">${safeUrl(s.url) ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>` : esc(s.name)}</span>
+          <span class="pill ${S[s.status][0]}">${S[s.status][1]}</span>
+          ${s.card_types.map((c) => `<span class="chip">${esc(DATA.card_names[c] || c)}</span>`).join("")}</div>
+        <div class="small muted">${esc(s.evidence)}（確認 ${esc(s.checked_at)}）</div>
+      </div>`).join("") + "</div>";
+}
+
+// ---- 追加フォーム ----
+function setupForm() {
+  const cards = Object.entries(DATA.card_names);
+  $("a-cards").innerHTML = cards.map(([k, v]) => `<label><input type="checkbox" value="${k}"> ${esc(v)}</label>`).join("");
+  $("a-card").innerHTML = cards.map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("");
+  $("city-list").innerHTML = [...new Set(DATA.stores.map((s) => s.city))].map((c) => `<option value="${esc(c)}">`).join("");
+  const sync = () => {
+    const kind = document.querySelector('input[name="kind"]:checked').value;
+    document.querySelectorAll("#add-form .field").forEach((f) => { f.hidden = !f.dataset.for.split(" ").includes(kind); });
+    $("a-city").closest(".field").hidden = kind !== "store" || $("a-where").value !== "miyazaki";
+    $("a-submit").textContent = {store: "店を追加する", listing: "抽選・販売を追加する", memo: "メモを残す"}[kind];
+  };
+  document.querySelectorAll('input[name="kind"]').forEach((r) => r.addEventListener("change", sync));
+  $("a-where").addEventListener("change", sync);
+  sync();
+  $("add-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const kind = document.querySelector('input[name="kind"]:checked').value;
+    const v = (id) => $(id).value.trim();
+    const toIso = (s) => s ? new Date(s).toISOString() : null;   // datetime-local は端末の時刻帯（日本時間）として読む
+    const msg = $("a-msg");
+    if (!v("a-shop")) { msg.textContent = "店・サイトの名前を入れてください。"; $("a-shop").focus(); return; }
+    if (kind === "listing" && !v("a-product")) { msg.textContent = "商品名を入れてください。"; $("a-product").focus(); return; }
+    if (kind === "memo" && !v("a-product") && !v("a-note")) { msg.textContent = "商品名かメモのどちらかを入れてください。"; return; }
+    if (v("a-url") && !safeUrl(v("a-url"))) { msg.textContent = "URLは https:// から始まる形で入れてください。"; $("a-url").focus(); return; }
+    const doc = {kind, shop: v("a-shop"), url: v("a-url") || null, note: v("a-note") || null, created_at: new Date().toISOString(), imported: false};
+    if (kind === "store") {
+      doc.where = $("a-where").value; doc.city = doc.where === "miyazaki" ? (v("a-city") || null) : null;
+      doc.card_types = [...document.querySelectorAll("#a-cards input:checked")].map((c) => c.value);
+    } else {
+      doc.card_type = $("a-card").value; doc.product = v("a-product") || null;
+    }
+    if (kind === "listing") {
+      Object.assign(doc, {sale_type: $("a-type").value, pickup: $("a-pickup").value, start_at: toIso(v("a-start")), end_at: toIso(v("a-end")), price: v("a-price") ? Number(v("a-price")) : null});
+    }
+    if (kind === "memo") doc.seen_at = toIso(v("a-seen")) || doc.created_at;
+    $("a-submit").disabled = true;
+    try {
+      if (entryStore) { await entryStore.add(doc); msg.textContent = "追加しました。"; }
+      else {
+        entries = [{...doc, _id: "local-" + Date.now()}, ...entries];
+        try { localStorage.setItem(LS_ENTRIES, JSON.stringify(entries)); } catch (e) {}
+        msg.textContent = "この端末に保存しました（定期収集には届きません）。";
+        renderAll();
+      }
+      ["a-shop", "a-city", "a-product", "a-start", "a-end", "a-price", "a-seen", "a-url", "a-note"].forEach((id) => { $(id).value = ""; });
+      document.querySelectorAll("#a-cards input").forEach((c) => { c.checked = false; });
+    } catch (e) {
+      msg.textContent = e && e.code === "quota_exceeded" ? "保存できる件数の上限です。古い登録を削除してください。" : "保存できませんでした。通信を確認してもう一度押してください。";
+    } finally { $("a-submit").disabled = false; }
+  });
+}
+async function deleteEntry(id, btn) {
+  if (btn.dataset.confirm !== "1") { btn.dataset.confirm = "1"; btn.textContent = "本当に削除"; setTimeout(() => { btn.dataset.confirm = ""; btn.textContent = "削除"; }, 4000); return; }
+  if (entryStore && !id.startsWith("local-")) {
+    try { await entryStore.doc(id).delete(); } catch (e) { btn.textContent = "削除できませんでした"; }
+  } else {
+    entries = entries.filter((e) => e._id !== id);
+    try { localStorage.setItem(LS_ENTRIES, JSON.stringify(entries)); } catch (e) {}
+    renderAll();
+  }
+}
+function renderMyEntries() {
+  const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ"};
+  $("my-entries").innerHTML = `<div class="group-head"><h2>追加したもの</h2><span class="count">${entries.length}件</span></div>` +
+    (entries.length ? '<div class="panel">' + entries.map((e) => `
+      <div class="store"><div class="row"><span class="tag">${K[e.kind] || ""}</span><span class="nm">${esc(e.shop)}</span>${e.product ? `<span class="small">${esc(e.product)}</span>` : ""}
+        ${e.imported ? '<span class="pill st-ok">収集に反映済み</span>' : ""}
+        <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">削除</button></div>
+        <div class="small muted">登録 ${fmt(e.created_at)}${e.note ? " ・ " + esc(e.note) : ""}</div></div>`).join("") + "</div>"
+      : '<div class="empty">まだ何も追加していません。</div>');
+}
+
 function setupFilters() {
-  const cards = [...new Set([...DATA.listings, ...(DATA.products || [])].map((l) => l.card_type))];
+  const cards = [...new Set([...DATA.listings, ...(DATA.products || [])].map((l) => l.card_type).concat(...(DATA.shops_online || []).map((s) => s.card_types)))];
   $("f-card").innerHTML = '<option value="">カード：すべて</option>' + Object.entries(DATA.card_names).map(([k, v]) => `<option value="${k}" ${cards.includes(k) ? "" : "disabled"}>${esc(v)}</option>`).join("");
   const cities = [...new Set(DATA.stores.map((s) => s.city))];
   $("f-city").innerHTML = '<option value="">市町村：すべて</option>' + cities.map((c) => `<option>${esc(c)}</option>`).join("");
@@ -395,16 +599,21 @@ function saveUi() {
   try { localStorage.setItem("tcg-ui", JSON.stringify(Object.fromEntries(["f-card", "f-type", "f-pickup", "f-city"].map((id) => [id, $(id).value])))); } catch (e) {}
 }
 
+const VIEWS = ["list", "unv", "stores", "add", "log"];
 function show(view) {
   document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === view)));
-  ["list", "unv", "stores", "log"].forEach((v) => { $("view-" + v).hidden = v !== view; });
+  VIEWS.forEach((v) => { $("view-" + v).hidden = v !== view; });
 }
 document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => { show(b.dataset.view); if (location.hash !== "#" + b.dataset.view) history.replaceState(null, "", "#" + b.dataset.view); }));
-document.addEventListener("click", (e) => { const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark); });
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark);
+  const d = e.target.closest("button[data-del]"); if (d) deleteEntry(d.dataset.del, d);
+});
 window.addEventListener("hashchange", () => show((location.hash || "#list").slice(1)));
 
 setupFilters();
-renderToday(); renderList(); renderUnv(); renderStores(); renderLog();
-if (["list", "unv", "stores", "log"].includes(location.hash.slice(1))) show(location.hash.slice(1));
+setupForm();
+renderAll(); renderUnv(); renderLog();
+if (VIEWS.includes(location.hash.slice(1))) show(location.hash.slice(1));
 initMarks();
 </script>

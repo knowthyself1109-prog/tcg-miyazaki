@@ -1,0 +1,61 @@
+{
+  "updated_at": "2026-11-15",
+  "note": "全国から買える通販・専門店の取扱状況。公式ページで販売を確認できたものだけ status=confirmed。設計書3.「Topps野球カードの取扱店」は、取り扱いのない店を一覧から外す（status=excluded として理由を残す）",
+  "shops": [
+    {
+      "id": "cardfanatic", "name": "カードファナティック", "kind": "online",
+      "url": "https://www.cardfanatic.co.jp/view/category/c105",
+      "card_types": ["topps"], "status": "confirmed",
+      "evidence": "公式通販で 2026 Topps NPB ベースボールカード BOX（12,540円・品切れ）、スタジアムクラブ BOX（15,048円・品切れ）、Finest BOX（9,405円・予約、11/13入荷予定）を販売。MLB製品のカテゴリもあり",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "mint", "name": "ミント（ミントモール MINT-WEB店）", "kind": "online",
+      "url": "https://www.mint-mall.net/products/list.php?category_id=8877",
+      "card_types": ["topps"], "status": "recheck",
+      "evidence": "検索結果では 2026 TOPPS NPB ベースボールカードのBOXページあり。確認時は公式サイトが一時的にエラー（503）で開けず、再確認待ち",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "yodobashi-topps", "name": "ヨドバシ.com（Toppsメーカーページ）", "kind": "online",
+      "url": "https://www.yodobashi.com/maker/5000031273/",
+      "card_types": ["topps"], "status": "recheck",
+      "evidence": "検索結果では 2026 TOPPS NPB（パック）を掲載、販売は終了済み。確認時はページがタイムアウトし再確認待ち",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "topps-official", "name": "Topps公式（topps.com）", "kind": "online",
+      "url": "https://topps.com/",
+      "card_types": ["topps"], "status": "recheck",
+      "evidence": "米国向けストア。日本への配送と日本向けストアの有無は未確認（この環境からは接続拒否）",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "yamashiroya-topps", "name": "ヤマシロヤ", "kind": "online",
+      "url": "https://e-yamashiroya.com/",
+      "card_types": [], "status": "excluded",
+      "evidence": "公式オンラインショップで「topps」を検索しても商品が出ない。Topps取扱店の一覧から外す（ポケカなどの通販抽選は引き続き対象）",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "trecaplaza55-topps", "name": "トレカプラザ55", "kind": "online",
+      "url": null, "card_types": [], "status": "excluded",
+      "evidence": "Topps製品の販売を公式ページで確認できない。Topps取扱店の一覧から外す",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "quadsports", "name": "クアドスポーツ", "kind": "online",
+      "url": null, "card_types": [], "status": "excluded",
+      "evidence": "公式サイト・通販を見つけられず、Topps製品の販売を確認できない。一覧から外す",
+      "checked_at": "2026-11-15"
+    },
+    {
+      "id": "familymart-topps", "name": "ファミリーマート（MLB Topps Japan Edition）", "kind": "online",
+      "url": "https://www.family.co.jp/goods/charakuji.html",
+      "card_types": [], "status": "excluded",
+      "evidence": "以前は「MLB 2026 Topps Baseball Series 2 - Japan Edition」をコンビニで販売（地域・店舗により取扱なし）。商品ページは終了しており、現在の販売は確認できない",
+      "checked_at": "2026-11-15"
+    }
+  ],
+  "miyazaki_topps": "宮崎県内の実店舗でTopps製品の販売を公式に確認できた店はまだない。見つけたらサイトの「追加する」から登録する"
+}

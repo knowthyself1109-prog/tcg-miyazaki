@@ -47,6 +47,7 @@ def collect_data() -> dict:
             for s in stores_doc["stores"]
         ],
         "chains": stores_doc["chains"],
+        "shops_online": json.loads((db.ROOT / "shops_online.json").read_text(encoding="utf-8"))["shops"],
         "stores_updated_at": stores_doc["updated_at"],
         "runs": runs,
     }
