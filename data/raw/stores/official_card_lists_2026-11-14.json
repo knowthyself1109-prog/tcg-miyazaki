@@ -1,0 +1,808 @@
+[
+{
+"game": "dbfw",
+"name": "イオン多々良店",
+"address": "宮崎県延岡市岡富町154",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "イオン延岡店",
+"address": "宮崎県延岡市旭町2ー2ー1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "MEGAドン・キホーテ 延岡店",
+"address": "宮崎県延岡市塩浜町1丁目1532番1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "メディアクラブNISHIKI日向店",
+"address": "宮崎県日向市上町13-2",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "イオン日向店",
+"address": "宮崎県日向市大字日知屋字古田町61-1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "ヤマダデンキ テックランド日向店",
+"address": "宮崎県日向市大字財光寺186-6",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "カードショップ@ほーむ。宮崎店",
+"address": "宮崎県宮崎市柳丸町153番地1 パティオ柳丸c棟2-2",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "トレカショップNISHIKI",
+"address": "宮崎県宮崎市橘通西3-10-32 メガドンキ西館3階",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "イオン宮崎店",
+"address": "宮崎県宮崎市新別府町江口862-1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "ドン・キホーテ 宮崎店",
+"address": "宮崎県宮崎市神宮東1-1-5",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "MEGAドン・キホーテ 宮崎橘通店",
+"address": "宮崎県宮崎市橘通西3-10-32",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "ヤマダデンキ テックランド新宮崎本店家電館",
+"address": "宮崎県宮崎市新別府町土田167番",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "ヤマダデンキ 家電住まいる館YAMADA宮崎花ヶ島店",
+"address": "宮崎県宮崎市花ヶ島町瀬々町2600",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "トイザらス・ベビーザらス 宮崎",
+"address": "宮崎県宮崎市中村西 3-94-1 エディオン宮崎本店 2F",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "CARDBOX田中書店イオンモール都城駅前店",
+"address": "宮崎県都城市栄町4672-5 SG",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "イオン都城店",
+"address": "宮崎県都城市早鈴町1990",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "イオン都城駅前店",
+"address": "宮崎県都城市栄町4672-5",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "MEGAドン・キホーテ 都城店",
+"address": "宮崎県都城市上川東四丁目5948-1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "ヤマダデンキ テックランド都城店",
+"address": "宮崎県都城市吉尾町1番地1",
+"src": "bandai"
+},
+{
+"game": "dbfw",
+"name": "エディオン都城吉尾店",
+"address": "宮崎県都城市吉尾町61",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ高鍋店",
+"address": "宮崎県児湯郡高鍋町大字蚊口浦5517-2",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ小林店",
+"address": "宮崎県小林市堤3005番地7 ベスト電器小林店内",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ西都店",
+"address": "宮崎県西都市小野崎2-52",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ日南店",
+"address": "宮崎県日南市大字星倉4430番地",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン延岡店",
+"address": "宮崎県延岡市旭町2ー2ー1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン多々良店",
+"address": "宮崎県延岡市岡富町154",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ延岡店",
+"address": "宮崎県延岡市出北3-19-17",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ブックオフ延岡平原店",
+"address": "宮崎県延岡市平原町5丁目1492-13",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "テックランド日向店",
+"address": "宮崎県日向市大字財光寺186-6",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ日向店",
+"address": "宮崎県日向市大字日知屋16320-1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン日向店",
+"address": "宮崎県日向市大字日知屋字古田町61-1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "家電住まいる館YAMADA宮崎花ヶ島店",
+"address": "宮崎県宮崎市花ヶ島町瀬々町2600",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ宮崎恒久店",
+"address": "宮崎県宮崎市恒久字今井手874-4",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ佐土原店",
+"address": "宮崎県宮崎市佐土原町下田島9632",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ブックオフタイヨー小松台店",
+"address": "宮崎県宮崎市小松台南町13-1 2F",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン宮崎店",
+"address": "宮崎県宮崎市新別府町江口862-1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ふるいちイオンモール宮崎店",
+"address": "宮崎県宮崎市新別府町江口862-1\nイオンモール宮崎 2階",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "テックランド新宮崎本店家電館",
+"address": "宮崎県宮崎市新別府町土田167番",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "カードショップ BIG RED",
+"address": "宮崎県宮崎市清武町加納甲2669-2",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオベアーズモール清武店",
+"address": "宮崎県宮崎市清武町正手2丁目37番8",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ宮崎大塚店",
+"address": "宮崎県宮崎市大塚町城の下2776",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "トイザらス・ベビーザらス 宮崎店",
+"address": "宮崎県宮崎市中村西 3-94-1 エディオン宮崎本店 2F",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ宮崎平和台店",
+"address": "宮崎県宮崎市矢の先町124-2",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "カードショップ@ほ~む。宮崎店",
+"address": "宮崎県宮崎市柳丸町153-1パティオ柳丸C棟2-2",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ宮崎フェニックス",
+"address": "宮崎県宮崎市柳丸町168-1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン都城駅前店",
+"address": "宮崎県都城市栄町4672-5",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "テックランド都城店",
+"address": "宮崎県都城市吉尾町1番地1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ都城郡元店",
+"address": "宮崎県都城市郡元町2981-1",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "ゲオ都城上東店",
+"address": "宮崎県都城市上東町18街区14号",
+"src": "bandai"
+},
+{
+"game": "gundam",
+"name": "イオン都城店",
+"address": "宮崎県都城市早鈴町1990",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "BOOKOFF  延岡平原店",
+"address": "宮崎県延岡市平原町 5-1492-13",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "MEGAドン・キホーテ 延岡店",
+"address": "宮崎県延岡市塩浜町1丁目1532番1",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "田中書店国富店",
+"address": "宮崎県東諸県郡国富町本庄1964",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "BOOKOFF  都城駅前店",
+"address": "宮崎県都城市栄町 16-17",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "MEGAドン・キホーテ 都城店",
+"address": "宮崎県都城市上川東四丁目5948-1",
+"src": "bandai"
+},
+{
+"game": "onepiece",
+"name": "エディオン都城吉尾店",
+"address": "宮崎県都城市吉尾町61",
+"src": "bandai"
+},
+{
+"game": "pokemon",
+"name": "蔦屋書店 宮崎高千穂通り",
+"address": "宮崎県宮崎市橘通東4-8-1",
+"src": "pokemon_map",
+"key": "100129",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "テックランド新宮崎本店家電館",
+"address": "宮崎県宮崎市新別府町土田167番",
+"src": "pokemon_map",
+"key": "100148",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "テックランド新都城店",
+"address": "宮崎県都城市吉尾町1番地1",
+"src": "pokemon_map",
+"key": "100153",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "テックランド日向店",
+"address": "宮崎県日向市大字財光寺186-6",
+"src": "pokemon_map",
+"key": "100175",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "家電住まいる館YAMADA宮崎花ヶ島店",
+"address": "宮崎県宮崎市花ヶ島町瀬々町2600",
+"src": "pokemon_map",
+"key": "100379",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "トイザらス宮崎店",
+"address": "宮崎県宮崎市中村西3-94-1エディオン宮崎本店2F",
+"src": "pokemon_map",
+"key": "100573",
+"marker": 2
+},
+{
+"game": "pokemon",
+"name": "カードショップ@ほ~む。宮崎店",
+"address": "宮崎県宮崎市柳丸町153-1 パティオ柳丸C棟2-2",
+"src": "pokemon_map",
+"key": "11379",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "CARDSHOPラリアット!",
+"address": "宮崎県宮崎市橘通西3-10-32  宮崎ナナイロ西館3F",
+"src": "pokemon_map",
+"key": "12181",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "【CARDBOX】田中書店 イオンモール都城駅前店",
+"address": "宮崎県都城市栄町4672-5",
+"src": "pokemon_map",
+"key": "12766",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "トレカ専門店 トレ☆スタ",
+"address": "宮崎県宮崎市大字恒久908番地 ビックリサイクル内",
+"src": "pokemon_map",
+"key": "12987",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "メディアクラブNISHIKI 日向店",
+"address": "宮崎県日向市上町13-2",
+"src": "pokemon_map",
+"key": "14149",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "マンガ倉庫 都城店",
+"address": "宮崎県都城市吉尾町840",
+"src": "pokemon_map",
+"key": "15215",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "トレカ専門店スーパートレ☆スタ宮崎駅前店",
+"address": "宮崎県宮崎市広島2丁目5-27 第2小田ビル 205号室",
+"src": "pokemon_map",
+"key": "19020",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "カードショップ BIG RED",
+"address": "宮崎県宮崎市清武町加納甲2669-2",
+"src": "pokemon_map",
+"key": "19693",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "スーパートレーディングカードスタジアム 宮崎大塚店",
+"address": "宮崎県宮崎市大塚町権現昔762  匠家ビル1階",
+"src": "pokemon_map",
+"key": "19794",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "TSUTAYA  AVクラブ 大塚台店",
+"address": "宮崎県宮崎市大塚町池の内1127-7",
+"src": "pokemon_map",
+"key": "19908",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "TSUTAYA  AVクラブ 岡富店",
+"address": "宮崎県延岡市中川原町2丁目4920",
+"src": "pokemon_map",
+"key": "19945",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "TSUTAYA BOOKSTORE 宮交シティ",
+"address": "宮崎県宮崎市大淀4丁目7‐30  イオン南宮崎店 2F",
+"src": "pokemon_map",
+"key": "19970",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "リサイクルショップ宮崎屋",
+"address": "宮崎県宮崎市島之内7159ー1",
+"src": "pokemon_map",
+"key": "20044",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "蔦屋書店宮崎高千穂通り",
+"address": "宮崎県宮崎市橘通東4-8-1",
+"src": "pokemon_map",
+"key": "20559",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "ふるいちイオンモール宮崎店",
+"address": "宮崎県宮崎市新別府町江口862-1 イオンモール宮崎2F",
+"src": "pokemon_map",
+"key": "20780",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "BOOKOFF延岡平原店",
+"address": "宮崎県延岡市平原町5丁目1492番地13",
+"src": "pokemon_map",
+"key": "20847",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "ブックオフタイヨー小松台店",
+"address": "宮崎県宮崎市小松台南町13-1 2F",
+"src": "pokemon_map",
+"key": "22066",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "カードショップ トレカレト",
+"address": "宮崎県宮崎市大塚町馬場崎3578-1",
+"src": "pokemon_map",
+"key": "22078",
+"marker": 1
+},
+{
+"game": "pokemon",
+"name": "カードショップP&P",
+"address": "宮崎県宮崎市元宮町9-27 プレステージ4 102",
+"src": "pokemon_map",
+"key": "22689",
+"marker": 1
+},
+{
+"game": "yugioh",
+"name": "ゲオ高鍋店",
+"address": "宮崎県児湯郡高鍋町蚊口浦5517-2",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ佐土原店",
+"address": "宮崎県宮崎市佐土原町下田島9632",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ宮崎大塚店",
+"address": "宮崎県宮崎市大塚町城の下2776",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "TSUTAYA AVクラブ大塚台店",
+"address": "宮崎県宮崎市大塚町池の内1127-7",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "マンガ倉庫住吉店",
+"address": "宮崎県宮崎市大字島之内7315-4",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ宮崎恒久店",
+"address": "宮崎県宮崎市大字恒久字今井手874-4",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "トイザラス・ベビーザらス宮交シティ店",
+"address": "宮崎県宮崎市大淀4-6-28 宮交シティ 2F",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "TSUTAYA BOOKSTORE 宮交シティ",
+"address": "宮崎県宮崎市大淀4-7-30 イオン南宮崎店2F",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフ宮崎駅東口店",
+"address": "宮崎県宮崎市宮崎駅東1-2-6",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフタイヨー小松台",
+"address": "宮崎県宮崎市小松台南町13-1 2F",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "スーパートレスタ宮崎駅前店",
+"address": "宮崎県宮崎市広島2-5-27第2小田ビル205",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "トレカ専門店 スーパートレ☆スタ恒久店",
+"address": "宮崎県宮崎市恒久908",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ふるいちイオンモール宮崎店",
+"address": "宮崎県宮崎市新別府町江口862−1イオンモ-ル宮崎2F",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン宮崎店",
+"address": "宮崎県宮崎市新別府町江口862-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "カードショップ@ほ~む。宮崎店",
+"address": "宮崎県宮崎市柳丸町153-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ宮崎フェニックスガーデン",
+"address": "宮崎県宮崎市柳丸町168-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "アニメイト宮崎",
+"address": "宮崎県宮崎市橘通東3-1-11 アゲインビル2F",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "蔦谷書店 宮崎高千穂通り",
+"address": "宮崎県宮崎市橘通東4-8-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "マンガ倉庫加納店",
+"address": "宮崎県宮崎市清武町加納乙240-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフ宮崎清武店",
+"address": "宮崎県宮崎市清武町新町2-2-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオベアーズモール清武店",
+"address": "宮崎県宮崎市清武町正手2-37-8",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフ宮崎矢の先店",
+"address": "宮崎県宮崎市矢の先町12-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ宮崎平和台店",
+"address": "宮崎県宮崎市矢の先町124-2",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ヤマダデンキ 家電住まいる館ヤマダ宮崎花ヶ島店",
+"address": "宮崎県宮崎市花ヶ島町瀬-町2600",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ小林店",
+"address": "宮崎県小林市堤3005ベスト電器小林店内",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "だいわプラッセ小林店",
+"address": "宮崎県小林市細野字池之原1976-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "TSUTAYA AVクラブ岡富店",
+"address": "宮崎県延岡市中川原町2-4920",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ延岡店",
+"address": "宮崎県延岡市出北3-19-17",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン多々良店",
+"address": "宮崎県延岡市岡富町154",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフ延岡平原店",
+"address": "宮崎県延岡市平原町5-1492-13",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン延岡店",
+"address": "宮崎県延岡市旭町2-2-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "トレトレ倉庫日南店",
+"address": "宮崎県日南市吾田西1-8-8",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ日南店",
+"address": "宮崎県日南市大字星倉4430",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "メディアクラブNISHIKI日向店",
+"address": "宮崎県日向市上町13-2",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン日向店",
+"address": "宮崎県日向市大字日知屋字古田61-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ミスターマックス日向店",
+"address": "宮崎県日向市大字日知屋14798-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ日向店",
+"address": "宮崎県日向市大字日知屋16320-1",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ西都店",
+"address": "宮崎県西都市小野崎2-52",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ都城上東店",
+"address": "宮崎県都城市上東町18外区14",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "マンガ倉庫 都城店",
+"address": "宮崎県都城市吉尾町840",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン都城店",
+"address": "宮崎県都城市早鈴町1990",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ブックオフ都城駅前店",
+"address": "宮崎県都城市栄町16-17",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "イオン都城駅前店",
+"address": "宮崎県都城市栄町4672-5",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "田中書店 イオンモール都城駅前店",
+"address": "宮崎県都城市栄町4672-5",
+"src": "konami"
+},
+{
+"game": "yugioh",
+"name": "ゲオ都城郡元店",
+"address": "宮崎県都城市郡元町2981-1",
+"src": "konami"
+}
+]

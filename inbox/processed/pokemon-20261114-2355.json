@@ -1,0 +1,99 @@
+{
+  "card_type": "pokemon",
+  "run_at": "2026-11-14T23:55:00+09:00",
+  "collector": "初回の手動収集（Claude Code）",
+  "products": [
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー", "list_price": 200, "price_unit": "pack", "release_date": "2026-11-27", "official_url": "https://www.pokemon-card.com/ex/m7/", "note": "1BOX 30パック（6,000円相当）"},
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA 拡張パック ストームエメラルダ", "list_price": 200, "price_unit": "pack", "release_date": "2026-07-31", "official_url": "https://www.pokemon-card.com/ex/m6/"},
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA スペシャルデッキセットMEGA メガオーダイル・メガカイリュー・メガゲンガー", "release_date": "2026-11-13"},
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA 30th CELEBRATION カードセット", "release_date": "2026-10-16"},
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA 拡張パック 30th CELEBRATION", "release_date": "2026-09-16"},
+    {"card_type": "pokemon", "product_name": "ポケモンカードゲーム MEGA スターターセットex イーブイex", "release_date": "2026-07-31"}
+  ],
+  "listings": [
+    {
+      "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 6006, "is_list_price": true,
+      "conditions": "楽天会員（住所登録必須）。1世帯1名まで・複数アカウント不可・法人不可。同じ商品を過去に楽天ブックスで購入していると無効。複数商品にエントリーできるが当選はいずれか1商品のみ。支払いはクレジットカードのみ、配送は宅配・ポスト投函のみ。当選者販売期間 11/29 10:00〜12/3 23:59、11月下旬発送",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18664603/",
+      "found_via": "入荷Now",
+      "note": "当落は販売開始日までにメール。希望小売価格は1パック200円（30パックで6,000円）、楽天は税込端数で6,006円"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA スペシャルデッキセットMEGA メガオーダイル・メガカイリュー・メガゲンガー",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 5500, "is_list_price": null,
+      "conditions": "楽天ブックスの同時抽選（条件はハドウシーカーと同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18664602/",
+      "found_via": "入荷Now",
+      "note": "希望小売価格は未確認"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA 30th CELEBRATION カードセット 9種セット",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 10800, "is_list_price": null,
+      "conditions": "楽天ブックスの同時抽選（条件はハドウシーカーと同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18595457/",
+      "found_via": "入荷Now",
+      "note": "希望小売価格は未確認"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA 拡張パック 30th CELEBRATION",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 7216, "is_list_price": null,
+      "conditions": "楽天ブックスの同時抽選（条件はハドウシーカーと同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18595282/",
+      "found_via": "入荷Now",
+      "note": "希望小売価格は未確認（BOXかどうかも商品ページの表記のみ）"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA 拡張パック ストームエメラルダ（BOX）",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 6006, "is_list_price": true,
+      "conditions": "楽天ブックスの同時抽選（条件はハドウシーカーと同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18537078/",
+      "found_via": "入荷Now",
+      "note": "再販分の抽選。希望小売価格は1パック200円"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA スターターセットex イーブイex",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 1800, "is_list_price": null,
+      "conditions": "楽天ブックスの同時抽選（条件はハドウシーカーと同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18537143/",
+      "found_via": "入荷Now"
+    },
+    {
+      "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+      "sale_type": "lottery", "shop": "エディオン", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-15 23:59",
+      "conditions": "エディオン各種会員限定（クレジット機能付きエディオンカード〈家族カード含む〉・あんしん保証・ID・アプリ会員）。携帯電話番号にSMSで届くURLから応募。1人1回・携帯1台1回。トレカキャピタルの抽選と重複応募すると全て無効。受取は購入希望店舗（11/27開店〜11/30）またはネットショップ（事前決済 11/20〜11/22 23:59）",
+      "pickup": "online",
+      "apply_url": "https://edion-cp.com/poke112701",
+      "source_url": "https://edion-cp.com/poke112701",
+      "found_via": "入荷Now",
+      "note": "当選連絡はSMS（店舗購入は11/26、ネットショップ購入は11/20）。県内のエディオン店舗を受取店に選べるかは応募画面で確認が必要"
+    }
+  ],
+  "unverified": [
+    {"summary": "TSUTAYA 宮崎県内4店（AVクラブ大塚台店・AVクラブ岡富店・BOOKSTORE宮交シティ・蔦屋書店宮崎高千穂通り）でハドウシーカーの店頭受取抽選。LivePocketで応募、締切 11/15(日)23:59、当選発表 11/19予定、来店できる人のみ", "shop": "TSUTAYA（宮崎県内4店）", "found_via": "入荷Now", "reason": "一次情報（店舗のX・LivePocketの応募ページ）を自動で開けず未確認。店頭のQRコード掲示か店舗Xで要確認"},
+    {"summary": "ドン・キホーテ majicaアプリでハドウシーカーの抽選（〜11/15 23:59、フォロー中の店舗に表示）", "shop": "ドン・キホーテ（majicaアプリ）", "found_via": "入荷Now", "hint_url": "https://www.majica-net.com/app/", "reason": "対象店舗に宮崎県内の店が含まれるかはアプリ内でしか確認できない"},
+    {"summary": "Amazon ハドウシーカーの招待リクエスト（10/26〜、終了日未公表）", "shop": "Amazon", "found_via": "入荷Now", "hint_url": "https://www.amazon.co.jp/dp/B0H4PQ6LR5", "reason": "Amazonの商品ページを自動で開けない（ボット対策）"},
+    {"summary": "駿河屋 ハドウシーカーのWEB抽選（〜11/22 23:59、X フォロー＆リポスト＋マイページ登録）", "shop": "駿河屋", "found_via": "入荷Now", "hint_url": "https://www.suruga-ya.jp/blog/?q=pokeka_chusen261105.html", "reason": "駿河屋のページが自動アクセスを拒否（403）"},
+    {"summary": "Bee本舗 ハドウシーカーのWEB抽選（11/13 14:00〜11/15 20:00、通販会員対象、6,000円＋送料）", "shop": "Bee本舗", "found_via": "入荷Now", "hint_url": "https://www.bee-honpo.com/", "reason": "応募がGoogleフォームのみで、店舗の公式告知ページを確認できていない"},
+    {"summary": "ポケモンセンターオンライン ハドウシーカー追加抽選（10/30告知）", "shop": "ポケモンセンターオンライン", "found_via": "公式お知らせ", "hint_url": "https://www.pokemoncenter-online.com/news/?id=20261030", "reason": "受付期間が画像で掲載されていて読み取れない（まとめサイトでは終了扱い）"}
+  ]
+}

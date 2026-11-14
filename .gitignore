@@ -1,5 +1,6 @@
-設定.bat
 *.env
+.env*
 *.log
-data/
-*.db
+__pycache__/
+*.pyc
+dist/

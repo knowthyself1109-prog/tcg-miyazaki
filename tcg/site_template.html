@@ -1,0 +1,394 @@
+<title>宮崎トレカ抽選帳</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 1カラムの「抽選帳」。上に今日の要点、下に締切順のカード。スマホ優先 */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --ink:#18212b; --muted:#5d6a78; --line:#dde3ea;
+  --accent:#0f6f7a; --accent-soft:#e2f1f2;
+  --open:#1d7a46; --open-soft:#e3f3e9; --soon:#b4321f; --soon-soft:#fbe7e3;
+  --wait:#5b55a8; --wait-soft:#ebeaf8; --done:#7b8592; --done-soft:#eceff2;
+  --warn:#9a6400; --warn-soft:#fbf0d9;
+  --f-display:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161c; --surface:#18212a; --ink:#e6ebf0; --muted:#97a4b2; --line:#2a3541;
+  --accent:#5cc3cc; --accent-soft:#163a3e;
+  --open:#62c88d; --open-soft:#173327; --soon:#ff8a73; --soon-soft:#3d1f1a;
+  --wait:#a9a3f2; --wait-soft:#25233f; --done:#8a96a3; --done-soft:#222b34;
+  --warn:#f0b94f; --warn-soft:#3a2d12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161c; --surface:#18212a; --ink:#e6ebf0; --muted:#97a4b2; --line:#2a3541;
+  --accent:#5cc3cc; --accent-soft:#163a3e;
+  --open:#62c88d; --open-soft:#173327; --soon:#ff8a73; --soon-soft:#3d1f1a;
+  --wait:#a9a3f2; --wait-soft:#25233f; --done:#8a96a3; --done-soft:#222b34;
+  --warn:#f0b94f; --warn-soft:#3a2d12; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:26px;font-weight:900;letter-spacing:.02em}
+h2{font-size:18px;font-weight:700}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+header{display:flex;flex-direction:column;gap:10px}
+.sub{color:var(--muted);font-size:13px}
+.today{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.today div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column}
+.today b{font-family:var(--f-mono);font-size:24px;line-height:1.1}
+.today span{font-size:12px;color:var(--muted)}
+.today .hot b{color:var(--soon)}
+nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+nav.tabs button{font:inherit;font-weight:700;font-size:14px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters select,.filters label{font:inherit;font-size:13px}
+.filters select{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:100%}
+.filters label{display:flex;align-items:center;gap:4px;color:var(--muted)}
+section.group{display:flex;flex-direction:column;gap:10px}
+.group-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.group-head .count{font-family:var(--f-mono);color:var(--muted);font-size:13px}
+.empty{color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:14px;font-size:14px}
+article.item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+article.item.closed{opacity:.62}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:1px 9px;white-space:nowrap}
+.st-open{background:var(--open-soft);color:var(--open)}
+.st-soon{background:var(--soon-soft);color:var(--soon)}
+.st-wait{background:var(--wait-soft);color:var(--wait)}
+.st-done{background:var(--done-soft);color:var(--done)}
+.st-warn{background:var(--warn-soft);color:var(--warn)}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px}
+.prod{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.4;overflow-wrap:anywhere}
+.shop{font-weight:700}
+.deadline{margin-left:auto;font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.deadline.hot{color:var(--soon);font-weight:700}
+dl.facts{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0;font-size:13.5px}
+dl.facts dt{color:var(--muted)}
+dl.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+details.cond summary{cursor:pointer;font-size:13px;color:var(--muted)}
+details.cond p{margin:6px 0 0;font-size:13.5px;overflow-wrap:anywhere}
+.foot{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.foot a{font-weight:700}
+.marks{display:flex;gap:4px;margin-left:auto}
+.marks button{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:2px 8px;cursor:pointer}
+.marks button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:700}
+.note{font-size:12.5px;color:var(--warn)}
+.unv{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.city{display:flex;flex-direction:column;gap:6px}
+.store{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid var(--line)}
+.store:last-child{border-bottom:0}
+.store .nm{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:11.5px;border-radius:4px;padding:0 6px;background:var(--accent-soft);color:var(--accent);font-weight:700}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;width:100%}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500;white-space:nowrap}
+.dbnote{font-size:12px;color:var(--muted)}
+@media (max-width:480px){.today b{font-size:20px}.deadline{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>宮崎トレカ抽選帳</h1>
+    <div class="sub">自分専用。宮崎県内の店と、全国から応募できる通販・アプリ抽選。<span id="built"></span></div>
+    <div class="today" id="today"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-list" aria-selected="true" data-view="list">抽選・販売</button>
+    <button role="tab" id="tab-unv" aria-selected="false" data-view="unv">未確認 <span id="unv-n"></span></button>
+    <button role="tab" id="tab-stores" aria-selected="false" data-view="stores">宮崎の店</button>
+    <button role="tab" id="tab-log" aria-selected="false" data-view="log">更新記録</button>
+  </nav>
+
+  <div id="view-list" class="wrap" style="gap:16px">
+    <div class="filters">
+      <select id="f-card" aria-label="カード種"></select>
+      <select id="f-type" aria-label="販売方法">
+        <option value="">販売方法：すべて</option><option value="lottery">抽選</option><option value="first_come">先着</option><option value="restock">再販</option><option value="store">店頭</option>
+      </select>
+      <select id="f-pickup" aria-label="受取方法">
+        <option value="">受取：すべて</option><option value="store">宮崎の店で受取</option><option value="online">配送</option>
+      </select>
+      <select id="f-city" aria-label="市町村"></select>
+      <label><input type="checkbox" id="f-closed"> 終了も表示</label>
+    </div>
+    <section class="group" id="g-store"></section>
+    <section class="group" id="g-online"></section>
+    <p class="dbnote" id="marks-note"></p>
+  </div>
+
+  <div id="view-unv" class="wrap" hidden style="gap:10px">
+    <p class="muted small" style="margin:0">一次情報（店の公式ページ）で裏が取れていない情報です。一覧には載せていません。気になるものは自分で店の告知を確認してください。</p>
+    <div id="unv-list" class="wrap" style="gap:8px"></div>
+  </div>
+
+  <div id="view-stores" class="wrap" hidden style="gap:14px">
+    <p class="muted small" style="margin:0" id="stores-head"></p>
+    <div id="stores-list" class="wrap" style="gap:14px"></div>
+    <div class="panel">
+      <h2 style="font-size:15px;margin-bottom:8px">チェーンの県内店舗の確認状況</h2>
+      <div class="tablewrap"><table id="chains"></table></div>
+    </div>
+  </div>
+
+  <div id="view-log" class="wrap" hidden style="gap:10px">
+    <div class="panel tablewrap"><table id="runs"></table></div>
+  </div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = (u) => /^https?:\/\//.test(u || "") ? u : null;
+const NOW = new Date();
+const H = 3600e3;
+const TYPE = {lottery:"抽選", first_come:"先着", restock:"再販", store:"店頭"};
+const VERIFY = {ok:"一次情報と一致", mismatch:"要目視（自動照合で一致せず）", blocked:"自動確認不可", unreachable:"開けなかった"};
+
+// 表示は常に日本時間
+const JST_PARTS = new Intl.DateTimeFormat("ja-JP", {timeZone: "Asia/Tokyo", month: "numeric", day: "numeric", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"});
+function fmt(s, withTime = true) {
+  if (!s) return null;
+  const p = Object.fromEntries(JST_PARTS.formatToParts(new Date(s)).map((x) => [x.type, x.value]));
+  const md = `${p.month}/${p.day}(${p.weekday})`;
+  return withTime ? `${md} ${p.hour}:${p.minute}` : md;
+}
+function ago(s) {
+  const m = Math.round((NOW - new Date(s)) / 60000);
+  if (m < 60) return `${Math.max(m, 0)}分前`;
+  if (m < 48 * 60) return `${Math.round(m / 60)}時間前`;
+  return `${Math.round(m / 1440)}日前`;
+}
+function left(s) {
+  const ms = new Date(s) - NOW;
+  if (ms <= 0) return "締切済み";
+  const h = ms / H;
+  if (h < 1) return `あと${Math.ceil(ms / 60000)}分`;
+  if (h < 48) return `あと${Math.floor(h)}時間`;
+  return `あと${Math.floor(h / 24)}日`;
+}
+
+// 状態をいまの時刻で計算し直す（受付中／まもなく締切／受付前／終了／要確認）
+function stateOf(it) {
+  const end = it.end_at ? new Date(it.end_at) : null;
+  const start = it.start_at ? new Date(it.start_at) : null;
+  if (it.status === "closed" || (end && end < NOW)) return {key: "done", label: "終了"};
+  if (it.status === "sold_out") return {key: "done", label: "売り切れ"};
+  if (it.status === "in_stock") return {key: "open", label: "販売中"};
+  if (start && start > NOW) return {key: "wait", label: "受付前"};
+  if (end && end - NOW < 48 * H) return {key: "soon", label: "まもなく締切"};
+  if (it.status === "unknown") return {key: "warn", label: "状態不明"};
+  return {key: "open", label: "受付中"};
+}
+function stale(it) {
+  if (it.needs_check) return true;
+  const age = NOW - new Date(it.last_checked_at);
+  if (it.status === "in_stock" && it.pickup === "online") return age > 0.5 * H;
+  if (["upcoming", "open", "in_stock"].includes(it.status)) return age > 24 * H;
+  return false;
+}
+
+// ---- 応募記録（claude.ai のデータ保存。使えないときはこの端末だけに保存） ----
+let marks = {};
+let markStore = null;
+const LS_KEY = "tcg-marks";
+try { marks = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { marks = {}; }
+async function initMarks() {
+  try {
+    const db = await window.claude?.use?.("db");
+    if (!db) { $("marks-note").textContent = "応募記録はこの端末のブラウザに保存しています。"; return; }
+    markStore = db.collection("marks");
+    let settled = false;
+    const timer = setTimeout(() => { if (!settled) $("marks-note").textContent = "応募記録の読み込みに時間がかかっています。"; }, 10000);
+    markStore.onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) { settled = true; clearTimeout(timer); $("marks-note").textContent = ""; }
+      const m = {};
+      snap.docs.forEach((d) => { const v = d.data(); if (v && v.state) m[d.id] = v.state; });
+      marks = m;
+      renderList();
+    }, () => { settled = true; clearTimeout(timer); markStore = null; $("marks-note").textContent = "応募記録を保存できないため、この端末のブラウザに保存しています。"; });
+  } catch (e) { markStore = null; }
+}
+async function setMark(id, state) {
+  const next = marks[id] === state ? null : state;
+  if (next) marks[id] = next; else delete marks[id];
+  renderList();
+  if (markStore) {
+    try {
+      if (next) await markStore.doc(id).set({state: next, at: new Date().toISOString()});
+      else await markStore.doc(id).delete();
+      return;
+    } catch (e) { $("marks-note").textContent = "応募記録を保存できませんでした。この端末に保存します。"; markStore = null; }
+  }
+  try { localStorage.setItem(LS_KEY, JSON.stringify(marks)); } catch (e) {}
+}
+
+// ---- 抽選・販売 ----
+function filtered() {
+  const card = $("f-card").value, type = $("f-type").value, pickup = $("f-pickup").value, city = $("f-city").value, showClosed = $("f-closed").checked;
+  return DATA.listings.filter((it) => {
+    if (card && it.card_type !== card) return false;
+    if (type && it.sale_type !== type) return false;
+    if (pickup && it.pickup !== pickup) return false;
+    if (city && !(it.cities || []).includes(city)) return false;
+    if (!showClosed && stateOf(it).key === "done") return false;
+    return true;
+  }).sort((a, b) => {
+    // 新着（24時間以内）→ 締切が近い順
+    const na = NOW - new Date(a.first_seen_at) < 24 * H, nb = NOW - new Date(b.first_seen_at) < 24 * H;
+    const da = stateOf(a).key === "done", dbb = stateOf(b).key === "done";
+    if (da !== dbb) return da ? 1 : -1;
+    const ea = a.end_at ? new Date(a.end_at) : Infinity, eb = b.end_at ? new Date(b.end_at) : Infinity;
+    if (ea !== eb) return ea - eb;
+    return (nb ? 1 : 0) - (na ? 1 : 0);
+  });
+}
+
+function itemHTML(it) {
+  const st = stateOf(it);
+  const isNew = NOW - new Date(it.first_seen_at) < 24 * H;
+  const price = it.price ? `${it.price.toLocaleString()}円` : "未確認";
+  const lp = it.is_list_price === 1 ? '<span class="tag">定価</span>' : (it.is_list_price === null ? '<span class="tag">定価未確認</span>' : "");
+  const period = [fmt(it.start_at), fmt(it.end_at)].some(Boolean) ? `${fmt(it.start_at) || "?"} 〜 ${fmt(it.end_at) || "未定"}` : "未定";
+  const src = safeUrl(it.source_url), apply = safeUrl(it.apply_url);
+  const m = marks[it.id];
+  const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="${m === k}">${label}</button>`;
+  return `<article class="item ${st.key === "done" ? "closed" : ""}">
+    <div class="row">
+      <span class="pill st-${st.key}">${st.label}</span>
+      ${stale(it) ? '<span class="pill st-warn">要確認</span>' : ""}
+      ${isNew ? '<span class="pill st-wait">新着</span>' : ""}
+      <span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span>
+      <span class="tag">${TYPE[it.sale_type] || ""}</span>
+      ${it.end_at && st.key !== "done" ? `<span class="deadline ${st.key === "soon" ? "hot" : ""}">${left(it.end_at)}</span>` : ""}
+    </div>
+    <div class="prod">${esc(it.product_name)}</div>
+    <div class="row"><span class="shop">${esc(it.shop)}</span>${it.pickup === "store" ? `<span class="tag">受取：${esc(it.pickup_area || "")}</span>` : '<span class="tag">配送</span>'}</div>
+    <dl class="facts">
+      <dt>受付</dt><dd class="mono">${period}</dd>
+      ${it.result_at ? `<dt>当選発表</dt><dd class="mono">${fmt(it.result_at)}</dd>` : ""}
+      <dt>価格</dt><dd>${price} ${lp}</dd>
+    </dl>
+    ${it.conditions ? `<details class="cond"><summary>応募条件</summary><p>${esc(it.conditions)}</p></details>` : ""}
+    ${it.note ? `<div class="small muted">${esc(it.note)}</div>` : ""}
+    ${it.verify_status && it.verify_status !== "ok" ? `<div class="note">${VERIFY[it.verify_status] || it.verify_status}${it.verify_note ? "：" + esc(it.verify_note) : ""}</div>` : ""}
+    <div class="foot">
+      ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">一次情報</a>` : ""}
+      ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ</a>` : ""}
+      <span>最終確認 <span class="mono">${fmt(it.last_checked_at)}</span>（${ago(it.last_checked_at)}）</span>
+      <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
+    </div>
+  </article>`;
+}
+
+function renderGroup(el, title, items, emptyText) {
+  el.innerHTML = `<div class="group-head"><h2>${title}</h2><span class="count">${items.length}件</span></div>` +
+    (items.length ? items.map(itemHTML).join("") : `<div class="empty">${emptyText}</div>`);
+}
+
+function renderList() {
+  const rows = filtered();
+  const pickup = $("f-pickup").value;
+  $("g-store").hidden = pickup === "online";
+  $("g-online").hidden = pickup === "store" || !!$("f-city").value;
+  renderGroup($("g-store"), "宮崎県内の店", rows.filter((r) => r.pickup === "store"),
+    "いま一次情報で確認できた県内の店の抽選はありません。「未確認」タブに、裏が取れていない県内の情報があります。");
+  renderGroup($("g-online"), "通販・アプリ（全国から応募）", rows.filter((r) => r.pickup === "online"), "条件に合う抽選・販売はありません。");
+}
+
+function renderToday() {
+  const live = DATA.listings.filter((it) => !["done"].includes(stateOf(it).key));
+  const soon = live.filter((it) => it.end_at && new Date(it.end_at) - NOW < 48 * H);
+  const applied = Object.values(marks).filter((v) => v === "applied").length;
+  $("today").innerHTML = `
+    <div><b>${live.length}</b><span>受付中・受付前</span></div>
+    <div class="hot"><b>${soon.length}</b><span>48時間以内に締切</span></div>
+    <div><b>${DATA.unverified.length}</b><span>未確認の情報</span></div>`;
+  $("built").textContent = ` 最終更新 ${fmt(DATA.built_at)}`;
+  $("unv-n").textContent = DATA.unverified.length ? `(${DATA.unverified.length})` : "";
+}
+
+// ---- 未確認 ----
+function renderUnv() {
+  $("unv-list").innerHTML = DATA.unverified.length ? DATA.unverified.map((u) => `
+    <div class="unv">
+      <div class="row"><span class="tag">${esc(DATA.card_names[u.card_type] || u.card_type)}</span><b>${esc(u.shop || "")}</b></div>
+      <div>${esc(u.summary)}</div>
+      <div class="small muted">未確認の理由：${esc(u.reason || "")}</div>
+      <div class="small muted">報告 <span class="mono">${fmt(u.reported_at)}</span>${safeUrl(u.hint_url) ? ` ・ <a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先</a>` : ""}</div>
+    </div>`).join("") : '<div class="empty">未確認の情報はありません。</div>';
+}
+
+// ---- 宮崎の店 ----
+function renderStores() {
+  $("stores-head").textContent = `各カードの公式取扱店リストと、チェーンの公式店舗検索で確認できた店だけを載せています（${DATA.stores.length}店・確認日 ${DATA.stores_updated_at}）。`;
+  const city = $("f-city").value;
+  const by = {};
+  DATA.stores.forEach((s) => { (by[s.city] = by[s.city] || []).push(s); });
+  const order = ["宮崎市", "都城市", "延岡市", "日向市", "日南市", "小林市", "西都市", "高鍋町", "国富町"];
+  const cities = Object.keys(by).sort((a, b) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99);
+  $("stores-list").innerHTML = cities.filter((c) => !city || c === city).map((c) => `
+    <div class="panel city"><h2 style="font-size:16px">${esc(c)} <span class="muted mono small">${by[c].length}</span></h2>
+    ${by[c].sort((a, b) => (a.kind === "card_shop" ? 0 : 1) - (b.kind === "card_shop" ? 0 : 1)).map((s) => `
+      <div class="store">
+        <div class="row"><span class="nm">${safeUrl(s.official_page) ? `<a href="${esc(s.official_page)}" target="_blank" rel="noopener">${esc(s.name)}</a>` : esc(s.name)}</span>${s.kind === "card_shop" ? '<span class="tag">カードショップ</span>' : ""}</div>
+        <div class="small muted">${esc(s.address)}</div>
+        <div class="chips">${s.card_types.map((c) => `<span class="chip">${esc(DATA.card_names[c] || c)}</span>`).join("") || '<span class="small muted">トレカ取扱は公式リストで未確認</span>'}</div>
+        ${s.note ? `<div class="small muted">${esc(s.note)}</div>` : ""}
+      </div>`).join("")}</div>`).join("");
+  $("chains").innerHTML = "<tr><th>チェーン</th><th>県内</th><th>メモ</th></tr>" +
+    DATA.chains.map((c) => `<tr><td>${esc(c.chain)}</td><td>${esc(c.miyazaki)}</td><td class="muted">${esc(c.note)}</td></tr>`).join("");
+}
+
+// ---- 更新記録 ----
+function renderLog() {
+  const K = {collect: "収集", maintain: "時間ルール", verify: "照合"};
+  $("runs").innerHTML = "<tr><th>日時</th><th>処理</th><th>カード</th><th>結果</th></tr>" + DATA.runs.map((r) => {
+    const s = JSON.parse(r.stats);
+    const txt = Object.entries(s).map(([k, v]) => `${k}:${v}`).join(" ");
+    return `<tr><td class="mono">${fmt(r.started_at)}</td><td>${K[r.kind] || r.kind}</td><td>${esc(DATA.card_names[r.card_type] || "")}</td><td class="mono small">${esc(txt)}</td></tr>`;
+  }).join("");
+}
+
+function setupFilters() {
+  const cards = [...new Set(DATA.listings.map((l) => l.card_type))];
+  $("f-card").innerHTML = '<option value="">カード：すべて</option>' + Object.entries(DATA.card_names).map(([k, v]) => `<option value="${k}" ${cards.includes(k) ? "" : "disabled"}>${esc(v)}</option>`).join("");
+  const cities = [...new Set(DATA.stores.map((s) => s.city))];
+  $("f-city").innerHTML = '<option value="">市町村：すべて</option>' + cities.map((c) => `<option>${esc(c)}</option>`).join("");
+  ["f-card", "f-type", "f-pickup", "f-city", "f-closed"].forEach((id) => $(id).addEventListener("change", () => { renderList(); renderStores(); saveUi(); }));
+  try {
+    const ui = JSON.parse(localStorage.getItem("tcg-ui") || "{}");
+    ["f-card", "f-type", "f-pickup", "f-city"].forEach((id) => { if (ui[id] != null) $(id).value = ui[id]; });
+  } catch (e) {}
+}
+function saveUi() {
+  try { localStorage.setItem("tcg-ui", JSON.stringify(Object.fromEntries(["f-card", "f-type", "f-pickup", "f-city"].map((id) => [id, $(id).value])))); } catch (e) {}
+}
+
+function show(view) {
+  document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === view)));
+  ["list", "unv", "stores", "log"].forEach((v) => { $("view-" + v).hidden = v !== view; });
+}
+document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => { show(b.dataset.view); if (location.hash !== "#" + b.dataset.view) history.replaceState(null, "", "#" + b.dataset.view); }));
+document.addEventListener("click", (e) => { const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark); });
+window.addEventListener("hashchange", () => show((location.hash || "#list").slice(1)));
+
+setupFilters();
+renderToday(); renderList(); renderUnv(); renderStores(); renderLog();
+if (["list", "unv", "stores", "log"].includes(location.hash.slice(1))) show(location.hash.slice(1));
+initMarks();
+</script>

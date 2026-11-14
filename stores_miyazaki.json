@@ -1,0 +1,1780 @@
+{
+  "updated_at": "2026-11-14",
+  "recheck": "月1回。data/raw/stores を取り直して scripts/build_stores.py を再実行する",
+  "sources": {
+    "pokemon_map": "ポケモンカードゲーム公式 取扱店舗検索 https://map.pokemon-card.com/",
+    "konami": "遊戯王OCG公式 取り扱い店舗リスト https://www.yugioh-card.com/japan/information/retailer/",
+    "bandai_onepiece": "ONE PIECEカードゲーム 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/onepiece-cardgame/search.php?product_id=5",
+    "bandai_gundam": "ガンダムカードゲーム 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/gundam-card-game/search.php?product_id=24",
+    "bandai_dbfw": "ドラゴンボール フュージョンワールド 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/dbscg-fusionworld/search.php?product_id=9",
+    "aeon": "イオングループ店舗一覧 https://www.aeon.com/store/list/九州地方/宮崎県/",
+    "bookoff": "ブックオフ公式 店舗一覧（宮崎県）https://www.bookoff.co.jp/shop/pref-list/45.html",
+    "edion": "エディオン公式 店舗検索 https://search.edion.com/e_store/spot/list?search=address&address=45"
+  },
+  "excluded": {
+    "トイザらス宮崎店": "2025年11月9日に閉店（宮交シティ店へ移転）。公式取扱店リストの更新待ち",
+    "トイザらス・ベビーザらス宮崎": "同上",
+    "ゲオ大河原店": "遊戯王リストの誤掲載（宮城県柴田郡の店舗）"
+  },
+  "chains": [
+    {
+      "chain": "イオン",
+      "miyazaki": "あり",
+      "checked_via": "aeon",
+      "note": "総合スーパー7店。キッズリパブリックは県内なし"
+    },
+    {
+      "chain": "エディオン",
+      "miyazaki": "あり",
+      "checked_via": "edion",
+      "note": "宮崎高岡店はページが404（閉店の可能性）のため除外"
+    },
+    {
+      "chain": "ゲオ",
+      "miyazaki": "あり",
+      "checked_via": "konami,bandai_gundam",
+      "note": "ゲオ公式サイトはこの環境から自動取得不可（アクセス拒否）。遊戯王・ガンダムの公式取扱店リストで確認"
+    },
+    {
+      "chain": "ヤマダデンキ",
+      "miyazaki": "あり",
+      "checked_via": "pokemon_map,bandai_gundam",
+      "note": "ヤマダ公式サイトは自動取得不可。トレカ取扱のある4店のみ登録。ほかの県内店舗は未登録"
+    },
+    {
+      "chain": "TSUTAYA",
+      "miyazaki": "あり",
+      "checked_via": "pokemon_map,konami",
+      "note": "TSUTAYA店舗検索は自動取得不可のため、トレカ取扱リストで確認した4店のみ"
+    },
+    {
+      "chain": "ブックオフ",
+      "miyazaki": "あり",
+      "checked_via": "bookoff",
+      "note": "6店"
+    },
+    {
+      "chain": "トイザらス",
+      "miyazaki": "あり",
+      "checked_via": "konami",
+      "note": "宮交シティ店。イオンモール宮崎のキダルト専門店（2025年12月開店の発表あり）は店舗検索で未確認"
+    },
+    {
+      "chain": "ドン・キホーテ",
+      "miyazaki": "あり",
+      "checked_via": "bandai_onepiece,bandai_dbfw",
+      "note": ""
+    },
+    {
+      "chain": "ふるいち",
+      "miyazaki": "あり",
+      "checked_via": "pokemon_map,konami",
+      "note": "イオンモール宮崎店"
+    },
+    {
+      "chain": "マンガ倉庫",
+      "miyazaki": "あり",
+      "checked_via": "konami,pokemon_map",
+      "note": "住吉・加納・都城"
+    },
+    {
+      "chain": "しまむら",
+      "miyazaki": "未確認",
+      "checked_via": "",
+      "note": "公式サイトが自動取得不可。アプリ抽選（通販枠）として扱う"
+    },
+    {
+      "chain": "ビックカメラ",
+      "miyazaki": "なし（取扱リスト上）",
+      "checked_via": "pokemon_map,konami,bandai",
+      "note": "通販（ビックカメラ.com）のみ対象"
+    },
+    {
+      "chain": "コジマ",
+      "miyazaki": "なし（取扱リスト上）",
+      "checked_via": "pokemon_map,konami,bandai",
+      "note": "通販のみ対象"
+    },
+    {
+      "chain": "ジョーシン",
+      "miyazaki": "なし（取扱リスト上）",
+      "checked_via": "pokemon_map,konami,bandai",
+      "note": "通販のみ対象"
+    },
+    {
+      "chain": "ハードオフ・ホビーオフ",
+      "miyazaki": "未確認",
+      "checked_via": "",
+      "note": "公式店舗検索がJavaScript動的表示のため未確認"
+    },
+    {
+      "chain": "お宝創庫",
+      "miyazaki": "なし（取扱リスト上）",
+      "checked_via": "pokemon_map,konami,bandai",
+      "note": ""
+    },
+    {
+      "chain": "カードボックス",
+      "miyazaki": "あり",
+      "checked_via": "pokemon_map,bandai_dbfw",
+      "note": "田中書店のCARDBOX（イオンモール都城駅前）"
+    },
+    {
+      "chain": "シーガル",
+      "miyazaki": "なし（取扱リスト上）",
+      "checked_via": "pokemon_map,konami,bandai",
+      "note": ""
+    },
+    {
+      "chain": "コンビニ各社",
+      "miyazaki": "あり（チェーン単位で扱う）",
+      "checked_via": "",
+      "note": "店舗単位では登録しない。セブン・ローソン・ファミマの抽選は通販枠で扱う"
+    }
+  ],
+  "stores": [
+    {
+      "id": "aeon-miyazaki",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン宮崎店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市新別府町江口862-1（イオンモール宮崎）",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/miyazaki/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-minamimiyazaki",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン南宮崎店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大淀4-7-30（宮交シティ）",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/minamimiyazaki/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "furuichi-aeonmall-miyazaki",
+      "kind": "chain_store",
+      "chain": "ふるいち",
+      "name": "ふるいち イオンモール宮崎店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市新別府町江口862-1 イオンモール宮崎2F",
+      "official_page": "https://map.pokemon-card.com/map/20780",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "toysrus-miyako-city",
+      "kind": "chain_store",
+      "chain": "トイザらス",
+      "name": "トイザらス・ベビーザらス 宮交シティ店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大淀4-6-28 宮交シティ2F",
+      "official_page": "https://www.toysrus.co.jp/ja-jp/stores/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "2025年11月に旧・宮崎店（エディオン宮崎本店2F）から移転。ポケカ・バンダイの取扱店リストはまだ旧店舗の表記"
+    },
+    {
+      "id": "tsutaya-miyako-city",
+      "kind": "chain_store",
+      "chain": "TSUTAYA",
+      "name": "TSUTAYA BOOKSTORE 宮交シティ",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大淀4-7-30 イオン南宮崎店2F",
+      "official_page": "https://store-tsutaya.tsite.jp/store/detail?storeId=8314",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "tsutaya-takachiho",
+      "kind": "chain_store",
+      "chain": "TSUTAYA",
+      "name": "蔦屋書店 宮崎高千穂通り",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市橘通東4-8-1",
+      "official_page": "https://store-tsutaya.tsite.jp/store/detail?storeId=8316",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "tsutaya-otsukadai",
+      "kind": "chain_store",
+      "chain": "TSUTAYA",
+      "name": "TSUTAYA AVクラブ 大塚台店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大塚町池の内1127-7",
+      "official_page": "https://store-tsutaya.tsite.jp/store/detail?storeId=8302",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-phoenix-garden",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 宮崎フェニックスガーデン店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市柳丸町168-1",
+      "official_page": "https://geo-online.co.jp/store/02646/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-heiwadai",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 宮崎平和台店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市矢の先町124-2",
+      "official_page": "https://geo-online.co.jp/store/02316/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-sadowara",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 佐土原店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市佐土原町下田島9632",
+      "official_page": "https://geo-online.co.jp/store/02230/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-otsuka",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 宮崎大塚店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大塚町城の下2776",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-tsunehisa",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 宮崎恒久店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市恒久字今井手874-4",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-bears-kiyotake",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ ベアーズモール清武店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市清武町正手2-37-8",
+      "official_page": "https://geo-online.co.jp/store/40308/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-ekihigashi",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF 宮崎駅東口店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市宮崎駅東1-2-6",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10239.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bookoff",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-komatsudai",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF タイヨー小松台店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市小松台南町13-1 2F",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10367.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "bookoff",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-kiyotake",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF 宮崎清武店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市清武町新町2-2-1",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10626.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bookoff",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-yanosaki",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF 宮崎矢の先店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市矢の先町12-1",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10157.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bookoff",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "edion-miyazaki-honten",
+      "kind": "chain_store",
+      "chain": "エディオン",
+      "name": "エディオン 宮崎本店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市中村西3-94-1",
+      "official_page": "https://search.edion.com/e_store/spot/detail?code=0000000906",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [],
+      "lottery_history": [],
+      "verified_by": [
+        "edion"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "edion-miyazaki-kouzen",
+      "kind": "chain_store",
+      "chain": "エディオン",
+      "name": "エディオン 宮崎港前店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市芳士1016-1 浜田ビル102号",
+      "official_page": "https://search.edion.com/e_store/spot/detail?code=0000003412",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [],
+      "lottery_history": [],
+      "verified_by": [
+        "edion"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "小型店。トレカの取扱は公式取扱店リストに載っていない"
+    },
+    {
+      "id": "yamada-hanagashima",
+      "kind": "chain_store",
+      "chain": "ヤマダデンキ",
+      "name": "家電住まいる館YAMADA 宮崎花ヶ島店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市花ヶ島町瀬々町2600",
+      "official_page": "https://map.pokemon-card.com/map/100379",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "yamada-shinmiyazaki",
+      "kind": "chain_store",
+      "chain": "ヤマダデンキ",
+      "name": "テックランド 新宮崎本店 家電館",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市新別府町土田167",
+      "official_page": "https://map.pokemon-card.com/map/100148",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_gundam",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "donki-miyazaki",
+      "kind": "chain_store",
+      "chain": "ドン・キホーテ",
+      "name": "ドン・キホーテ 宮崎店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市神宮東1-1-5",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "donki-tachibana",
+      "kind": "chain_store",
+      "chain": "ドン・キホーテ",
+      "name": "MEGAドン・キホーテ 宮崎橘通店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市橘通西3-10-32",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "mangasouko-sumiyoshi",
+      "kind": "chain_store",
+      "chain": "マンガ倉庫",
+      "name": "マンガ倉庫 住吉店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大字島之内7315-4",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "mangasouko-kano",
+      "kind": "chain_store",
+      "chain": "マンガ倉庫",
+      "name": "マンガ倉庫 加納店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市清武町加納乙240-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "animate-miyazaki",
+      "kind": "chain_store",
+      "chain": "アニメイト",
+      "name": "アニメイト宮崎",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市橘通東3-1-11 アゲインビル2F",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "miyazakiya-recycle",
+      "kind": "chain_store",
+      "chain": "（個店）",
+      "name": "リサイクルショップ宮崎屋",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市島之内7159-1",
+      "official_page": "https://map.pokemon-card.com/map/20044",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-home-miyazaki",
+      "kind": "card_shop",
+      "chain": "カードショップ＠ほ～む。",
+      "name": "カードショップ＠ほ～む。宮崎店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市柳丸町153-1 パティオ柳丸C棟2-2",
+      "official_page": "https://map.pokemon-card.com/map/11379",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-tresta-ekimae",
+      "kind": "card_shop",
+      "chain": "トレ☆スタ",
+      "name": "トレカ専門店 スーパートレ☆スタ 宮崎駅前店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市広島2-5-27 第2小田ビル205",
+      "official_page": "https://map.pokemon-card.com/map/19020",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-tresta-tsunehisa",
+      "kind": "card_shop",
+      "chain": "トレ☆スタ",
+      "name": "トレカ専門店 スーパートレ☆スタ 恒久店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市恒久908（ビックリサイクル内）",
+      "official_page": "https://map.pokemon-card.com/map/12987",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-stadium-otsuka",
+      "kind": "card_shop",
+      "chain": "トレ☆スタ",
+      "name": "スーパートレーディングカードスタジアム 宮崎大塚店",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大塚町権現昔762 匠家ビル1F",
+      "official_page": "https://map.pokemon-card.com/map/19794",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-lariat",
+      "kind": "card_shop",
+      "chain": "（個店）",
+      "name": "CARDSHOPラリアット！",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市橘通西3-10-32 宮崎ナナイロ西館3F",
+      "official_page": "https://map.pokemon-card.com/map/12181",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "MEGAドン・キホーテ宮崎橘通店と同じ建物。同住所の「トレカショップNISHIKI」との関係は未確認"
+    },
+    {
+      "id": "cs-nishiki-tachibana",
+      "kind": "card_shop",
+      "chain": "NISHIKI",
+      "name": "トレカショップNISHIKI（メガドンキ西館3F）",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市橘通西3-10-32 メガドンキ西館3F",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-bigred",
+      "kind": "card_shop",
+      "chain": "（個店）",
+      "name": "カードショップ BIG RED",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市清武町加納甲2669-2",
+      "official_page": "https://map.pokemon-card.com/map/19693",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-pandp",
+      "kind": "card_shop",
+      "chain": "（個店）",
+      "name": "カードショップP&P",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市元宮町9-27 プレステージ4 102",
+      "official_page": "https://map.pokemon-card.com/map/22689",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cs-torecareto",
+      "kind": "card_shop",
+      "chain": "（個店）",
+      "name": "カードショップ トレカレト",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大塚町馬場崎3578-1",
+      "official_page": "https://map.pokemon-card.com/map/22078",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-miyakonojo",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市早鈴町1990",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/miyakonojo/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-miyakonojo-ekimae",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン都城駅前店",
+      "city": "都城市",
+      "address": "宮崎県都城市栄町4672-5（イオンモール都城駅前）",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/miyakonojoekimae/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "cardbox-miyakonojo",
+      "kind": "card_shop",
+      "chain": "田中書店（CARDBOX）",
+      "name": "CARDBOX 田中書店 イオンモール都城駅前店",
+      "city": "都城市",
+      "address": "宮崎県都城市栄町4672-5 イオンモール都城駅前",
+      "official_page": "https://map.pokemon-card.com/map/12766",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-miyakonojo-kamihigashi",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 都城上東店",
+      "city": "都城市",
+      "address": "宮崎県都城市上東町18街区14号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-miyakonojo-koorimoto",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 都城郡元店",
+      "city": "都城市",
+      "address": "宮崎県都城市郡元町2981-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-miyakonojo",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF 都城駅前店",
+      "city": "都城市",
+      "address": "宮崎県都城市栄町16-17",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10353.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "onepiece",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_onepiece",
+        "bookoff",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "edion-miyakonojo",
+      "kind": "chain_store",
+      "chain": "エディオン",
+      "name": "エディオン 都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市上東町3447-1",
+      "official_page": "https://search.edion.com/e_store/spot/detail?code=0000001103",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [],
+      "lottery_history": [],
+      "verified_by": [
+        "edion"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "edion-miyakonojo-yoshio",
+      "kind": "chain_store",
+      "chain": "エディオン",
+      "name": "エディオン 都城吉尾店",
+      "city": "都城市",
+      "address": "宮崎県都城市吉尾町6099",
+      "official_page": "https://search.edion.com/e_store/spot/detail?code=0000001319",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "onepiece"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_onepiece",
+        "edion"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "バンダイの取扱店リストでは住所が「吉尾町61」表記"
+    },
+    {
+      "id": "yamada-miyakonojo",
+      "kind": "chain_store",
+      "chain": "ヤマダデンキ",
+      "name": "テックランド 都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市吉尾町1-1",
+      "official_page": "https://map.pokemon-card.com/map/100153",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_gundam",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "donki-miyakonojo",
+      "kind": "chain_store",
+      "chain": "ドン・キホーテ",
+      "name": "MEGAドン・キホーテ 都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市上川東4-5948-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "onepiece"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_onepiece"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "mangasouko-miyakonojo",
+      "kind": "chain_store",
+      "chain": "マンガ倉庫",
+      "name": "マンガ倉庫 都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市吉尾町840",
+      "official_page": "https://map.pokemon-card.com/map/15215",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-nobeoka",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン延岡店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市旭町2-2-1",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/nobeoka/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-tatara",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン多々良店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市岡富町154",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/tatara/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-nobeoka",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 延岡店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市出北3-19-17",
+      "official_page": "https://geo-online.co.jp/store/02391/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "bookoff-nobeoka",
+      "kind": "chain_store",
+      "chain": "ブックオフ",
+      "name": "BOOKOFF 延岡平原店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市平原町5-1492-13",
+      "official_page": "https://www.bookoff.co.jp/shop/shop10796.html",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "onepiece",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "bandai_onepiece",
+        "bookoff",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "tsutaya-okatomi",
+      "kind": "chain_store",
+      "chain": "TSUTAYA",
+      "name": "TSUTAYA AVクラブ 岡富店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市中川原町2-4920",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "donki-nobeoka",
+      "kind": "chain_store",
+      "chain": "ドン・キホーテ",
+      "name": "MEGAドン・キホーテ 延岡店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市塩浜町1-1532-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "onepiece"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_onepiece"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "aeon-hyuga",
+      "kind": "chain_store",
+      "chain": "イオン",
+      "name": "イオン日向店",
+      "city": "日向市",
+      "address": "宮崎県日向市大字日知屋字古田町61-1",
+      "official_page": "https://tenpo.aeon-kyushu.info/aeon/detail/hyuga/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "aeon",
+        "bandai_dbfw",
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-hyuga",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 日向店",
+      "city": "日向市",
+      "address": "宮崎県日向市大字日知屋16320-1",
+      "official_page": "https://geo-online.co.jp/store/02783/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "yamada-hyuga",
+      "kind": "chain_store",
+      "chain": "ヤマダデンキ",
+      "name": "テックランド 日向店",
+      "city": "日向市",
+      "address": "宮崎県日向市大字財光寺186-6",
+      "official_page": "https://map.pokemon-card.com/map/100175",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "gundam",
+        "pokemon"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "bandai_gundam",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "nishiki-hyuga",
+      "kind": "chain_store",
+      "chain": "NISHIKI",
+      "name": "メディアクラブNISHIKI 日向店",
+      "city": "日向市",
+      "address": "宮崎県日向市上町13-2",
+      "official_page": "https://map.pokemon-card.com/map/14149",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "dbfw",
+        "pokemon",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_dbfw",
+        "konami",
+        "pokemon_map"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "mrmax-hyuga",
+      "kind": "chain_store",
+      "chain": "ミスターマックス",
+      "name": "ミスターマックス 日向店",
+      "city": "日向市",
+      "address": "宮崎県日向市大字日知屋14798-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-takanabe",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 高鍋店",
+      "city": "高鍋町",
+      "address": "宮崎県児湯郡高鍋町蚊口浦5517-2",
+      "official_page": "https://geo-online.co.jp/store/02941/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "edion-takanabe",
+      "kind": "chain_store",
+      "chain": "エディオン",
+      "name": "エディオン 高鍋店",
+      "city": "高鍋町",
+      "address": "宮崎県児湯郡高鍋町蚊口浦5328",
+      "official_page": "https://search.edion.com/e_store/spot/detail?code=0000000942",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [],
+      "lottery_history": [],
+      "verified_by": [
+        "edion"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-saito",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 西都店",
+      "city": "西都市",
+      "address": "宮崎県西都市小野崎2-52",
+      "official_page": "https://geo-online.co.jp/store/02973/",
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-kobayashi",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 小林店",
+      "city": "小林市",
+      "address": "宮崎県小林市堤3005-7（ベスト電器小林店内）",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "daiwa-kobayashi",
+      "kind": "chain_store",
+      "chain": "だいわ",
+      "name": "だいわプラッセ 小林店",
+      "city": "小林市",
+      "address": "宮崎県小林市細野字池之原1976-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "geo-nichinan",
+      "kind": "chain_store",
+      "chain": "ゲオ",
+      "name": "ゲオ 日南店",
+      "city": "日南市",
+      "address": "宮崎県日南市大字星倉4430",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "gundam",
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_gundam",
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "toretore-nichinan",
+      "kind": "chain_store",
+      "chain": "トレトレ倉庫",
+      "name": "トレトレ倉庫 日南店",
+      "city": "日南市",
+      "address": "宮崎県日南市吾田西1-8-8",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "yugioh"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "konami"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    },
+    {
+      "id": "tanaka-kunitomi",
+      "kind": "chain_store",
+      "chain": "田中書店",
+      "name": "田中書店 国富店",
+      "city": "国富町",
+      "address": "宮崎県東諸県郡国富町本庄1964",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "onepiece"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "bandai_onepiece"
+      ],
+      "verified_at": "2026-11-14",
+      "note": ""
+    }
+  ]
+}
