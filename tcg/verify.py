@@ -72,7 +72,9 @@ def check(row) -> tuple[str, str]:
     if status != 200:
         return "unreachable", f"HTTP {status} {text[:80]}".strip()
     terms = key_terms(row["product_name"], row["product_code"])
-    missing = [t for t in terms if t.lower() not in text.lower()]
+    squash = lambda s: re.sub(r"[\s\-‐－_]", "", s).lower()  # 「OP-18」と「OP18」を同じに扱う
+    flat = squash(text)
+    missing = [t for t in terms if squash(t) not in flat]
     notes = []
     if len(missing) == len(terms):
         notes.append("商品名がページに見つからない: " + "、".join(terms))

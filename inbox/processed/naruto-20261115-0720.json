@@ -1,0 +1,10 @@
+{
+  "card_type": "naruto",
+  "run_at": "2026-11-15T07:20:00+09:00",
+  "collector": "初回の手動収集（Claude Code）",
+  "products": [
+    {"card_type": "naruto", "product_name": "NARUTOカードゲーム 第1弾（スタートデッキ・ブースターパック）", "release_date": "2027年6月（日付未発表）", "official_url": "https://www.naruto-cardgame.com/jp/", "note": "未発売。予約・抽選は未開始。公式ロードマップでは 2026/12/19〜20（ジャンプフェスタ2027）に新情報公開"}
+  ],
+  "listings": [],
+  "unverified": []
+}

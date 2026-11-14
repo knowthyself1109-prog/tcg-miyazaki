@@ -30,12 +30,18 @@ def collect_data() -> dict:
         listings.append(d)
     unverified = [dict(r) for r in con.execute(
         "SELECT id, card_type, summary, shop, hint_url, reason, reported_at FROM unverified WHERE resolved=0 ORDER BY id DESC").fetchall()]
+    today = db.now().date().isoformat()
+    products = [dict(r) for r in con.execute(
+        "SELECT card_type, product_name, product_code, list_price, price_unit, release_date, official_url, note FROM products "
+        "WHERE release_date IS NULL OR release_date >= ? OR release_date NOT GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]*' "
+        "ORDER BY release_date", (today,)).fetchall()]
     runs = [dict(r) for r in con.execute("SELECT kind, card_type, started_at, stats FROM runs ORDER BY id DESC LIMIT 20").fetchall()]
     return {
         "built_at": db.iso(db.now()),
         "card_names": db.CARD_NAMES,
         "listings": listings,
         "unverified": unverified,
+        "products": products,
         "stores": [
             {k: s[k] for k in ("id", "kind", "chain", "name", "city", "address", "official_page", "card_types", "note")}
             for s in stores_doc["stores"]

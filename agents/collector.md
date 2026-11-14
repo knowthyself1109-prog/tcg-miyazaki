@@ -4,9 +4,15 @@
 `ACTIVE_CARDS` にあるカード種を順番に担当する。
 
 ```
-ACTIVE_CARDS = pokemon
+ACTIVE_CARDS = pokemon onepiece yugioh naruto
 ```
-（手順5で onepiece yugioh gundam dbfw naruto topps を足す）
+（gundam dbfw topps はまだ対象外。足すときはここに書く）
+
+### カード種ごとのメモ
+- pokemon: 公式 https://www.pokemon-card.com/info/ 、弾ごとのページ /ex/m7/ など。ポケモンセンターオンラインの抽選期間は画像のことがある
+- onepiece: 公式 https://www.onepiece-cardgame.com/products/ （商品一覧に発売日と希望小売価格が文字で出る）
+- yugioh: 公式 https://www.yugioh-card.com/japan/products/ （JS描画のため商品ごとのページを見る）。**ラッシュデュエルは対象外**。コナミスタイルは自動アクセス不可（403）なので未確認枠
+- naruto: 未発売。https://www.naruto-cardgame.com/jp/ のニュースとロードマップで、発売日・予約開始の発表だけを監視する。予約・抽選が始まったら listings に入れる。発表がなければ products の更新だけでよい
 
 ## あなたの役割
 

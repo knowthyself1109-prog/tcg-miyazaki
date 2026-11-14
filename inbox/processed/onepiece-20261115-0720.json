@@ -1,0 +1,54 @@
+{
+  "card_type": "onepiece",
+  "run_at": "2026-11-15T07:20:00+09:00",
+  "collector": "初回の手動収集（Claude Code）",
+  "products": [
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム ブースターパック 神の支配【OP-18】", "product_code": "OP-18", "list_price": 240, "price_unit": "pack", "release_date": "2026-11-21", "official_url": "https://www.onepiece-cardgame.com/products/op18.html", "note": "1BOX 24パック（5,760円相当）"},
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム ブースターパック 世界最強の戦士【OP-17】", "product_code": "OP-17", "list_price": 240, "price_unit": "pack", "release_date": "2026-08-22", "official_url": "https://www.onepiece-cardgame.com/products/op17.html"},
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム エクストラブースター ONE PIECE Heroines Edition vol.2【EB-05】", "product_code": "EB-05", "release_date": "2026-10-31", "official_url": "https://www.onepiece-cardgame.com/products/eb05.html"},
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム エクストラブースター EAST BLUE【EB-06】", "product_code": "EB-06", "list_price": 240, "price_unit": "pack", "release_date": "2027-01-30", "official_url": "https://www.onepiece-cardgame.com/products/eb06.html"},
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム スタートデッキ 砂漠の王女と海賊たち【ST-37】", "product_code": "ST-37", "list_price": 1430, "price_unit": "deck", "release_date": "2026-12-19", "official_url": "https://www.onepiece-cardgame.com/products/st37.html"},
+    {"card_type": "onepiece", "product_name": "ONE PIECEカードゲーム スタートデッキ バロックワークス【ST-38】", "product_code": "ST-38", "list_price": 1430, "price_unit": "deck", "release_date": "2026-12-19", "official_url": "https://www.onepiece-cardgame.com/products/st38.html"}
+  ],
+  "listings": [
+    {
+      "product_name": "ONE PIECEカードゲーム ブースターパック 神の支配【OP-18】（BOX）", "product_code": "OP-18",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 5781, "is_list_price": true,
+      "conditions": "楽天会員（住所登録必須）。1世帯1名まで・複数アカウント不可・法人不可。同じ商品を過去に楽天ブックスで購入していると無効。複数商品にエントリーできるが当選はいずれか1商品のみ（ポケカの同時抽選とも共通）。支払いはクレジットカードのみ。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18812865/",
+      "found_via": "入荷Now",
+      "note": "希望小売価格は1パック240円（24パックで5,760円）、楽天は税込端数で5,781円"
+    },
+    {
+      "product_name": "ONE PIECEカードゲーム ブースターパック 世界最強の戦士【OP-17】（BOX）", "product_code": "OP-17",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 5781, "is_list_price": true,
+      "conditions": "楽天ブックスの同時抽選（条件は神の支配と同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18669675/",
+      "found_via": "入荷Now",
+      "note": "再販分の抽選。希望小売価格は1パック240円"
+    },
+    {
+      "product_name": "ONE PIECEカードゲーム エクストラブースター ONE PIECE Heroines Edition vol.2【EB-05】（BOX）", "product_code": "EB-05",
+      "sale_type": "lottery", "shop": "楽天ブックス", "status": "open",
+      "start_at": "2026-11-13 10:00", "end_at": "2026-11-18 23:59",
+      "price": 5781, "is_list_price": null,
+      "conditions": "楽天ブックスの同時抽選（条件は神の支配と同じ。当選は全対象商品のうち1商品のみ）。当選者販売期間 11/29 10:00〜12/3 23:59",
+      "pickup": "online",
+      "source_url": "https://books.rakuten.co.jp/rb/18771764/",
+      "found_via": "入荷Now",
+      "note": "希望小売価格は公式ページで未確認"
+    }
+  ],
+  "unverified": [
+    {"summary": "アニメイトオンライン 神の支配【OP-18】のWEB抽選（11/10 10:00〜11/15 23:59、当選者には郵送）", "shop": "アニメイトオンライン", "found_via": "入荷Now", "hint_url": "https://www.animate-onlineshop.jp/products/detail.php?product_id=3592097", "reason": "アニメイトのページが自動アクセスを拒否（403）"},
+    {"summary": "Amazon 招待リクエスト：EAST BLUE【EB-06】（11/12〜）、スタートデッキ ST-37・ST-38（11/14〜）、神の支配【OP-18】（9/10〜）", "shop": "Amazon", "found_via": "入荷Now", "hint_url": "https://www.amazon.co.jp/dp/B0HMZ9WLVZ", "reason": "Amazonの商品ページを自動で開けない（ボット対策）"},
+    {"summary": "ノジマオンライン シークレット販売会の招待エントリー（ワンピース関連・OP-17など）", "shop": "ノジマオンライン", "found_via": "入荷Now", "hint_url": "https://contents.online.nojima.co.jp/secret202609/", "reason": "一次情報ページを未確認（次回の収集で確認）"},
+    {"summary": "トレカプラザ55通販 神の支配【OP-18】WEB抽選（11/13 20:00〜11/16 23:59、Googleフォーム、通販会員登録が必要）", "shop": "トレカプラザ55通販", "found_via": "入荷Now", "reason": "応募がGoogleフォームのみで、店の公式告知ページを確認できていない"}
+  ]
+}
