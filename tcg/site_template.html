@@ -168,6 +168,7 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
     <section class="group" id="g-store"></section>
     <section class="group" id="g-online"></section>
     <section class="group" id="g-upcoming"></section>
+    <section class="group" id="g-topps" hidden></section>
     <p class="dbnote" id="marks-note"></p>
   </div>
 
@@ -180,6 +181,8 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
     <p class="lead" id="stores-head"></p>
     <section class="group" id="my-stores"></section>
     <section class="group" id="online-shops"></section>
+    <section class="group" id="topps-physical"></section>
+    <section class="group" id="topps-links"></section>
     <section class="group"><div class="ghead"><h2>宮崎県内の店</h2><span class="count" id="stores-n"></span></div><div id="stores-list"></div></section>
     <section class="group"><div class="ghead"><h2>チェーンの県内店舗</h2></div><div class="panel tablewrap"><table id="chains"></table></div></section>
   </div>
@@ -479,7 +482,7 @@ function renderUnv() {
 
 // ---- 宮崎の店 ----
 function renderStores() {
-  renderMyStores(); renderOnlineShops();
+  renderMyStores(); renderOnlineShops(); renderTopps();
   $("stores-head").textContent = `各カードの公式取扱店リストと、チェーンの公式店舗検索で確認できた店だけを載せています（${DATA.stores.length}店・確認日 ${DATA.stores_updated_at}）。`;
   const city = $("f-city").value;
   const by = {};
@@ -526,6 +529,23 @@ function renderMyStores() {
         ${e.note ? `<div class="small muted">${esc(e.note)}</div>` : ""}
       </div>`).join("") + "</div>"
       : '<div class="empty">まだありません。「＋ 追加する」タブから、見つけた店を登録できます。</div>');
+}
+function toppsLinksHTML() {
+  return `<div class="ghead"><h2>Topps公式で確認する</h2><span class="count">${(DATA.topps_links || []).length}件</span></div>
+    <p class="lead" style="padding:8px 2px">Topps公式ストア（日本・米国）は自動では読めないため、販売・抽選はここから自分で開いて確認してください。</p>
+    <div class="panel">${(DATA.topps_links || []).map((l) => `<div class="store"><span class="nm"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)} ↗</a></span><span class="small muted">${esc(l.note)}</span></div>`).join("")}</div>`;
+}
+function renderTopps() {
+  $("topps-links").innerHTML = toppsLinksHTML();
+  const ph = DATA.topps_physical || [];
+  $("topps-physical").innerHTML = `<div class="ghead"><h2>Toppsの取扱実績がある宮崎の店</h2><span class="count">${ph.length}件</span></div>` +
+    (ph.length ? '<div class="panel">' + ph.map((s) => `<div class="store">
+      <div class="row"><span class="nm">${esc(s.name)}</span><span class="tag">${esc(s.city)}</span></div>
+      <div class="small">${esc(s.record)}</div>
+      <div class="small muted">出典：${safeUrl(s.source) ? `<a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.source_note)}</a>` : esc(s.source_note)}</div></div>`).join("") + "</div>" : '<div class="empty">まだありません。</div>');
+  const card = $("f-card").value;
+  $("g-topps").hidden = card !== "topps";
+  if (card === "topps") $("g-topps").innerHTML = toppsLinksHTML();
 }
 function renderOnlineShops() {
   const card = $("f-card").value;

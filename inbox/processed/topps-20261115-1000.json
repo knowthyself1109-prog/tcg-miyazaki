@@ -1,0 +1,14 @@
+{
+  "card_type": "topps",
+  "run_at": "2026-11-15T10:00:00+09:00",
+  "collector": "初回の手動収集（Claude Code）",
+  "products": [
+    {"card_type": "topps", "product_name": "2026 Topps NPB Finest ベースボールカード", "release_date": "2026-11-13", "official_url": "https://jp.topps.com/", "note": "1BOX 15パック（1パック4枚）。カードファナティックでは11/13入荷・BOX 9,405円。Topps公式の価格は公式ストアを開けず未確認"}
+  ],
+  "listings": [],
+  "unverified": [
+    {"summary": "Topps公式（日本）jp.topps.com で 2026 Topps NPB Finest を販売中（9,900円の表示）", "shop": "Topps公式（日本）", "found_via": "検索", "hint_url": "https://jp.topps.com/", "reason": "Topps公式ストアがボット対策で自動アクセスを拒否（403）。在庫と価格は公式ストアで要確認"},
+    {"summary": "Topps US の抽選販売（EQL）：2026 Topps Five Star Baseball Hobby Box（US$1,199.99、1人4箱まで、応募無料・1人1回）", "shop": "Topps US（launches.topps.com）", "found_via": "検索", "hint_url": "https://launches.topps.com/en-US/launch/2026-topps-five-star-baseball-hobby-box", "reason": "抽選ページは開けたが、受付期間と日本への発送可否がページの文字から読み取れない（米国向けの可能性が高い）"},
+    {"summary": "カードファナティック 2026 Topps NPB Finest BOX（9,405円・11/13入荷）", "shop": "カードファナティック", "found_via": "公式通販", "hint_url": "https://www.cardfanatic.co.jp/view/item/000000025938", "reason": "商品ページは開けたが、在庫あり／品切れの表示を自動で判定できない"}
+  ]
+}

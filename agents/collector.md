@@ -4,14 +4,15 @@
 `ACTIVE_CARDS` にあるカード種を順番に担当する。
 
 ```
-ACTIVE_CARDS = pokemon onepiece yugioh naruto
+ACTIVE_CARDS = pokemon onepiece yugioh naruto topps
 ```
-（gundam dbfw topps はまだ対象外。足すときはここに書く）
+（gundam dbfw はまだ対象外。足すときはここに書く）
 
 ### カード種ごとのメモ
 - pokemon: 公式 https://www.pokemon-card.com/info/ 、弾ごとのページ /ex/m7/ など。ポケモンセンターオンラインの抽選期間は画像のことがある
 - onepiece: 公式 https://www.onepiece-cardgame.com/products/ （商品一覧に発売日と希望小売価格が文字で出る）
 - yugioh: 公式 https://www.yugioh-card.com/japan/products/ （JS描画のため商品ごとのページを見る）。**ラッシュデュエルは対象外**。コナミスタイルは自動アクセス不可（403）なので未確認枠
+- topps: MLB製品とTopps NPB製品の両方。**Topps公式を中心に見る**：日本 https://jp.topps.com/ （リリースカレンダー /release-calendar、Topps NOW）と米国 https://www.topps.com/ 、米国の抽選は https://launches.topps.com/ （EQL）。jp.topps.com・www.topps.com はボット対策で自動アクセスを拒否（403）するので、回避はせず、検索で見つけた公式ページの内容は unverified に入れて hint_url に公式ページを付ける。launches.topps.com の個別ページは読めるが、受付期間と日本への発送可否が読み取れなければ unverified。国内の販売店はカードファナティック（読める）、NPBオフィシャルオンラインショップ https://shop.npb.or.jp/ 、ソフトバンクホークスストア、ディスカウント二木、ミント（503のことがある）、ヨドバシ。取扱店は shops_online.json、宮崎の取扱実績は同ファイルの topps_physical に足す（出典URL必須）。国内の定価は Topps公式（jp.topps.com）か国内正規代理店の価格を定価とみなす
 - naruto: 未発売。https://www.naruto-cardgame.com/jp/ のニュースとロードマップで、発売日・予約開始の発表だけを監視する。予約・抽選が始まったら listings に入れる。発表がなければ products の更新だけでよい
 
 ## あなたの役割
