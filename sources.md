@@ -18,6 +18,7 @@
 | nyuka-now.com | 第3層・発見用 | /wp-admin/, /campaign/ 以外許可 | ○ | **転売目的の利用禁止**。自分で買うためだけに使う。文章は写さない |
 | altema.jp | 第3層・発見用 | アクセス拒否 | × | |
 | geo-online.co.jp | 第1層・ゲオ | アクセス拒否 | × | 店舗は遊戯王・ガンダムの公式取扱店リストで確認 |
+| m.blezasia.com / www.brog.shop | Topps取扱店（利用者の指定） | 商品一覧（/category/, /mlb-box）は禁止されていない | ○ | どちらも公式通販でToppsのBOX販売を確認 |
 | www.amazon.co.jp | 第1層・Amazon招待販売 | 商品ページは禁止されていないが、ボット対策で中身が返らない | × | 未確認枠で扱う |
 | www.suruga-ya.jp | 第1層・駿河屋 | アクセス拒否（Cloudflare） | × | 未確認枠で扱う |
 | www.yamada-denki.jp | 第1層・ヤマダ店舗 | 接続を切断される | × | 店舗はポケカ・バンダイの取扱店リストで確認 |

@@ -93,3 +93,4 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - 利用者の手直しは利用者自身の確認（第4層）として尊重し、公式リストの取り直しで上書きしない（サイトはこの手直しを重ねて表示する）
 - `hidden: true` の店は、そのカード種の抽選・販売を探す巡回先から外してよい（例：Topps の取扱がないヤマシロヤ）
 - 公式ページで裏が取れたら、`add` のカードを stores_miyazaki.json / shops_online.json 本体にも反映してよい
+- Topps の国内販売店に BLEZASIA（https://m.blezasia.com/category/ベースボール-baseball/44/）と BROG水道橋店（https://www.brog.shop/mlb-box）を追加（利用者の指定）。どちらも商品一覧が読める。新商品・予約・抽選の告知を見つけたら listings に入れる

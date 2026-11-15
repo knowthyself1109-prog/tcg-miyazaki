@@ -15,6 +15,32 @@
       "checked_at": "2026-11-15"
     },
     {
+      "id": "blezasia",
+      "name": "BLEZASIA（ブレズアジア）",
+      "kind": "online",
+      "url": "https://m.blezasia.com/category/ベースボール-baseball/44/",
+      "card_types": [
+        "topps"
+      ],
+      "status": "confirmed",
+      "evidence": "公式通販の未開封BOX（ベースボール）で Topps を販売。2026 Topps NPB Finest 9,900円、NPB スタジアムクラブ 15,800円、TOPPS NPB ベースボールカード 13,200円、MLB Series 2・Chrome など（カートに入れる表示あり）。BOXブレイク（開封代行）も実施",
+      "checked_at": "2026-11-15",
+      "added_by": "user"
+    },
+    {
+      "id": "brog",
+      "name": "BROG水道橋店（ブラザーズ株式会社）",
+      "kind": "online",
+      "url": "https://www.brog.shop/mlb-box",
+      "card_types": [
+        "topps"
+      ],
+      "status": "confirmed",
+      "evidence": "公式通販のMLB BOXで Topps を販売（例：MLB 2026 TOPPS UPDATE JAPAN EDITION BOX 15,400円・予約、SAMURAI JAPAN COLLECTORS・ALLEN AND GINTER X は在庫なし）。東京・水道橋に実店舗あり、Topps・Fanatics・Panini の代理店直販をうたう",
+      "checked_at": "2026-11-15",
+      "added_by": "user"
+    },
+    {
       "id": "mint",
       "name": "ミント（ミントモール MINT-WEB店）",
       "kind": "online",
