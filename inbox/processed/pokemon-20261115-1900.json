@@ -1,0 +1,26 @@
+{
+ "card_type": "pokemon",
+ "run_at": "2026-11-15T19:00:00+09:00",
+ "products": [],
+ "listings": [
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+   "sale_type": "lottery",
+   "shop": "エディオン",
+   "status": "open",
+   "start_at": "2026-11-13 10:00",
+   "end_at": "2026-11-15 23:59",
+   "result_at": null,
+   "price": null,
+   "is_list_price": null,
+   "conditions": "エディオン各種会員限定（クレジット機能付きエディオンカード〈家族カード含む〉・あんしん保証・ID・アプリ会員）。携帯電話番号にSMSで届くURLから応募。1人1回・携帯1台1回。トレカキャピタルの抽選と重複応募すると全て無効。受取は購入希望店舗（11/27開店〜11/30）またはネットショップ（事前決済 11/20〜11/22 23:59）",
+   "pickup": "online",
+   "apply_url": "https://edion-cp.com/poke112701",
+   "source_url": "https://edion-cp.com/poke112701",
+   "found_via": "入荷Now",
+   "note": "受付期間と条件は11/15 19時にページで再確認。商品名はページに文字で出ない。当選連絡はSMS。県内のエディオン店舗を受取店に選べるかは応募画面で確認が必要"
+  }
+ ],
+ "unverified": []
+}

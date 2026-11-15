@@ -1,0 +1,28 @@
+{
+ "card_type": "onepiece",
+ "run_at": "2026-11-15T19:00:00+09:00",
+ "products": [
+  {
+   "card_type": "onepiece",
+   "product_name": "ONE PIECEカードゲーム ブースターパック 応答せよ、世界【OP-19】",
+   "product_code": "OP-19",
+   "list_price": 240,
+   "price_unit": "pack",
+   "release_date": "2027-02-27",
+   "official_url": "https://www.onepiece-cardgame.com/products/",
+   "note": null
+  },
+  {
+   "card_type": "onepiece",
+   "product_name": "ONE PIECEカードゲーム プレミアムエクストラブースター 夢の一枚【PEB-01】",
+   "product_code": "PEB-01",
+   "list_price": 440,
+   "price_unit": "pack",
+   "release_date": "2027-04-24",
+   "official_url": "https://www.onepiece-cardgame.com/products/",
+   "note": null
+  }
+ ],
+ "listings": [],
+ "unverified": []
+}
