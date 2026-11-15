@@ -1,0 +1,45 @@
+{
+ "card_type": "pokemon",
+ "run_at": "2026-11-15T20:30:00+09:00",
+ "products": [],
+ "listings": [
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+   "sale_type": "lottery",
+   "shop": "ポケモンセンターオンライン",
+   "status": "closed",
+   "start_at": "2026-11-06 16:00",
+   "end_at": "2026-11-10 16:59",
+   "result_at": "2026-11-17 15:00",
+   "price": 6000,
+   "is_list_price": true,
+   "pickup": "online",
+   "conditions": "プレイヤーズクラブの本人認証（マイナンバーカード認証）済みで、プレイヤーズクラブとポケモンセンターオンラインのメールアドレスが一致する人が対象。1商品1人1回。当選者は11/17 15:00〜11/24 16:59に注文（クレジットカードまたはコンビニ払い）。送料無料、12/1〜12/18発送。落選・未認証は購入不可",
+   "source_url": "https://www.pokemoncenter-online.com/9900000008482.html",
+   "found_via": "ポケセン公式",
+   "note": "本人認証済み枠。応募は11/10 16:59で終了。当選者の注文期間は11/17〜11/24"
+  },
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+   "sale_type": "lottery",
+   "shop": "ポケモンセンターオンライン",
+   "status": "closed",
+   "start_at": "2026-11-06 16:00",
+   "end_at": "2026-11-10 16:59",
+   "result_at": "2026-11-17 15:00",
+   "price": 6000,
+   "is_list_price": true,
+   "pickup": "online",
+   "conditions": "プレイヤーズクラブの本人認証が未完了の人が対象（認証済みの人は落選）。電話番号認証が必要。1商品1人1回。過去に同商品をポケセンで購入した人は落選。当選者は11/17 15:00〜11/24 16:59に注文（クレジットカードのみ・3Dセキュア対応）。送料無料、12/1〜12/18発送",
+   "source_url": "https://www.pokemoncenter-online.com/9900000008567.html",
+   "found_via": "ポケセン公式",
+   "note": "本人未認証枠。応募は11/10 16:59で終了。当選者の注文期間は11/17〜11/24"
+  }
+ ],
+ "unverified": [],
+ "resolve_unverified": [
+  6
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "card_type": "topps",
+ "run_at": "2026-11-15T20:30:00+09:00",
+ "products": [
+  {
+   "card_type": "topps",
+   "product_name": "2026 Topps Update Japan Edition ベースボールカード BOX（MLB）",
+   "list_price": 15400,
+   "price_unit": "box",
+   "release_date": "2026-11-20",
+   "official_url": "https://www.brog.shop/mlb-box",
+   "note": "BROG水道橋店の商品ページによる（発売日11月20日・価格15,400円）。Topps公式（jp.topps.com）は開けず未確認"
+  }
+ ],
+ "listings": [
+  {
+   "card_type": "topps",
+   "product_name": "2026 Topps Update Japan Edition ベースボールカード BOX（MLB）",
+   "sale_type": "first_come",
+   "shop": "BROG水道橋店",
+   "status": "open",
+   "start_at": null,
+   "end_at": null,
+   "result_at": null,
+   "price": 15400,
+   "is_list_price": null,
+   "conditions": "商品ページに「予約」の表示（受付期間・数量・会員条件は表示なし）。発売日は11月20日。会員登録・ログインが必要かは未確認",
+   "pickup": "online",
+   "source_url": "https://www.brog.shop/mlb-box",
+   "found_via": "ブックマークの店を確認",
+   "note": "侍ジャパン 2026 TOPPS SAMURAI JAPAN COLLECTORS box は同ページで『在庫なし』表示。Topps公式の定価は未確認"
+  }
+ ],
+ "unverified": [],
+ "resolve_unverified": [
+  16
+ ]
+}
