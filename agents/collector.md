@@ -86,3 +86,10 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - `kind: "store"`（店）: 宮崎県内の店なら、公式の取扱店リストや店の公式ページで確認できたときだけ `scripts/build_stores.py` の STORES に足す。通販・全国の店は、公式ページで取扱を確認できたら `shops_online.json` に足す
 - `kind: "memo"`（店頭メモ）: DB には入れない（サイトにそのまま出て、3日で「古い情報」になる）。店ごとの入荷傾向を見るときの材料にする
 - 処理したものは `update` で `{"imported": true}` を書く（if_version は読んだときの version）
+
+## サイトでの取扱店の手直し（store_edits）
+サイトの「店リスト」で、利用者が店ごとに扱っているカードを足したり外したり（`add` / `remove`）、店を一覧から消したり（`hidden: true`）できる。ArtifactData で collection "store_edits" を読む（文書の `key` は `m:<宮崎の店id>` / `o:<shops_online の id>` / `t:<topps_physical の id>`）。
+
+- 利用者の手直しは利用者自身の確認（第4層）として尊重し、公式リストの取り直しで上書きしない（サイトはこの手直しを重ねて表示する）
+- `hidden: true` の店は、そのカード種の抽選・販売を探す巡回先から外してよい（例：Topps の取扱がないヤマシロヤ）
+- 公式ページで裏が取れたら、`add` のカードを stores_miyazaki.json / shops_online.json 本体にも反映してよい
