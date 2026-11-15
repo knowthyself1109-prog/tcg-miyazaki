@@ -1,0 +1,22 @@
+{
+ "card_type": "topps",
+ "run_at": "2026-11-15T21:00:00+09:00",
+ "products": [],
+ "listings": [],
+ "unverified": [
+  {
+   "summary": "2026 Topps Update Japan Edition（MLB・日本版）。1BOX 20パック、参考価格 ¥15,400（Series 2 と同額との記載）。発売日は海外の解説サイトで 11/20 頃（11/6 に前倒しの情報もあり）と食い違う",
+   "shop": "Topps公式（日本）／国内取扱店",
+   "found_via": "検索（海外のチェックリスト解説サイト）",
+   "hint_url": "https://www.checklistinsider.com/2026-topps-update-japan-edition-baseball",
+   "reason": "Topps公式の日本サイト（jp.topps.com）が自動アクセスを拒否（403）で、発売日・価格を公式ページで確認できていない"
+  },
+  {
+   "summary": "2026 Topps Chrome Team Samurai Japan Collection（侍ジャパン）。発売日は 10/16 と 11/3 の2説あり",
+   "shop": "Topps公式（日本）／国内取扱店",
+   "found_via": "検索（海外の通販サイト）",
+   "hint_url": "https://otia.com/news/2026-topps-chrome-team-samurai-japan-baseball-collection-checklist",
+   "reason": "Topps公式の日本サイトを開けず、販売店ごとに日付が食い違うため未確認"
+  }
+ ]
+}
