@@ -94,3 +94,12 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - `hidden: true` の店は、そのカード種の抽選・販売を探す巡回先から外してよい（例：Topps の取扱がないヤマシロヤ）
 - 公式ページで裏が取れたら、`add` のカードを stores_miyazaki.json / shops_online.json 本体にも反映してよい
 - Topps の国内販売店に BLEZASIA（https://m.blezasia.com/category/ベースボール-baseball/44/）と BROG水道橋店（https://www.brog.shop/mlb-box）を追加（利用者の指定）。どちらも商品一覧が読める。新商品・予約・抽選の告知を見つけたら listings に入れる
+
+## Googleフォームで受け付ける抽選
+まとめサイトなどに店の応募フォーム（docs.google.com/forms/… や forms.gle/…）が載っていたら、必ずそのURLを持ってくる。
+
+- フォームのページを開き、本文に**店名・商品・締切（または期間）**が書かれていて、まとめサイトの情報と合えば listings に登録する。`source_url` はフォームのURL、note に「店が作成したGoogleフォーム」と書く（サイトでは「Googleフォーム」の印と「応募フォーム」リンクが出る）
+- フォームが「回答の受け付けは終了しました」（closedform）なら登録しない（受付終了）
+- 本文に店名がない、または内容が合わないものは unverified に入れ、`apply_url` にフォームのURLを入れる（サイトの未確認欄に「応募フォーム」リンクが出る）
+- 店頭受取のみで受取店に宮崎県内の店がないもの（例：TCGshop193 は名古屋・東京・浜松の店頭のみ）は対象外
+- フォームは開いて読むだけ。応募・送信はしない

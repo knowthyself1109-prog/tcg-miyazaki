@@ -29,7 +29,7 @@ def collect_data() -> dict:
             "SELECT change, detail, at FROM changes WHERE listing_id=? ORDER BY id", (r["id"],)).fetchall()]
         listings.append(d)
     unverified = [dict(r) for r in con.execute(
-        "SELECT id, card_type, summary, shop, hint_url, reason, reported_at FROM unverified WHERE resolved=0 ORDER BY id DESC").fetchall()]
+        "SELECT id, card_type, summary, shop, hint_url, apply_url, reason, reported_at FROM unverified WHERE resolved=0 ORDER BY id DESC").fetchall()]
     today = db.now().date().isoformat()
     products = [dict(r) for r in con.execute(
         "SELECT card_type, product_name, product_code, list_price, price_unit, release_date, official_url, note FROM products "

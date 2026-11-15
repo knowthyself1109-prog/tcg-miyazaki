@@ -64,6 +64,9 @@ def connect(path: Path = DB_PATH) -> sqlite3.Connection:
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
     con.executescript(SCHEMA.read_text(encoding="utf-8"))
+    cols = {r[1] for r in con.execute("PRAGMA table_info(unverified)")}
+    if "apply_url" not in cols:  # 既存DBへの列追加
+        con.execute("ALTER TABLE unverified ADD COLUMN apply_url TEXT")
     return con
 
 

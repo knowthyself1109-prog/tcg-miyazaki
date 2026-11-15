@@ -50,9 +50,12 @@ def cmd_ingest(args) -> int:
         result, _ = db.upsert_listing(con, it, at)
         stats[result] += 1
     for u in doc.get("unverified", []):
-        con.execute("INSERT INTO unverified (card_type, summary, shop, found_via, hint_url, reason, reported_at) VALUES (?,?,?,?,?,?,?)",
-                    (u.get("card_type", card), u["summary"], u.get("shop"), u.get("found_via"), u.get("hint_url"), u.get("reason"), db.iso(at)))
+        con.execute("INSERT INTO unverified (card_type, summary, shop, found_via, hint_url, apply_url, reason, reported_at) VALUES (?,?,?,?,?,?,?,?)",
+                    (u.get("card_type", card), u["summary"], u.get("shop"), u.get("found_via"), u.get("hint_url"), u.get("apply_url"), u.get("reason"), db.iso(at)))
         stats["unverified"] += 1
+    for rid in doc.get("resolve_unverified", []):   # 裏が取れた・対象外になった未確認を閉じる
+        con.execute("UPDATE unverified SET resolved=1 WHERE id=?", (rid,))
+        stats["resolved"] = stats.get("resolved", 0) + 1
     # 今回の収集で報告されなかった「受付中・受付予定」は、終了したとは限らないので触らない（要確認は時間ルールで付く）
     active = con.execute("SELECT COUNT(*) FROM listings WHERE card_type=? AND status IN ('upcoming','open','in_stock')", (card,)).fetchone()[0]
     stats["active_after"] = active

@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS unverified (
     summary       TEXT NOT NULL,
     shop          TEXT,
     found_via     TEXT,
-    hint_url      TEXT,                      -- 発見元（内部用）
+    hint_url      TEXT,                      -- 確認先（店の公式ページなど）
+    apply_url     TEXT,                      -- 応募フォーム（Googleフォームなど。わかる場合）
     reason        TEXT,
     reported_at   TEXT NOT NULL,
     resolved      INTEGER NOT NULL DEFAULT 0

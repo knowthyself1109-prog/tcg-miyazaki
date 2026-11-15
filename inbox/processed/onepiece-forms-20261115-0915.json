@@ -1,0 +1,27 @@
+{
+ "card_type": "onepiece",
+ "run_at": "2026-11-15T09:15:00+09:00",
+ "listings": [
+  {
+   "card_type": "onepiece",
+   "product_name": "ONE PIECEカードゲーム ブースターパック 神の支配【OP-18】（BOX）",
+   "product_code": "OP-18",
+   "sale_type": "lottery",
+   "shop": "トレカプラザ55通販",
+   "status": "open",
+   "start_at": "2026-11-13 20:00",
+   "end_at": "2026-11-16 23:59",
+   "price": 5760,
+   "is_list_price": true,
+   "conditions": "トレカプラザ55通販店の会員登録が必要（顧客ID 9桁を入力）。1人1回限り。当選者には11/17〜11/18にメール、11/19 23:59までに入金（クレカ・PayPay・銀行振込・atone・後払い）。落選の通知なし。受取はゆうパック（送料別）または大須アメ横店",
+   "pickup": "online",
+   "source_url": "https://docs.google.com/forms/d/e/1FAIpQLScj9DowDcGc63TrEak69vfiVNInRpFB-Etaar230vEB1tra_g/viewform",
+   "found_via": "入荷Now",
+   "note": "応募はトレカプラザ55が作成したGoogleフォーム（フォーム本文で店名・締切・価格を確認）。受付開始時刻はまとめサイトの情報"
+  }
+ ],
+ "unverified": [],
+ "resolve_unverified": [
+  10
+ ]
+}

@@ -246,6 +246,7 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
 const DATA = /*__DATA__*/null;
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const isForm = (u) => /docs\.google\.com\/forms|forms\.gle/.test(u || "");
 const safeUrl = (u) => /^https?:\/\//.test(u || "") ? u : null;
 const NOW = new Date();
 const H = 3600e3;
@@ -445,6 +446,7 @@ function itemHTML(it) {
     <summary>${time}
       <div class="wh"><b>${esc(it.shop)}</b><span class="p">${esc(it.product_name)} ・ ${price}</span>
         <span class="tags"><span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span><span class="tag">${TYPE[it.sale_type] || ""}</span>
+        ${isForm(it.source_url) || isForm(it.apply_url) ? '<span class="tag warn">Googleフォーム</span>' : ""}
         <span class="tag">${it.pickup === "store" ? "店頭受取" : "配送"}</span>
         ${isNew && !it.mine ? '<span class="tag new">新着</span>' : ""}
         ${it.mine ? `<span class="tag mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
@@ -464,7 +466,7 @@ function itemHTML(it) {
       </dl>
       ${it.verify_status && it.verify_status !== "ok" ? `<div class="note">${VERIFY[it.verify_status] || it.verify_status}${it.verify_note ? "：" + esc(it.verify_note) : ""}</div>` : ""}
       <div class="acts">
-        ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">一次情報 ↗</a>` : ""}
+        ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">${isForm(src) ? "応募フォーム" : "一次情報"} ↗</a>` : ""}
         ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ ↗</a>` : ""}
         <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
         ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
@@ -533,7 +535,7 @@ function renderUnv() {
         <div class="wh"><b>${esc(u.shop || "")}</b><span class="p">${esc(u.summary)}</span><span class="tags"><span class="tag">${esc(DATA.card_names[u.card_type] || u.card_type)}</span></span></div>
         <div class="stt st-unv">未確認</div></summary>
         <div class="det"><dl><dt>理由</dt><dd>${esc(u.reason || "")}</dd></dl>
-        ${safeUrl(u.hint_url) ? `<div class="acts"><a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a></div>` : ""}</div></details>`;
+        ${safeUrl(u.hint_url) || safeUrl(u.apply_url) ? `<div class="acts">${safeUrl(u.apply_url) ? `<a href="${esc(u.apply_url)}" target="_blank" rel="noopener">応募フォーム ↗</a>` : ""}${safeUrl(u.hint_url) ? `<a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a>` : ""}</div>` : ""}</div></details>`;
     }).join("") + "</div>" : '<div class="empty">未確認の情報はありません。</div>');
 }
 

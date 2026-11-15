@@ -1,0 +1,27 @@
+{
+ "card_type": "pokemon",
+ "run_at": "2026-11-15T09:15:00+09:00",
+ "listings": [
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA 拡張パック ハドウシーカー（BOX）",
+   "sale_type": "lottery",
+   "shop": "Bee本舗",
+   "status": "open",
+   "start_at": "2026-11-13 00:00",
+   "end_at": "2026-11-15 20:00",
+   "result_at": "2026-11-27",
+   "price": 6000,
+   "is_list_price": true,
+   "conditions": "Bee本舗通販サイトの会員限定（締切までに会員登録が必要）。1人1回限り・複数応募は全て無効。応募無料。当選者は11/27〜11/29 23:59にBee本舗通販サイトで購入（本人のみ・代理購入不可）、送料別。当選連絡は登録メールに購入ページURL（11/27中に届かなければ落選）",
+   "pickup": "online",
+   "source_url": "https://docs.google.com/forms/d/e/1FAIpQLSeqszii9q7R_hP_QeErXpnx2ocz7W9ocCQOQELRSRWrbzY09A/viewform",
+   "found_via": "入荷Now",
+   "note": "応募はBee本舗が作成したGoogleフォーム（フォーム本文で店名・期間・価格を確認）。受付開始の時刻はフォームに記載なし"
+  }
+ ],
+ "unverified": [],
+ "resolve_unverified": [
+  5
+ ]
+}
