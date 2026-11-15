@@ -1,0 +1,15 @@
+{
+ "card_type": "topps",
+ "run_at": "2026-11-15T22:00:00+09:00",
+ "products": [],
+ "listings": [],
+ "unverified": [
+  {
+   "summary": "Topps Black and White Baseball（Topps米国サイトの特設ページ）。発売日・価格・販売方法は未確認",
+   "shop": "Topps公式（米国）",
+   "found_via": "自分で追加（利用者が URL を提示）",
+   "hint_url": "https://www.topps.com/pages/topps-black-and-white-baseball",
+   "reason": "www.topps.com がボット対策で自動アクセスを拒否（403）のため、ページの中身を読めていない。発売日・価格・日本への発送可否は公式ページで要確認"
+  }
+ ]
+}
