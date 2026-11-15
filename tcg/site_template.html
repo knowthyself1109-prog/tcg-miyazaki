@@ -609,6 +609,10 @@ function renderTopps() {
       <div class="small muted">出典：${safeUrl(s.source) ? `<a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.source_note)}</a>` : esc(s.source_note)}</div>
       <div class="chips">${chipsHTML("t:" + s.id, ["topps"])}</div>
       ${editorHTML("t:" + s.id, ["topps"])}</div>`).join("") + "</div>" : '<div class="empty">まだありません。</div>');
+  $("topps-physical").insertAdjacentHTML("beforeend", `<div class="panel" style="border-top:1px solid var(--line);margin-top:8px"><div class="store">
+    <div class="row"><span class="nm">ファミリーマート（店舗ごとに記録）</span><span class="tag">コンビニ</span></div>
+    <div class="small muted">ファミマのTopps販売は地域・店舗で取扱が違い、公式ページでは店ごとに確認できません。見かけた店を1店ずつ記録してください。</div>
+    <div><button type="button" class="primary sm" data-famima>ファミマの店を記録する</button></div></div></div>`);
   const card = $("f-card").value;
   $("g-topps").hidden = card !== "topps";
   if (card === "topps") $("g-topps").innerHTML = toppsLinksHTML();
@@ -762,6 +766,13 @@ function show(view) {
 }
 document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => { show(b.dataset.view); if (location.hash !== "#" + b.dataset.view) history.replaceState(null, "", "#" + b.dataset.view); }));
 document.addEventListener("click", (e) => {
+  if (e.target.closest("button[data-famima]")) {
+    const r = document.querySelector('input[name="kind"][value="memo"]'); r.checked = true; r.dispatchEvent(new Event("change"));
+    $("a-card").value = "topps"; $("a-shop").value = "ファミリーマート "; if (!$("a-product").value) $("a-product").value = "Topps野球カード";
+    show("add"); history.replaceState(null, "", "#add"); $("a-shop").focus();
+    const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
+    return;
+  }
   const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark);
   const d = e.target.closest("button[data-del]"); if (d) deleteEntry(d.dataset.del, d);
 });

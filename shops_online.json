@@ -140,26 +140,5 @@
       "note": "新商品・販売開始の告知（自動取得はしない）"
     }
   ],
-  "topps_physical": [
-    {
-      "id": "familymart-miyazaki-topps",
-      "name": "ファミリーマート（宮崎県内の各店）",
-      "city": "県内各地",
-      "kind": "chain",
-      "record": "MLB 2026 Topps Baseball Series 2 - Japan Edition を2026年7月28日からコンビニで販売（770円・12枚入り、地域・店舗により取扱なし、予約・取り置きなし）",
-      "source": "https://www.family.co.jp/goods/charakuji/7967993.html",
-      "source_note": "ファミリーマート公式の商品ページ（現在は掲載終了。7月時点の内容）",
-      "status": "record"
-    },
-    {
-      "id": "bestlife-amu-miyazaki",
-      "name": "ベストライフ アミュプラザみやざき店",
-      "city": "宮崎市",
-      "kind": "shop",
-      "record": "2025/12/02 の店舗ブログで「TOPPSプロ野球カード」の買取を告知。買取店のため、販売・在庫は店頭で要確認",
-      "source": "https://www.amu-miyazaki.com/shopblog/detail/?cd=000783&scd=000036",
-      "source_note": "アミュプラザみやざき 公式ショップブログ",
-      "status": "record"
-    }
-  ]
+  "topps_physical": []
 }

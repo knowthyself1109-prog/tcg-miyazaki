@@ -103,3 +103,8 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - 本文に店名がない、または内容が合わないものは unverified に入れ、`apply_url` にフォームのURLを入れる（サイトの未確認欄に「応募フォーム」リンクが出る）
 - 店頭受取のみで受取店に宮崎県内の店がないもの（例：TCGshop193 は名古屋・東京・浜松の店頭のみ）は対象外
 - フォームは開いて読むだけ。応募・送信はしない
+
+## Toppsの補足（利用者の指示 11/15）
+- 発売情報の補助として Beckett（https://www.beckett.com/news/category/baseball/2020s-baseball-cards/2026-baseball-cards/ 、許可リストに追加済み）の記事から発売日・価格・商品名を拾ってよい。公式で裏が取れないので `unverified` に入れ、hint_url に Beckett の記事URLを付ける。利用者が気にしている商品：Topps Black and White（公式ページ https://www.topps.com/pages/topps-black-and-white-baseball は403で読めない）。
+- 「Toppsの取扱実績がある宮崎の店」（shops_online.json の topps_physical）は、公式ページで確認できないものは載せない。確認できる店を見つけたときだけ出典URL付きで足す。
+- ファミリーマートは店ごとに取扱が違うため一覧には置かず、サイトの「ファミマの店を記録する」ボタン（店頭メモ）で利用者が店ごとに記録する。
