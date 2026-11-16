@@ -9,6 +9,7 @@
     "bandai_dbfw": "ドラゴンボール フュージョンワールド 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/dbscg-fusionworld/search.php?product_id=9",
     "aeon": "イオングループ店舗一覧 https://www.aeon.com/store/list/九州地方/宮崎県/",
     "bookoff": "ブックオフ公式 店舗一覧（宮崎県）https://www.bookoff.co.jp/shop/pref-list/45.html",
+    "topps_pdf": "Topps Japan 取扱店リスト（2026.11.13 Japan Original Products Retail Stores、利用者が提示したPDF）data/raw/stores/topps_japan_retail_2026-11-13.json",
     "edion": "エディオン公式 店舗検索 https://search.edion.com/e_store/spot/list?search=address&address=45"
   },
   "excluded": {
@@ -128,8 +129,8 @@
     {
       "chain": "コンビニ各社",
       "miyazaki": "あり（チェーン単位で扱う）",
-      "checked_via": "",
-      "note": "店舗単位では登録しない。セブン・ローソン・ファミマの抽選は通販枠で扱う"
+      "checked_via": "topps_pdf",
+      "note": "セブン・ローソンの抽選は通販枠で扱う。ファミリーマートはToppsの取扱店リスト（PDF）にある県内31店を店舗単位で登録"
     }
   ],
   "stores": [
@@ -198,16 +199,18 @@
       "card_types": [
         "gundam",
         "pokemon",
+        "topps",
         "yugioh"
       ],
       "lottery_history": [],
       "verified_by": [
         "bandai_gundam",
         "konami",
-        "pokemon_map"
+        "pokemon_map",
+        "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": ""
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "toysrus-miyako-city",
@@ -223,14 +226,16 @@
         "line": null
       },
       "card_types": [
+        "topps",
         "yugioh"
       ],
       "lottery_history": [],
       "verified_by": [
-        "konami"
+        "konami",
+        "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "2025年11月に旧・宮崎店（エディオン宮崎本店2F）から移転。ポケカ・バンダイの取扱店リストはまだ旧店舗の表記"
+      "note": "2025年11月に旧・宮崎店（エディオン宮崎本店2F）から移転。ポケカ・バンダイの取扱店リストはまだ旧店舗の表記; Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "tsutaya-miyako-city",
@@ -1577,14 +1582,16 @@
         "line": null
       },
       "card_types": [
+        "topps",
         "yugioh"
       ],
       "lottery_history": [],
       "verified_by": [
-        "konami"
+        "konami",
+        "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": ""
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "geo-takanabe",
@@ -1775,6 +1782,765 @@
       ],
       "verified_at": "2026-11-14",
       "note": ""
+    },
+    {
+      "id": "himaraya-8820861-2d42",
+      "kind": "chain_store",
+      "chain": "ヒマラヤ",
+      "name": "ヒマラヤ 延岡店",
+      "city": "延岡市",
+      "address": "宮崎県延岡市別府町4405",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "himaraya-8850006-abae",
+      "kind": "chain_store",
+      "chain": "ヒマラヤ",
+      "name": "ヒマラヤ 都城店",
+      "city": "都城市",
+      "address": "宮崎県都城市吉尾町135-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800004-f594",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 元宮町",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市元宮町6番20号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800811-8f06",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート JR宮崎駅",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市錦町1番8号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800824-7395",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 宮崎大島",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大島町高崎438-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800824-0fbd",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 宮崎大将堀",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大島町大将堀1824ー1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800902-f2e6",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 大淀二丁目",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大淀二丁目84番地1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800913-ecda",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 恒久四丁目",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市恒久四丁目21番地17",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800916-7433",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 恒久",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大字恒久字春日田1207番3",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8802112-7017",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート オーパス小松台",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大字小松字七田3167-2",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8802112-8778",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 小松バイパス",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大字小松674-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8810003-5fca",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 西都右松",
+      "city": "西都市",
+      "address": "宮崎県西都市右松3丁目21",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8820005-7770",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡桜ヶ丘",
+      "city": "延岡市",
+      "address": "宮崎県延岡市夏田町364番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8820034-5378",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡昭和町",
+      "city": "延岡市",
+      "address": "宮崎県延岡市昭和町二丁目45番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8820855-5a17",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡卸本町",
+      "city": "延岡市",
+      "address": "宮崎県延岡市卸本町9番15号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8820856-8c6a",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡出北",
+      "city": "延岡市",
+      "address": "宮崎県延岡市出北三丁目31番1号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8820866-2911",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡平原",
+      "city": "延岡市",
+      "address": "宮崎県延岡市平原町二丁目784番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8821101-9ac2",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 高千穂武道館前",
+      "city": "西臼杵郡高千穂町",
+      "address": "宮崎県西臼杵郡高千穂町大字三田井1352番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8830012-3d34",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 日向江良町",
+      "city": "日向市",
+      "address": "宮崎県日向市江良町四丁目70",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8830062-d061",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 日向細島",
+      "city": "日向市",
+      "address": "宮崎県日向市大字日知屋字片ヶ浜3379番10",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850001-8193",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都城金田",
+      "city": "都城市",
+      "address": "宮崎県都城市金田町2354番地1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850004-3bea",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 神之山",
+      "city": "都城市",
+      "address": "宮崎県都城市都北町5911番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850011-bba7",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都城下川東一丁目",
+      "city": "都城市",
+      "address": "宮崎県都城市下川東一丁目11-7",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850012-80fc",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都城上川東二丁目",
+      "city": "都城市",
+      "address": "宮崎県都城市上川東二丁目9号2ー2",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850016-8d98",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 早水公園前",
+      "city": "都城市",
+      "address": "宮崎県都城市早水町3901番地1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850033-c9f5",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 妻ヶ丘",
+      "city": "都城市",
+      "address": "宮崎県都城市妻ヶ丘4-10",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850054-a376",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 若葉町",
+      "city": "都城市",
+      "address": "宮崎県都城市若葉町47号9番地1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850063-70d8",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 梅北",
+      "city": "都城市",
+      "address": "宮崎県都城市梅北町2358番2",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850073-6c7e",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都城市役所前",
+      "city": "都城市",
+      "address": "宮崎県都城市姫城町9街区27号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850111-96bb",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 菓子野",
+      "city": "都城市",
+      "address": "宮崎県都城市菓子野町10272番地2",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8860003-4ca2",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 小林つつみ",
+      "city": "小林市",
+      "address": "宮崎県小林市大字堤字丸岡2791番1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8890513-5fbd",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 延岡土々呂五丁目",
+      "city": "延岡市",
+      "address": "宮崎県延岡市土々呂町五丁目2085番地5",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8891605-f209",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 加納バイパス",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市清武町加納甲1357番地1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
     }
   ]
 }

@@ -108,3 +108,4 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - 発売情報の補助として Beckett（https://www.beckett.com/news/category/baseball/2020s-baseball-cards/2026-baseball-cards/ 、許可リストに追加済み）の記事から発売日・価格・商品名を拾ってよい。公式で裏が取れないので `unverified` に入れ、hint_url に Beckett の記事URLを付ける。利用者が気にしている商品：Topps Black and White（公式ページ https://www.topps.com/pages/topps-black-and-white-baseball は403で読めない）。
 - 「Toppsの取扱実績がある宮崎の店」（shops_online.json の topps_physical）は、公式ページで確認できないものは載せない。確認できる店を見つけたときだけ出典URL付きで足す。
 - ファミリーマートは店ごとに取扱が違うため一覧には置かず、サイトの「ファミマの店を記録する」ボタン（店頭メモ）で利用者が店ごとに記録する。
+- Toppsの県内取扱店は、利用者が提示した取扱店リストPDF（2026.11.13版、data/raw/stores/topps_japan_retail_2026-11-13.json）から stores_miyazaki.json に登録済み（`python scripts/build_stores.py`）。新しい版のPDFが出たら取り直して差し替える。
