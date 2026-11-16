@@ -1,0 +1,27 @@
+{
+ "card_type": "topps",
+ "run_at": "2026-11-16T19:00:00+09:00",
+ "products": [],
+ "unverified": [],
+ "listings": [
+  {
+   "card_type": "topps",
+   "product_name": "2026 Topps Update Japan Edition ベースボールカード BOX（MLB）",
+   "product_code": null,
+   "sale_type": "first_come",
+   "shop": "BROG水道橋店",
+   "status": "open",
+   "start_at": null,
+   "end_at": null,
+   "result_at": null,
+   "price": 15400,
+   "is_list_price": null,
+   "conditions": "商品ページに「予約」の表示（受付期間・数量・会員条件は表示なし）。発売日は11月20日。会員登録・ログインが必要かは未確認",
+   "pickup": "online",
+   "apply_url": null,
+   "source_url": "https://www.brog.shop/mlb-box",
+   "found_via": "定期収集（再確認）",
+   "note": "11/16夜にBROGの商品ページで再確認（発売日11月20日・予約表示・15,400円）"
+  }
+ ]
+}

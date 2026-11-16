@@ -1,0 +1,46 @@
+{
+ "card_type": "pokemon",
+ "run_at": "2026-11-16T19:00:00+09:00",
+ "products": [],
+ "unverified": [],
+ "listings": [
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA スターターセットex ニャオハ＆マスカーニャex",
+   "product_code": null,
+   "sale_type": "restock",
+   "shop": "プラネットポケット",
+   "status": "open",
+   "start_at": null,
+   "end_at": null,
+   "result_at": null,
+   "price": 1800,
+   "is_list_price": null,
+   "conditions": "再販の予約受付（カートに入れて購入）。数量・購入制限・会員登録の要否は商品ページで未確認。入荷は11月中旬の予定",
+   "pickup": "online",
+   "apply_url": null,
+   "source_url": "https://planetpocket.shop-pro.jp/?mode=cate&cbid=2757659&csid=0&sort=n",
+   "found_via": "定期収集（再確認）",
+   "note": "11/16夜に店の『予約・抽選販売』カテゴリーで再確認（予約表示のまま）"
+  },
+  {
+   "card_type": "pokemon",
+   "product_name": "ポケモンカードゲーム MEGA スターターセットex ゾロア＆ゾロアークex",
+   "product_code": null,
+   "sale_type": "restock",
+   "shop": "プラネットポケット",
+   "status": "open",
+   "start_at": null,
+   "end_at": null,
+   "result_at": null,
+   "price": 1800,
+   "is_list_price": null,
+   "conditions": "再販の予約受付（カートに入れて購入）。数量・購入制限・会員登録の要否は商品ページで未確認。入荷は11月中旬の予定",
+   "pickup": "online",
+   "apply_url": null,
+   "source_url": "https://planetpocket.shop-pro.jp/?mode=cate&cbid=2757659&csid=0&sort=n",
+   "found_via": "定期収集（再確認）",
+   "note": "11/16夜に店の『予約・抽選販売』カテゴリーで再確認（予約表示のまま）"
+  }
+ ]
+}
