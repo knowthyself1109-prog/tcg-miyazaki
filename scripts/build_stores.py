@@ -231,7 +231,7 @@ def main() -> None:
     for e in tp["stores"]:
         raws.append({"game": "topps", "name": e["name"], "address": e["address"], "src": "topps_pdf", "products": e["products"]})
         if e["chain"] in ("ファミリーマート", "ヒマラヤ"):
-            m = re.search(r"宮崎県(.+?[市町村])", e["address"])
+            m = re.search(r"宮崎県(?:.+?郡)?(.+?[市町村])", e["address"])
             prefix = "familymart-" if e["chain"] == "ファミリーマート" else "himaraya-"
             sid = prefix + e["zip"].replace("-", "") + "-" + hashlib.md5(e["name"].encode()).hexdigest()[:4]
             stores.append(dict(id=sid,

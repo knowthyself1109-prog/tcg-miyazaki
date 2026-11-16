@@ -191,7 +191,6 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
     <p class="lead" id="stores-head"></p>
     <section class="group" id="my-stores"></section>
     <section class="group" id="online-shops"></section>
-    <section class="group" id="topps-physical"></section>
     <section class="group" id="topps-links"></section>
     <section class="group"><div class="ghead"><h2>宮崎県内の店</h2><span class="count" id="stores-n"></span></div><div id="stores-list"></div></section>
     <section class="group" id="hidden-stores"></section>
@@ -548,7 +547,7 @@ function renderStores() {
   const card = $("f-card").value;
   const visible = DATA.stores.filter((s) => !isHidden("m:" + s.id) && (!card || cardsOf("m:" + s.id, s.card_types).includes(card)));
   visible.forEach((s) => { (by[s.city] = by[s.city] || []).push(s); });
-  const order = ["宮崎市", "都城市", "延岡市", "日向市", "日南市", "小林市", "西都市", "高鍋町", "国富町"];
+  const order = ["宮崎市", "都城市", "延岡市", "日向市", "日南市", "小林市", "西都市", "高鍋町", "国富町", "高千穂町"];
   const cities = Object.keys(by).sort((a, b) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99);
   $("stores-n").textContent = `${visible.length}店`;
   $("stores-list").innerHTML = cities.filter((c) => !city || c === city).map((c) => `
@@ -559,6 +558,7 @@ function renderStores() {
         <div class="small muted">${esc(s.address)}</div>
         <div class="chips">${chipsHTML("m:" + s.id, s.card_types) || '<span class="small muted">トレカ取扱は公式リストで未確認</span>'}</div>
         ${s.note ? `<div class="small muted">${esc(s.note)}</div>` : ""}
+        ${s.chain === "ファミリーマート" ? `<div><button type="button" class="link restore" data-famima="${esc(s.name)}" style="font-size:12px">この店の在庫を記録する</button></div>` : ""}
         ${editorHTML("m:" + s.id, s.card_types)}
       </div>`).join("")}</div>`).join("");
   renderHidden();
@@ -601,18 +601,6 @@ function toppsLinksHTML() {
 }
 function renderTopps() {
   $("topps-links").innerHTML = toppsLinksHTML();
-  const ph = (DATA.topps_physical || []).filter((s) => !isHidden("t:" + s.id));
-  $("topps-physical").innerHTML = `<div class="ghead"><h2>Toppsの取扱実績がある宮崎の店</h2><span class="count">${ph.length}件</span></div>` +
-    (ph.length ? '<div class="panel">' + ph.map((s) => `<div class="store">
-      <div class="row"><span class="nm">${esc(s.name)}</span><span class="tag">${esc(s.city)}</span></div>
-      <div class="small">${esc(s.record)}</div>
-      <div class="small muted">出典：${safeUrl(s.source) ? `<a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.source_note)}</a>` : esc(s.source_note)}</div>
-      <div class="chips">${chipsHTML("t:" + s.id, ["topps"])}</div>
-      ${editorHTML("t:" + s.id, ["topps"])}</div>`).join("") + "</div>" : '<div class="empty">まだありません。</div>');
-  $("topps-physical").insertAdjacentHTML("beforeend", `<div class="panel" style="border-top:1px solid var(--line);margin-top:8px"><div class="store">
-    <div class="row"><span class="nm">ファミリーマート（店舗ごとに記録）</span><span class="tag">コンビニ</span></div>
-    <div class="small muted">ファミマのTopps販売は地域・店舗で取扱が違い、公式ページでは店ごとに確認できません。見かけた店を1店ずつ記録してください。</div>
-    <div><button type="button" class="primary sm" data-famima>ファミマの店を記録する</button></div></div></div>`);
   const card = $("f-card").value;
   $("g-topps").hidden = card !== "topps";
   if (card === "topps") $("g-topps").innerHTML = toppsLinksHTML();
@@ -768,7 +756,7 @@ document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("
 document.addEventListener("click", (e) => {
   if (e.target.closest("button[data-famima]")) {
     const r = document.querySelector('input[name="kind"][value="memo"]'); r.checked = true; r.dispatchEvent(new Event("change"));
-    $("a-card").value = "topps"; $("a-shop").value = "ファミリーマート "; if (!$("a-product").value) $("a-product").value = "Topps野球カード";
+    $("a-card").value = "topps"; $("a-shop").value = e.target.closest("button[data-famima]").dataset.famima || "ファミリーマート "; if (!$("a-product").value) $("a-product").value = "Topps野球カード";
     show("add"); history.replaceState(null, "", "#add"); $("a-shop").focus();
     const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
     return;
