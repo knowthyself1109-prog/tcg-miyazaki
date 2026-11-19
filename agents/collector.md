@@ -110,3 +110,4 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - ファミリーマートは店ごとに取扱が違うため一覧には置かず、サイトの「ファミマの店を記録する」ボタン（店頭メモ）で利用者が店ごとに記録する。
 - Toppsの県内取扱店は、利用者が提示した取扱店リストPDF（2026.11.13版、data/raw/stores/topps_japan_retail_2026-11-13.json）から stores_miyazaki.json に登録済み（`python scripts/build_stores.py`）。新しい版のPDFが出たら取り直して差し替える。
 - 利用者が提示したもう1つの取扱店リストPDF（2026.7.10版、NPB スタジアムクラブ／NPB Baseball Card、data/raw/stores/topps_japan_retail_2026-07-10.json）も同じ方法で登録済み（ファミリーマート・ローソンを含む）。`scripts/build_stores.py` は data/raw/stores/topps_japan_retail_*.json をすべて読み、店ごとに版別の取扱商品を注記する。
+- セブンネットショッピング（https://7net.omni7.jp/top ）を巡回先に追加（利用者の指定）。トップの「ポケモンカードゲーム抽選販売」などのバナーから /general/027016/fair-hobby-*.html の告知ページを読み、期間・当選発表日・応募条件を listings に入れる。応募ページ（ログイン必要）は開かない。当選発表日は result_at に必ず入れる（利用者が「応募済み」の結果発表日を一覧で見るため）。他の店でも、発表日が書かれていれば result_at を入れる。

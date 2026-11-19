@@ -101,6 +101,9 @@ details.rw.closed{opacity:.55}
 .marks{display:flex;gap:4px}
 .marks button{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--bg);color:var(--sub);border-radius:3px;padding:3px 9px;cursor:pointer}
 .marks button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--board);font-weight:700}
+.ap{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:8px;padding:10px;align-items:start;border-bottom:1px solid var(--line)}
+.ap .tm.late{color:var(--red)}
+.ap .marks button{font-size:12px}
 .mk{font-size:10px;font-weight:700;color:var(--amber)}
 .empty{padding:14px 10px;color:var(--sub);font-size:13.5px;background:var(--board);border:1px solid var(--line);border-top:0}
 .lead{margin:0;font-size:12.5px;color:var(--sub)}
@@ -177,6 +180,7 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
       <select id="f-city" aria-label="市町村"></select>
       <label><input type="checkbox" id="f-closed"> 終了も表示</label>
     </div>
+    <section class="group" id="g-applied" hidden></section>
     <section class="group" id="g-store"></section>
     <section class="group" id="g-online"></section>
     <section class="group" id="g-upcoming"></section>
@@ -262,6 +266,11 @@ function fmt(s, withTime = true) {
   const p = Object.fromEntries(JST_PARTS.formatToParts(new Date(s)).map((x) => [x.type, x.value]));
   const md = `${p.month}/${p.day}(${p.weekday})`;
   return withTime ? `${md} ${p.hour}:${p.minute}` : md;
+}
+function fmtResult(s) {
+  if (!s) return null;
+  const p = JPARTS(s);
+  return `${p.month}/${p.day}(${p.weekday})` + (p.hour === "00" && p.minute === "00" ? "" : ` ${p.hour}:${p.minute}`);
 }
 function ago(s) {
   const m = Math.round((NOW - new Date(s)) / 60000);
@@ -449,6 +458,7 @@ function itemHTML(it) {
         <span class="tags"><span class="tag">${esc(DATA.card_names[it.card_type] || it.card_type)}</span><span class="tag">${TYPE[it.sale_type] || ""}</span>
         ${isForm(it.source_url) || isForm(it.apply_url) ? '<span class="tag warn">Googleフォーム</span>' : ""}
         <span class="tag">${it.pickup === "store" ? "店頭受取" : "配送"}</span>
+        ${it.result_at && st.key !== "done" ? `<span class="tag">発表 ${esc(fmtResult(it.result_at))}</span>` : (it.result_at && marks[it.id] === "applied" ? `<span class="tag">発表 ${esc(fmtResult(it.result_at))}</span>` : "")}
         ${isNew && !it.mine ? '<span class="tag new">新着</span>' : ""}
         ${it.mine ? `<span class="tag mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
         ${stale(it) ? '<span class="tag warn">要確認</span>' : ""}${it.memo_old ? '<span class="tag warn">古い情報</span>' : ""}
@@ -458,7 +468,7 @@ function itemHTML(it) {
     <div class="det">
       <dl>
         ${it.mine === "memo" ? "" : `<dt>受付</dt><dd class="mono">${period}</dd>`}
-        ${it.result_at ? `<dt>当選発表</dt><dd class="mono">${fmt(it.result_at)}</dd>` : ""}
+        ${it.result_at ? `<dt>当選発表</dt><dd class="mono">${esc(fmtResult(it.result_at))}</dd>` : ""}
         <dt>価格</dt><dd>${price}${lp}</dd>
         ${it.pickup === "store" && it.pickup_area ? `<dt>受取</dt><dd>${esc(it.pickup_area)}</dd>` : ""}
         ${it.conditions ? `<dt>条件</dt><dd>${esc(it.conditions)}</dd>` : ""}
@@ -481,6 +491,26 @@ function renderGroup(el, title, items, emptyText) {
     (items.length ? `<div class="cap"><span>締切</span><span>店・商品</span><span>状態</span></div><div class="board">${items.map(itemHTML).join("")}</div>` : `<div class="empty">${emptyText}</div>`);
 }
 
+// ---- 応募済みの結果発表（「応募済み」を押したものを、発表日が近い順に） ----
+function renderApplied() {
+  const el = $("g-applied");
+  const items = [...DATA.listings, ...entryListings()].filter((it) => marks[it.id] === "applied")
+    .sort((a, b) => (a.result_at ? new Date(a.result_at) : Infinity) - (b.result_at ? new Date(b.result_at) : Infinity));
+  el.hidden = !items.length;
+  if (!items.length) { el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="ghead"><h2>応募済み・結果発表</h2><span class="count">${items.length}件</span></div><div class="board">` + items.map((it) => {
+    const r = it.result_at ? JPARTS(it.result_at) : null;
+    const past = it.result_at && new Date(it.result_at) < NOW;
+    const when = r ? `<div class="tm ${past ? "late" : ""}">${r.month}/${r.day}<small>${r.weekday}${r.hour === "00" && r.minute === "00" ? "" : " " + r.hour + ":" + r.minute}</small></div>` : `<div class="tm plain">未確認<small>発表日</small></div>`;
+    const src = safeUrl(it.source_url);
+    const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="false">${label}</button>`;
+    return `<div class="ap">${when}
+      <div class="wh"><b>${esc(it.shop)}</b><span class="p">${esc(it.product_name)}</span>
+        <span class="p">${r ? (past ? "発表日を過ぎています。結果を記録してください" : "当選発表 " + esc(fmtResult(it.result_at))) : "発表日は告知で確認できていません"}${src ? ` ・ <a href="${esc(src)}" target="_blank" rel="noopener">告知 ↗</a>` : ""}</span></div>
+      <span class="marks">${btn("won", "当選")}${btn("lost", "落選")}</span></div>`;
+  }).join("") + "</div>";
+}
+
 function renderList() {
   const rows = filtered();
   const pickup = $("f-pickup").value;
@@ -489,6 +519,7 @@ function renderList() {
   renderGroup($("g-store"), "宮崎県内の店", rows.filter((r) => r.pickup === "store"),
     "いま一次情報で確認できた県内の店の抽選はありません。「未確認」タブに、裏が取れていない県内の情報があります。");
   renderGroup($("g-online"), "通販・アプリ（全国から応募）", rows.filter((r) => r.pickup === "online"), "条件に合う抽選・販売はありません。");
+  renderApplied();
   renderUpcoming();
 }
 
