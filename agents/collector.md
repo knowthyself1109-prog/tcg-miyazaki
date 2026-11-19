@@ -109,3 +109,4 @@ ArtifactData ツール（url = https://claude.ai/artifact/CSaMhqZYxMAHZA2YDqE5Wj
 - 「Toppsの取扱実績がある宮崎の店」（shops_online.json の topps_physical）は、公式ページで確認できないものは載せない。確認できる店を見つけたときだけ出典URL付きで足す。
 - ファミリーマートは店ごとに取扱が違うため一覧には置かず、サイトの「ファミマの店を記録する」ボタン（店頭メモ）で利用者が店ごとに記録する。
 - Toppsの県内取扱店は、利用者が提示した取扱店リストPDF（2026.11.13版、data/raw/stores/topps_japan_retail_2026-11-13.json）から stores_miyazaki.json に登録済み（`python scripts/build_stores.py`）。新しい版のPDFが出たら取り直して差し替える。
+- 利用者が提示したもう1つの取扱店リストPDF（2026.7.10版、NPB スタジアムクラブ／NPB Baseball Card、data/raw/stores/topps_japan_retail_2026-07-10.json）も同じ方法で登録済み（ファミリーマート・ローソンを含む）。`scripts/build_stores.py` は data/raw/stores/topps_japan_retail_*.json をすべて読み、店ごとに版別の取扱商品を注記する。

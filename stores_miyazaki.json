@@ -9,7 +9,7 @@
     "bandai_dbfw": "ドラゴンボール フュージョンワールド 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/dbscg-fusionworld/search.php?product_id=9",
     "aeon": "イオングループ店舗一覧 https://www.aeon.com/store/list/九州地方/宮崎県/",
     "bookoff": "ブックオフ公式 店舗一覧（宮崎県）https://www.bookoff.co.jp/shop/pref-list/45.html",
-    "topps_pdf": "Topps Japan 取扱店リスト（2026.11.13 Japan Original Products Retail Stores、利用者が提示したPDF）data/raw/stores/topps_japan_retail_2026-11-13.json",
+    "topps_pdf": "Topps Japan 取扱店リスト（2026.11.13版・2026.7.10版 Japan Original Products Retail Stores、利用者が提示したPDF）data/raw/stores/topps_japan_retail_*.json",
     "edion": "エディオン公式 店舗検索 https://search.edion.com/e_store/spot/list?search=address&address=45"
   },
   "excluded": {
@@ -130,7 +130,7 @@
       "chain": "コンビニ各社",
       "miyazaki": "あり（チェーン単位で扱う）",
       "checked_via": "topps_pdf",
-      "note": "セブン・ローソンの抽選は通販枠で扱う。ファミリーマートはToppsの取扱店リスト（PDF）にある県内31店を店舗単位で登録"
+      "note": "セブンの抽選は通販枠で扱う。ファミリーマート・ローソンはToppsの取扱店リスト（PDF 2版）にある県内の店を店舗単位で登録"
     }
   ],
   "stores": [
@@ -210,7 +210,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "toysrus-miyako-city",
@@ -235,7 +235,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "2025年11月に旧・宮崎店（エディオン宮崎本店2F）から移転。ポケカ・バンダイの取扱店リストはまだ旧店舗の表記; Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "2025年11月に旧・宮崎店（エディオン宮崎本店2F）から移転。ポケカ・バンダイの取扱店リストはまだ旧店舗の表記; Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "tsutaya-miyako-city",
@@ -1591,7 +1591,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "geo-takanabe",
@@ -1804,7 +1804,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "himaraya-8850006-abae",
@@ -1827,7 +1827,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8800004-f594",
@@ -1942,7 +1942,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8800913-ecda",
@@ -1988,7 +1988,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード／（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8802112-7017",
@@ -2034,7 +2034,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8810003-5fca",
@@ -2195,7 +2195,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8830012-3d34",
@@ -2379,7 +2379,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード・Topps 2026 J.League Chrome／（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8850054-a376",
@@ -2402,7 +2402,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8850063-70d8",
@@ -2494,7 +2494,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：Topps 2026 NPB ファイネスト ベースボールカード／（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8890513-5fbd",
@@ -2517,7 +2517,7 @@
         "topps_pdf"
       ],
       "verified_at": "2026-11-14",
-      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition。店舗の事情で品切れ・取扱なしの場合あり"
+      "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition／（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     },
     {
       "id": "familymart-8891605-f209",
@@ -2541,6 +2541,328 @@
       ],
       "verified_at": "2026-11-14",
       "note": "Topps取扱（2026.11.13のリスト）：MLB 2026 Topps Baseball Update Series - Japan Edition・Topps 2026 NPB ファイネスト ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8894151-e237",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン えびの京町",
+      "city": "えびの市",
+      "address": "宮崎県えびの市大字向江285-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850092-55fc",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都原西",
+      "city": "都城市",
+      "address": "宮崎県都城市南横市町3526番地1号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8891411-b5f9",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 新富上富田",
+      "city": "新富町",
+      "address": "宮崎県児湯郡新富町富田2-27",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850114-9501",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都城庄内",
+      "city": "都城市",
+      "address": "宮崎県都城市庄内町8144-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8800022-b45c",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 宮崎大橋",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大橋2-213",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850086-4d5e",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 蓑原",
+      "city": "都城市",
+      "address": "宮崎県都城市久保原町9街区11号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8800024-85fa",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 宮崎祇園三丁目",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市祇園3-72-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8850001-f92c",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 都城金田町",
+      "city": "都城市",
+      "address": "宮崎県都城市金田町3108-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB スタジアムクラブ ベースボールカード・Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8800032-406a",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 宮崎霧島二丁目",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市霧島二丁目86番",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8851204-8488",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 都城インター",
+      "city": "都城市",
+      "address": "宮崎県都城市高城町桜木755-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8850004-bf25",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 都北町",
+      "city": "都城市",
+      "address": "宮崎県都城市都北町6415番地",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "familymart-8870031-e368",
+      "kind": "chain_store",
+      "chain": "ファミリーマート",
+      "name": "ファミリーマート 日南戸高一丁目",
+      "city": "日南市",
+      "address": "宮崎県日南市戸高一丁目3番2号",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8800123-cfd8",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 宮崎芳士",
+      "city": "宮崎市",
+      "address": "宮崎県宮崎市大字芳士字中原619-1",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
+    },
+    {
+      "id": "lawson-8840002-9a1a",
+      "kind": "chain_store",
+      "chain": "ローソン",
+      "name": "ローソン 高鍋町北高鍋",
+      "city": "高鍋町",
+      "address": "宮崎県児湯郡高鍋町大字北高鍋字天神鶴4625-3",
+      "official_page": null,
+      "sns": {
+        "x": null,
+        "instagram": null,
+        "line": null
+      },
+      "card_types": [
+        "topps"
+      ],
+      "lottery_history": [],
+      "verified_by": [
+        "topps_pdf"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Topps取扱（2026.7.10のリスト）：Topps 2026 NPB Baseball Card。店舗の事情で品切れ・取扱なしの場合あり"
     }
   ]
 }

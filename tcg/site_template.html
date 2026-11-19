@@ -561,7 +561,7 @@ function renderStores() {
         <div class="small muted">${esc(s.address)}</div>
         <div class="chips">${chipsHTML("m:" + s.id, s.card_types) || '<span class="small muted">トレカ取扱は公式リストで未確認</span>'}</div>
         ${s.note ? `<div class="small muted">${esc(s.note)}</div>` : ""}
-        ${s.chain === "ファミリーマート" ? `<div><button type="button" class="link restore" data-famima="${esc(s.name)}" style="font-size:12px">この店の在庫を記録する</button></div>` : ""}
+        ${s.chain === "ファミリーマート" || s.chain === "ローソン" ? `<div><button type="button" class="link restore" data-famima="${esc(s.name)}" style="font-size:12px">この店の在庫を記録する</button></div>` : ""}
         ${editorHTML("m:" + s.id, s.card_types)}
       </div>`).join("")}</div>` : `<div class="empty">地域を選ぶと、その地域の店が出ます。</div>`;
   $("stores-list").innerHTML = chips + list;

@@ -27,7 +27,7 @@ SOURCES = {
     "bandai_dbfw": "ドラゴンボール フュージョンワールド 取扱店舗（BANDAI CARDS）https://sec.carddass.com/jp/entry-shoplists/dbscg-fusionworld/search.php?product_id=9",
     "aeon": "イオングループ店舗一覧 https://www.aeon.com/store/list/九州地方/宮崎県/",
     "bookoff": "ブックオフ公式 店舗一覧（宮崎県）https://www.bookoff.co.jp/shop/pref-list/45.html",
-    "topps_pdf": "Topps Japan 取扱店リスト（2026.11.13 Japan Original Products Retail Stores、利用者が提示したPDF）data/raw/stores/topps_japan_retail_2026-11-13.json",
+    "topps_pdf": "Topps Japan 取扱店リスト（2026.11.13版・2026.7.10版 Japan Original Products Retail Stores、利用者が提示したPDF）data/raw/stores/topps_japan_retail_*.json",
     "edion": "エディオン公式 店舗検索 https://search.edion.com/e_store/spot/list?search=address&address=45",
 }
 RAW_SRC = {"pokemon": "pokemon_map", "yugioh": "konami", "onepiece": "bandai_onepiece",
@@ -207,7 +207,7 @@ CHAINS = [
     dict(chain="お宝創庫", miyazaki="なし（取扱リスト上）", checked_via="pokemon_map,konami,bandai", note=""),
     dict(chain="カードボックス", miyazaki="あり", checked_via="pokemon_map,bandai_dbfw", note="田中書店のCARDBOX（イオンモール都城駅前）"),
     dict(chain="シーガル", miyazaki="なし（取扱リスト上）", checked_via="pokemon_map,konami,bandai", note=""),
-    dict(chain="コンビニ各社", miyazaki="あり（チェーン単位で扱う）", checked_via="topps_pdf", note="セブン・ローソンの抽選は通販枠で扱う。ファミリーマートはToppsの取扱店リスト（PDF）にある県内31店を店舗単位で登録"),
+    dict(chain="コンビニ各社", miyazaki="あり（チェーン単位で扱う）", checked_via="topps_pdf", note="セブンの抽選は通販枠で扱う。ファミリーマート・ローソンはToppsの取扱店リスト（PDF 2版）にある県内の店を店舗単位で登録"),
 ]
 
 
@@ -224,19 +224,28 @@ def main() -> None:
     fetched = max(Path(f).stem.rsplit("_", 1)[1] for f in glob.glob(str(ROOT / "data/raw/stores/official_card_lists_*.json")))
 
     # Toppsの取扱店リスト（PDF）。ファミリーマート・ヒマラヤは店舗単位で登録し、ほかは既存の店に取扱を足す
-    tp = json.load(open(ROOT / "data/raw/stores/topps_japan_retail_2026-11-13.json", encoding="utf-8"))
-    tp_names = tp["products"]
+    # 複数版がある。新しい版を先に並べる（注記もこの順）
+    tp_files = sorted(glob.glob(str(ROOT / "data/raw/stores/topps_japan_retail_*.json")), reverse=True)
     stores = list(STORES)
     known = {norm(a) for s in STORES for a in s["aliases"] + [s["name"]]}
-    for e in tp["stores"]:
-        raws.append({"game": "topps", "name": e["name"], "address": e["address"], "src": "topps_pdf", "products": e["products"]})
-        if e["chain"] in ("ファミリーマート", "ヒマラヤ"):
-            m = re.search(r"宮崎県(?:.+?郡)?(.+?[市町村])", e["address"])
-            prefix = "familymart-" if e["chain"] == "ファミリーマート" else "himaraya-"
-            sid = prefix + e["zip"].replace("-", "") + "-" + hashlib.md5(e["name"].encode()).hexdigest()[:4]
-            stores.append(dict(id=sid,
-                               chain=e["chain"], name=e["name"], city=m.group(1) if m else "", address=e["address"].replace("宮崎県", "", 1),
-                               official_page=None, aliases=[e["name"]], note=""))
+    tp_lists = {}  # 店ID -> [(版のラベル, [商品名])]
+    seen_ids = set()
+    CHAIN_PREFIX = {"ファミリーマート": "familymart-", "ヒマラヤ": "himaraya-", "ローソン": "lawson-"}
+    for f in tp_files:
+        tp = json.load(open(f, encoding="utf-8"))
+        label = tp.get("label") or (Path(f).stem.rsplit("_", 1)[1].replace("-", ".") + "のリスト")
+        for e in tp["stores"]:
+            raws.append({"game": "topps", "name": e["name"], "address": e["address"], "src": "topps_pdf",
+                         "products": [tp["products"][p].split("（")[0] for p in e["products"]], "label": label})
+            if e["chain"] in CHAIN_PREFIX:
+                m = re.search(r"宮崎県(?:.+?郡)?(.+?[市町村])", e["address"])
+                sid = CHAIN_PREFIX[e["chain"]] + e["zip"].replace("-", "") + "-" + hashlib.md5(e["name"].encode()).hexdigest()[:4]
+                if sid in seen_ids:
+                    continue
+                seen_ids.add(sid)
+                stores.append(dict(id=sid,
+                                   chain=e["chain"], name=e["name"], city=m.group(1) if m else "", address=e["address"].replace("宮崎県", "", 1),
+                                   official_page=None, aliases=[e["name"]], note=""))
 
     out, unmatched = [], []
     used = set()
@@ -251,7 +260,7 @@ def main() -> None:
                 verified.add(RAW_SRC[r["game"]])
                 used.add(i)
                 if r["game"] == "topps":
-                    tp_products[s["id"]] = r.get("products", [])
+                    tp_products.setdefault(s["id"], []).append((r.get("label", ""), r.get("products", [])))
         out.append({
             "id": s["id"],
             "kind": s.get("kind", "chain_store"),
@@ -265,7 +274,7 @@ def main() -> None:
             "lottery_history": [],
             "verified_by": sorted(verified),
             "verified_at": fetched,
-            "note": "; ".join(x for x in [s.get("note", ""), ("Topps取扱（2026.11.13のリスト）：" + "・".join(tp_names[p].split("（")[0] for p in tp_products[s["id"]]) + "。店舗の事情で品切れ・取扱なしの場合あり") if s["id"] in tp_products else ""] if x),
+            "note": "; ".join(x for x in [s.get("note", ""), ("Topps取扱" + "／".join("（" + lb + "）：" + "・".join(pr) for lb, pr in tp_products[s["id"]]) + "。店舗の事情で品切れ・取扱なしの場合あり") if s["id"] in tp_products else ""] if x),
         })
     for i, r in enumerate(raws):
         if i in used:
