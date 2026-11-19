@@ -146,6 +146,8 @@ details.ed[open]>summary{color:var(--amber);border-color:var(--amber)}
 button.primary.sm{padding:6px 14px;font-size:13px}
 .chip.mine-chip{background:var(--violet-soft);color:var(--violet)}
 button.link.restore{color:var(--amber)}
+button.regbtn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--board);color:var(--ink);border-radius:4px;padding:6px 12px;cursor:pointer}
+button.regbtn[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--board);font-weight:700}
 button.link{font:inherit;font-size:12px;background:none;border:0;color:var(--red);cursor:pointer;padding:0}
 /* 下のタブ */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--band);border-top:1px solid #2c3036;
@@ -539,20 +541,21 @@ function renderUnv() {
 }
 
 // ---- 宮崎の店 ----
+let storeRegion = "";
 function renderStores() {
   renderMyStores(); renderOnlineShops(); renderTopps();
   $("stores-head").textContent = `各カードの公式取扱店リストと、チェーンの公式店舗検索で確認できた店だけを載せています（${DATA.stores.length}店・確認日 ${DATA.stores_updated_at}）。`;
-  const city = $("f-city").value;
   const by = {};
   const card = $("f-card").value;
   const visible = DATA.stores.filter((s) => !isHidden("m:" + s.id) && (!card || cardsOf("m:" + s.id, s.card_types).includes(card)));
   visible.forEach((s) => { (by[s.city] = by[s.city] || []).push(s); });
   const order = ["宮崎市", "都城市", "延岡市", "日向市", "日南市", "小林市", "西都市", "高鍋町", "国富町", "高千穂町"];
   const cities = Object.keys(by).sort((a, b) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99);
+  if (storeRegion && !by[storeRegion]) storeRegion = "";
   $("stores-n").textContent = `${visible.length}店`;
-  $("stores-list").innerHTML = cities.filter((c) => !city || c === city).map((c) => `
-    <div class="cityh"><span>${esc(c)}</span><span class="mono muted">${by[c].length}</span></div><div class="panel" style="border-top:1px solid var(--line)">
-    ${by[c].sort((a, b) => (a.kind === "card_shop" ? 0 : 1) - (b.kind === "card_shop" ? 0 : 1)).map((s) => `
+  const chips = `<div class="chips" style="gap:6px;padding:8px 0">${cities.map((c) => `<button type="button" class="regbtn" data-region="${esc(c)}" aria-pressed="${c === storeRegion}">${esc(c)} <span class="mono">${by[c].length}</span></button>`).join("")}</div>`;
+  const list = storeRegion ? `<div class="panel" style="border-top:1px solid var(--line)">
+    ${by[storeRegion].sort((a, b) => (a.kind === "card_shop" ? 0 : 1) - (b.kind === "card_shop" ? 0 : 1)).map((s) => `
       <div class="store">
         <div class="row"><span class="nm">${safeUrl(s.official_page) ? `<a href="${esc(s.official_page)}" target="_blank" rel="noopener">${esc(s.name)}</a>` : esc(s.name)}</span>${s.kind === "card_shop" ? '<span class="tag">カードショップ</span>' : ""}</div>
         <div class="small muted">${esc(s.address)}</div>
@@ -560,7 +563,8 @@ function renderStores() {
         ${s.note ? `<div class="small muted">${esc(s.note)}</div>` : ""}
         ${s.chain === "ファミリーマート" ? `<div><button type="button" class="link restore" data-famima="${esc(s.name)}" style="font-size:12px">この店の在庫を記録する</button></div>` : ""}
         ${editorHTML("m:" + s.id, s.card_types)}
-      </div>`).join("")}</div>`).join("");
+      </div>`).join("")}</div>` : `<div class="empty">地域を選ぶと、その地域の店が出ます。</div>`;
+  $("stores-list").innerHTML = chips + list;
   renderHidden();
   $("chains").innerHTML = "<tr><th>チェーン</th><th>県内</th><th>メモ</th></tr>" +
     DATA.chains.map((c) => `<tr><td>${esc(c.chain)}</td><td>${esc(c.miyazaki)}</td><td class="muted">${esc(c.note)}</td></tr>`).join("");
@@ -754,6 +758,8 @@ function show(view) {
 }
 document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => { show(b.dataset.view); if (location.hash !== "#" + b.dataset.view) history.replaceState(null, "", "#" + b.dataset.view); }));
 document.addEventListener("click", (e) => {
+  const rb = e.target.closest("button[data-region]");
+  if (rb) { storeRegion = storeRegion === rb.dataset.region ? "" : rb.dataset.region; renderStores(); return; }
   if (e.target.closest("button[data-famima]")) {
     const r = document.querySelector('input[name="kind"][value="memo"]'); r.checked = true; r.dispatchEvent(new Event("change"));
     $("a-card").value = "topps"; $("a-shop").value = e.target.closest("button[data-famima]").dataset.famima || "ファミリーマート "; if (!$("a-product").value) $("a-product").value = "Topps野球カード";
