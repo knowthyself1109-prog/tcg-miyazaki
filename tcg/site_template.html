@@ -469,10 +469,27 @@ function entryListings() {
   });
 }
 
+// ---- 一覧から消した項目（「追加」タブの「追加したもの」から元に戻せる） ----
+const hiddenItems = () => new Set(entries.filter((e) => e.kind === "item_hide").map((e) => e.target));
+const prodKey = (p) => "p:" + p.card_type + "|" + p.product_name;
+async function hideItem(target, label, card, btn) {
+  if (btn.dataset.confirm !== "1") { btn.dataset.confirm = "1"; btn.textContent = "本当に消す"; setTimeout(() => { btn.dataset.confirm = ""; btn.textContent = "この項目を消す"; }, 4000); return; }
+  const doc = {kind: "item_hide", target, shop: label.shop || "", product: label.product || "", card_type: card || null, created_at: new Date().toISOString(), imported: false};
+  try {
+    if (entryStore) await entryStore.add(doc);
+    else {
+      entries = [{...doc, _id: "local-" + Date.now()}, ...entries];
+      try { localStorage.setItem(LS_ENTRIES, JSON.stringify(entries)); } catch (e) {}
+      renderAll();
+    }
+  } catch (e) { btn.textContent = "消せませんでした"; }
+}
+const visibleListings = () => { const h = hiddenItems(); return [...DATA.listings, ...entryListings()].filter((it) => !h.has("l:" + it.id)); };
+
 // ---- 抽選・販売 ----
 function filtered() {
   const card = $("f-card").value, type = $("f-type").value, pickup = $("f-pickup").value, city = $("f-city").value, showClosed = $("f-closed").checked;
-  return [...DATA.listings, ...entryListings()].filter((it) => {
+  return visibleListings().filter((it) => {
     if (card && it.card_type !== card) return false;
     if (type && it.sale_type !== type) return false;
     if (pickup && it.pickup !== pickup) return false;
@@ -533,7 +550,7 @@ function itemHTML(it) {
         ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">${isForm(src) ? "応募フォーム" : "一次情報"} ↗</a>` : ""}
         ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ ↗</a>` : ""}
         <span class="marks">${btn("applied", "応募済み")}</span>${m ? `<a href="#hist" class="small">応募履歴で当落を記録</a>` : ""}
-        ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
+        ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : `<button type="button" class="link" data-hide="l:${esc(it.id)}" data-hshop="${esc(it.shop)}" data-hprod="${esc(it.product_name)}" data-hcard="${esc(it.card_type)}">この項目を消す</button>`}
       </div>
     </div>
   </details>`;
@@ -592,7 +609,8 @@ function renderList() {
 // ---- これから発売（公式サイトで確認した発売予定。予約・抽選が始まったら上の一覧に出る） ----
 function renderUpcoming() {
   const card = $("f-card").value;
-  const ps = (DATA.products || []).filter((p) => !card || p.card_type === card);
+  const hidp = hiddenItems();
+  const ps = (DATA.products || []).filter((p) => (!card || p.card_type === card) && !hidp.has(prodKey(p)));
   const unit = {pack: "1パック", deck: "1個", box: "1BOX", set: "1セット"};
   const W = "日月火水木金土";
   $("g-upcoming").innerHTML = `<div class="ghead"><h2>これから発売</h2><span class="count">${ps.length}件</span></div>` +
@@ -601,13 +619,14 @@ function renderUpcoming() {
       const date = m ? `<div class="tm plain">${+m[2]}/${+m[3]}<small>${m[1]}(${W[new Date(+m[1], +m[2] - 1, +m[3]).getDay()]})</small></div>`
                      : `<div class="tm plain" style="font-size:12.5px">${esc((p.release_date || "未発表").replace(/（.*$/, ""))}</div>`;
       const name = safeUrl(p.official_url) ? `<a href="${esc(p.official_url)}" target="_blank" rel="noopener">${esc(p.product_name)}</a>` : esc(p.product_name);
-      return `<details class="rw"><summary>${date}<div class="wh"><b>${name}</b><span class="p">${esc(DATA.card_names[p.card_type] || p.card_type)}${p.list_price ? ` ・ 希望小売 ${unit[p.price_unit] || ""} ${p.list_price.toLocaleString()}円` : ""}</span>${p.note ? `<span class="p">${esc(p.note)}</span>` : ""}</div><div class="stt st-wait">発売</div></summary></details>`;
+      return `<details class="rw"><summary>${date}<div class="wh"><b>${name}</b><span class="p">${esc(DATA.card_names[p.card_type] || p.card_type)}${p.list_price ? ` ・ 希望小売 ${unit[p.price_unit] || ""} ${p.list_price.toLocaleString()}円` : ""}</span>${p.note ? `<span class="p">${esc(p.note)}</span>` : ""}</div><div class="stt st-wait">発売</div></summary><div class="det"><div class="acts"><button type="button" class="link" data-hide="${esc(prodKey(p))}" data-hshop="" data-hprod="${esc(p.product_name)}" data-hcard="${esc(p.card_type)}">この項目を消す</button></div></div></details>`;
     }).join("") + "</div>" : '<div class="empty">発売予定の商品はありません。</div>');
 }
 
 function renderToday() {
-  const live = [...DATA.listings, ...entryListings()].filter((it) => !it.memo_old && it.end_at && !["done", "wait"].includes(stateOf(it).key)).sort((a, b) => new Date(a.end_at) - new Date(b.end_at));
-  const all = DATA.listings.filter((it) => stateOf(it).key !== "done");
+  const live = visibleListings().filter((it) => !it.memo_old && it.end_at && !["done", "wait"].includes(stateOf(it).key)).sort((a, b) => new Date(a.end_at) - new Date(b.end_at));
+  const hid = hiddenItems();
+  const all = DATA.listings.filter((it) => !hid.has("l:" + it.id) && stateOf(it).key !== "done");
   const soon = all.filter((it) => it.end_at && new Date(it.end_at) - NOW < 48 * H);
   const n = live[0];
   if (n) {
@@ -920,12 +939,12 @@ async function deleteEntry(id, btn) {
   }
 }
 function renderMyEntries() {
-  const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ", unv_hide: "未確認を消した"};
+  const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ", unv_hide: "未確認を消した", item_hide: "一覧から消した"};
   $("my-entries").innerHTML = `<div class="ghead"><h2>追加したもの</h2><span class="count">${entries.length}件</span></div>` +
     (entries.length ? '<div class="panel">' + entries.map((e) => `
       <div class="store"><div class="row"><span class="tag">${K[e.kind] || ""}</span><span class="nm">${esc(e.shop)}</span>${e.product ? `<span class="small">${esc(e.product)}</span>` : ""}
         ${e.imported ? '<span class="pill st-ok">収集に反映済み</span>' : ""}
-        <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">${e.kind === "unv_hide" ? "元に戻す" : "削除"}</button></div>
+        <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">${e.kind === "unv_hide" || e.kind === "item_hide" ? "元に戻す" : "削除"}</button></div>
         <div class="small muted">登録 ${fmt(e.created_at)}${e.note ? " ・ " + esc(e.note) : ""}</div></div>`).join("") + "</div>"
       : '<div class="empty">まだ何も追加していません。</div>');
 }
@@ -961,6 +980,8 @@ document.addEventListener("click", (e) => {
     const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
     return;
   }
+  const ih = e.target.closest("button[data-hide]");
+  if (ih) { hideItem(ih.dataset.hide, {shop: ih.dataset.hshop, product: ih.dataset.hprod}, ih.dataset.hcard, ih); return; }
   const uh = e.target.closest("button[data-unv-hide]");
   if (uh) { hideUnv(uh.dataset.unvHide, uh); return; }
   const uo = e.target.closest("button[data-unv-ok]");
