@@ -260,7 +260,7 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
 
 <nav class="tabs" role="tablist" aria-label="画面の切り替え">
   <button role="tab" id="tab-list" aria-selected="true" data-view="list"><b>◷</b>締切</button>
-  <button role="tab" id="tab-hist" aria-selected="false" data-view="hist"><b>✓</b>履歴</button>
+  <button role="tab" id="tab-hist" aria-selected="false" data-view="hist"><b>✓</b><span>履歴 <span class="n" id="hist-n"></span></span></button>
   <button role="tab" id="tab-unv" aria-selected="false" data-view="unv"><b>?</b><span>未確認 <span class="n" id="unv-n"></span></span></button>
   <button role="tab" id="tab-stores" aria-selected="false" data-view="stores"><b>⌂</b>店リスト</button>
   <button role="tab" id="tab-add" aria-selected="false" data-view="add"><b>＋</b>追加</button>
@@ -399,7 +399,7 @@ async function initMarks() {
       const m = {}, mm = {};
       snap.docs.forEach((d) => { const v = d.data(); if (v && v.state) { m[d.id] = v.state; mm[d.id] = v; } });
       marks = m; markMeta = mm;
-      renderList(); renderHistory();
+      renderList(); renderHistory(); renderToday();
     }, () => { settled = true; clearTimeout(timer); markStore = null; entryStore = null; $("marks-note").textContent = "応募記録を保存できないため、この端末のブラウザに保存しています。"; });
   } catch (e) { markStore = null; }
 }
@@ -435,7 +435,8 @@ async function setMark(id, state, hist) {
     marks[id] = next;
     markMeta[id] = {...o, state: next, at: now, applied_at: o.applied_at || o.at || now, memo: o.memo || "", snap: snapOf(id)};
   } else { delete marks[id]; delete markMeta[id]; }
-  renderList(); renderHistory();
+  renderList(); renderHistory(); renderToday();
+  if (next === "applied" && !cur && !hist) { const el = $("marks-note"); el.textContent = "応募済みにしました。「履歴」タブに移っています（当落とメモはそこで記録）。"; clearTimeout(setMark._t); setMark._t = setTimeout(() => { if (el.textContent.startsWith("応募済みにしました")) el.textContent = ""; }, 6000); }
   await persistMark(id);
 }
 async function setMemo(id, text) {
@@ -446,7 +447,7 @@ async function setMemo(id, text) {
 }
 async function unmark(id) {
   delete marks[id]; delete markMeta[id];
-  renderList(); renderHistory();
+  renderList(); renderHistory(); renderToday();
   await persistMark(id);
 }
 
@@ -484,7 +485,8 @@ async function hideItem(target, label, card, btn) {
     }
   } catch (e) { btn.textContent = "消せませんでした"; }
 }
-const visibleListings = () => { const h = hiddenItems(); return [...DATA.listings, ...entryListings()].filter((it) => !h.has("l:" + it.id)); };
+// 消した項目と、応募済みにした項目（履歴タブへ移る）は締切の一覧に出さない
+const visibleListings = () => { const h = hiddenItems(); return [...DATA.listings, ...entryListings()].filter((it) => !h.has("l:" + it.id) && !marks[it.id]); };
 
 // ---- 抽選・販売 ----
 function filtered() {
@@ -573,6 +575,7 @@ function renderHistory() {
     return {id, it, state: marks[id], meta, at: meta.applied_at || meta.at || ""};
   }).sort((a, b) => String(b.at).localeCompare(String(a.at)));
   const n = (k) => rows.filter((r) => r.state === k).length;
+  $("hist-n").textContent = n("applied") || "";
   const w = n("won"), l = n("lost");
   $("hist-sum").innerHTML = `<span><b>${rows.length}</b>応募</span><span><b>${n("applied")}</b>結果待ち</span><span><b>${w}</b>当選</span><span><b>${l}</b>落選</span>` + (w + l ? `<span>当選率 <b>${Math.round(100 * w / (w + l))}</b>%</span>` : "");
   const F = [["", "すべて"], ["applied", "結果待ち"], ["won", "当選"], ["lost", "落選"]];
@@ -626,7 +629,7 @@ function renderUpcoming() {
 function renderToday() {
   const live = visibleListings().filter((it) => !it.memo_old && it.end_at && !["done", "wait"].includes(stateOf(it).key)).sort((a, b) => new Date(a.end_at) - new Date(b.end_at));
   const hid = hiddenItems();
-  const all = DATA.listings.filter((it) => !hid.has("l:" + it.id) && stateOf(it).key !== "done");
+  const all = DATA.listings.filter((it) => !hid.has("l:" + it.id) && !marks[it.id] && stateOf(it).key !== "done");
   const soon = all.filter((it) => it.end_at && new Date(it.end_at) - NOW < 48 * H);
   const n = live[0];
   if (n) {
