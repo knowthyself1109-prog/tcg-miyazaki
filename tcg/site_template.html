@@ -105,6 +105,19 @@ details.rw.closed{opacity:.55}
 .ap .tm.late{color:var(--red)}
 .ap .marks button{font-size:12px}
 .mk{font-size:10px;font-weight:700;color:var(--amber)}
+.hsum{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--sub)}
+.hsum b{font-family:var(--f-mono);font-size:16px;color:var(--ink);margin-right:3px}
+.hfilt{display:flex;flex-wrap:wrap;gap:6px}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 10px;padding:10px;border-bottom:1px solid var(--line);align-items:start}
+.hrow .hh{min-width:0}
+.hrow .hh b{display:block;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.hrow .hh .p{display:block;font-size:12.5px;color:var(--sub);line-height:1.45;overflow-wrap:anywhere}
+.hrow .hh .late{color:var(--red);font-weight:700}
+.hrow textarea.mem{grid-column:1/-1;font:inherit;font-size:16px;width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 8px;resize:vertical}
+.hrow .hacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px}
+.hrow.won{box-shadow:inset 3px 0 0 var(--green)}
+.hrow.lost{box-shadow:inset 3px 0 0 var(--done)}
+.hrow.applied{box-shadow:inset 3px 0 0 var(--amber)}
 .empty{padding:14px 10px;color:var(--sub);font-size:13.5px;background:var(--board);border:1px solid var(--line);border-top:0}
 .lead{margin:0;font-size:12.5px;color:var(--sub)}
 .dbnote{font-size:12px;color:var(--sub);margin:0}
@@ -154,7 +167,7 @@ button.regbtn[aria-pressed="true"]{background:var(--amber);border-color:var(--am
 button.link{font:inherit;font-size:12px;background:none;border:0;color:var(--red);cursor:pointer;padding:0}
 /* 下のタブ */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--band);border-top:1px solid #2c3036;
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 nav.tabs button{font:inherit;font-size:11px;background:none;border:0;color:#8d949c;padding:8px 0 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:var(--barh);justify-content:center}
 nav.tabs button b{font-family:var(--f-mono);font-size:17px;line-height:1.1}
 nav.tabs button[aria-selected="true"]{color:var(--amber-band);box-shadow:inset 0 3px 0 var(--amber-band)}
@@ -180,12 +193,18 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
       <select id="f-city" aria-label="市町村"></select>
       <label><input type="checkbox" id="f-closed"> 終了も表示</label>
     </div>
-    <section class="group" id="g-applied" hidden></section>
     <section class="group" id="g-store"></section>
     <section class="group" id="g-online"></section>
     <section class="group" id="g-upcoming"></section>
     <section class="group" id="g-topps" hidden></section>
     <p class="dbnote" id="marks-note"></p>
+  </div>
+
+  <div id="view-hist" hidden style="display:flex;flex-direction:column;gap:12px">
+    <p class="lead">「応募済み」を押した抽選の履歴です。結果が出たら当選・落選を選び、メモも残せます。メモは入力欄を離れると保存されます。</p>
+    <div class="hsum" id="hist-sum"></div>
+    <div class="hfilt" id="hist-filt"></div>
+    <section class="group" id="hist-list"></section>
   </div>
 
   <div id="view-unv" hidden style="display:flex;flex-direction:column;gap:10px">
@@ -241,6 +260,7 @@ nav.tabs .n{font-family:var(--f-mono);font-size:10px}
 
 <nav class="tabs" role="tablist" aria-label="画面の切り替え">
   <button role="tab" id="tab-list" aria-selected="true" data-view="list"><b>◷</b>締切</button>
+  <button role="tab" id="tab-hist" aria-selected="false" data-view="hist"><b>✓</b>履歴</button>
   <button role="tab" id="tab-unv" aria-selected="false" data-view="unv"><b>?</b><span>未確認 <span class="n" id="unv-n"></span></span></button>
   <button role="tab" id="tab-stores" aria-selected="false" data-view="stores"><b>⌂</b>店リスト</button>
   <button role="tab" id="tab-add" aria-selected="false" data-view="add"><b>＋</b>追加</button>
@@ -376,25 +396,58 @@ async function initMarks() {
     const timer = setTimeout(() => { if (!settled) $("marks-note").textContent = "応募記録の読み込みに時間がかかっています。"; }, 10000);
     markStore.onSnapshot((snap) => {
       if (!snap.metadata.fromCache) { settled = true; clearTimeout(timer); $("marks-note").textContent = ""; }
-      const m = {};
-      snap.docs.forEach((d) => { const v = d.data(); if (v && v.state) m[d.id] = v.state; });
-      marks = m;
-      renderList();
+      const m = {}, mm = {};
+      snap.docs.forEach((d) => { const v = d.data(); if (v && v.state) { m[d.id] = v.state; mm[d.id] = v; } });
+      marks = m; markMeta = mm;
+      renderList(); renderHistory();
     }, () => { settled = true; clearTimeout(timer); markStore = null; entryStore = null; $("marks-note").textContent = "応募記録を保存できないため、この端末のブラウザに保存しています。"; });
   } catch (e) { markStore = null; }
 }
-async function setMark(id, state) {
-  const next = marks[id] === state ? null : state;
-  if (next) marks[id] = next; else delete marks[id];
-  renderList();
+const LS_META = "tcg-marks-meta";
+let markMeta = {};          // 応募ごとの控え（応募日・メモ・店と商品名）
+try { markMeta = JSON.parse(localStorage.getItem(LS_META) || "{}"); } catch (e) { markMeta = {}; }
+let histFilter = "";
+let histDirty = false;
+function snapOf(id) {
+  const it = [...DATA.listings, ...entryListings()].find((x) => x.id === id);
+  if (it) return {shop: it.shop, product_name: it.product_name, card_type: it.card_type, end_at: it.end_at || null, result_at: it.result_at || null, source_url: it.source_url || null};
+  return (markMeta[id] && markMeta[id].snap) || null;
+}
+async function persistMark(id) {
   if (markStore) {
     try {
-      if (next) await markStore.doc(id).set({state: next, at: new Date().toISOString()});
-      else await markStore.doc(id).delete();
+      if (marks[id]) await markStore.doc(id).set(markMeta[id]); else await markStore.doc(id).delete();
       return;
     } catch (e) { $("marks-note").textContent = "応募記録を保存できませんでした。この端末に保存します。"; markStore = null; }
   }
-  try { localStorage.setItem(LS_KEY, JSON.stringify(marks)); } catch (e) {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify(marks)); localStorage.setItem(LS_META, JSON.stringify(markMeta)); } catch (e) {}
+}
+// 一覧では「応募済み」だけ押せる。当選・落選は応募履歴のページで記録する
+async function setMark(id, state, hist) {
+  const cur = marks[id];
+  if (!hist && cur && cur !== "applied") return;
+  let next = state;
+  if (cur === state) next = hist ? "applied" : (state === "applied" ? null : "applied");
+  const o = markMeta[id] || {};
+  if (!next && o.memo) return;                       // メモがあるものは一覧から消さない（履歴から消す）
+  const now = new Date().toISOString();
+  if (next) {
+    marks[id] = next;
+    markMeta[id] = {...o, state: next, at: now, applied_at: o.applied_at || o.at || now, memo: o.memo || "", snap: snapOf(id)};
+  } else { delete marks[id]; delete markMeta[id]; }
+  renderList(); renderHistory();
+  await persistMark(id);
+}
+async function setMemo(id, text) {
+  if (!marks[id]) return;
+  const o = markMeta[id] || {};
+  markMeta[id] = {...o, state: marks[id], at: o.at || new Date().toISOString(), applied_at: o.applied_at || o.at || new Date().toISOString(), memo: String(text).slice(0, 500), snap: o.snap || snapOf(id)};
+  await persistMark(id);
+}
+async function unmark(id) {
+  delete marks[id]; delete markMeta[id];
+  renderList(); renderHistory();
+  await persistMark(id);
 }
 
 // ---- 自分で追加したものを一覧の形にそろえる ----
@@ -447,7 +500,7 @@ function itemHTML(it) {
   const src = safeUrl(it.source_url), apply = safeUrl(it.apply_url);
   const m = marks[it.id];
   const MK = {applied: "応募済", won: "当選", lost: "落選"};
-  const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="${m === k}">${label}</button>`;
+  const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="${!!m}">${label}</button>`;
   const P = it.end_at ? JPARTS(it.end_at) : null;
   const time = it.mine === "memo" ? `<div class="tm plain">${JPARTS(it.last_checked_at).hour}:${JPARTS(it.last_checked_at).minute}<small>${fmt(it.last_checked_at, false)}見た</small></div>`
     : P ? `<div class="tm">${P.hour}:${P.minute}<small>${P.month}/${P.day}(${P.weekday})</small></div>` : `<div class="tm plain">--:--<small>締切未定</small></div>`;
@@ -479,7 +532,7 @@ function itemHTML(it) {
       <div class="acts">
         ${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">${isForm(src) ? "応募フォーム" : "一次情報"} ↗</a>` : ""}
         ${apply && apply !== src ? `<a href="${esc(apply)}" target="_blank" rel="noopener">応募ページ ↗</a>` : ""}
-        <span class="marks">${btn("applied", "応募済み")}${btn("won", "当選")}${btn("lost", "落選")}</span>
+        <span class="marks">${btn("applied", "応募済み")}</span>${m ? `<a href="#hist" class="small">応募履歴で当落を記録</a>` : ""}
         ${it._entry ? `<button type="button" class="link" data-del="${esc(it._entry)}">削除</button>` : ""}
       </div>
     </div>
@@ -491,24 +544,38 @@ function renderGroup(el, title, items, emptyText) {
     (items.length ? `<div class="cap"><span>締切</span><span>店・商品</span><span>状態</span></div><div class="board">${items.map(itemHTML).join("")}</div>` : `<div class="empty">${emptyText}</div>`);
 }
 
-// ---- 応募済みの結果発表（「応募済み」を押したものを、発表日が近い順に） ----
-function renderApplied() {
-  const el = $("g-applied");
-  const items = [...DATA.listings, ...entryListings()].filter((it) => marks[it.id] === "applied")
-    .sort((a, b) => (a.result_at ? new Date(a.result_at) : Infinity) - (b.result_at ? new Date(b.result_at) : Infinity));
-  el.hidden = !items.length;
-  if (!items.length) { el.innerHTML = ""; return; }
-  el.innerHTML = `<div class="ghead"><h2>応募済み・結果発表</h2><span class="count">${items.length}件</span></div><div class="board">` + items.map((it) => {
-    const r = it.result_at ? JPARTS(it.result_at) : null;
-    const past = it.result_at && new Date(it.result_at) < NOW;
-    const when = r ? `<div class="tm ${past ? "late" : ""}">${r.month}/${r.day}<small>${r.weekday}${r.hour === "00" && r.minute === "00" ? "" : " " + r.hour + ":" + r.minute}</small></div>` : `<div class="tm plain">未確認<small>発表日</small></div>`;
+// ---- 応募履歴（「応募済み」を押したものの当落とメモ） ----
+function renderHistory() {
+  const ae = document.activeElement;
+  if (ae && ae.classList && ae.classList.contains("mem")) { histDirty = true; return; }
+  const all = [...DATA.listings, ...entryListings()];
+  const ST = {applied: "結果待ち", won: "当選", lost: "落選"};
+  const rows = Object.keys(marks).map((id) => {
+    const meta = markMeta[id] || {};
+    const it = all.find((x) => x.id === id) || meta.snap || {shop: "（店名不明）", product_name: ""};
+    return {id, it, state: marks[id], meta, at: meta.applied_at || meta.at || ""};
+  }).sort((a, b) => String(b.at).localeCompare(String(a.at)));
+  const n = (k) => rows.filter((r) => r.state === k).length;
+  const w = n("won"), l = n("lost");
+  $("hist-sum").innerHTML = `<span><b>${rows.length}</b>応募</span><span><b>${n("applied")}</b>結果待ち</span><span><b>${w}</b>当選</span><span><b>${l}</b>落選</span>` + (w + l ? `<span>当選率 <b>${Math.round(100 * w / (w + l))}</b>%</span>` : "");
+  const F = [["", "すべて"], ["applied", "結果待ち"], ["won", "当選"], ["lost", "落選"]];
+  $("hist-filt").innerHTML = F.map(([k, v]) => `<button type="button" class="regbtn" data-hf="${k}" aria-pressed="${histFilter === k}">${v}</button>`).join("");
+  const shown = rows.filter((r) => !histFilter || r.state === histFilter);
+  const el = $("hist-list");
+  el.innerHTML = `<div class="ghead"><h2>応募履歴</h2><span class="count">${shown.length}件</span></div>` + (shown.length ? `<div class="board">` + shown.map((r) => {
+    const it = r.it, meta = r.meta;
+    const res = it.result_at ? new Date(it.result_at) : null;
+    const late = r.state === "applied" && res && res < NOW;
     const src = safeUrl(it.source_url);
-    const btn = (k, label) => `<button type="button" data-mark="${k}" data-id="${esc(it.id)}" aria-pressed="false">${label}</button>`;
-    return `<div class="ap">${when}
-      <div class="wh"><b>${esc(it.shop)}</b><span class="p">${esc(it.product_name)}</span>
-        <span class="p">${r ? (past ? "発表日を過ぎています。結果を記録してください" : "当選発表 " + esc(fmtResult(it.result_at))) : "発表日は告知で確認できていません"}${src ? ` ・ <a href="${esc(src)}" target="_blank" rel="noopener">告知 ↗</a>` : ""}</span></div>
-      <span class="marks">${btn("won", "当選")}${btn("lost", "落選")}</span></div>`;
-  }).join("") + "</div>";
+    const btn = (k) => `<button type="button" data-mark="${k}" data-hist="1" data-id="${esc(r.id)}" aria-pressed="${r.state === k}">${ST[k]}</button>`;
+    return `<div class="hrow ${r.state}">
+      <div class="hh"><b>${esc(it.shop)}</b><span class="p">${esc(it.product_name)}${it.card_type ? " ・ " + esc(DATA.card_names[it.card_type] || it.card_type) : ""}</span>
+        <span class="p">${r.at ? "応募 " + fmt(r.at, false) : "応募日不明"}${res ? ` ・ <span class="${late ? "late" : ""}">当選発表 ${esc(fmtResult(it.result_at))}${late ? "（過ぎています。結果を記録してください）" : ""}</span>` : (r.state === "applied" ? " ・ 発表日は未確認" : "")}</span></div>
+      <span class="marks">${btn("applied")}${btn("won")}${btn("lost")}</span>
+      <textarea class="mem" rows="2" maxlength="500" data-memo="${esc(r.id)}" placeholder="メモ（受け取り方、いつ連絡が来たか など）" aria-label="メモ">${esc(meta.memo || "")}</textarea>
+      <div class="hacts">${src ? `<a href="${esc(src)}" target="_blank" rel="noopener">告知 ↗</a>` : ""}<button type="button" class="link" data-unmark="${esc(r.id)}">履歴から消す</button></div>
+    </div>`;
+  }).join("") + "</div>" : `<div class="empty">${rows.length ? "この条件の履歴はありません。" : "まだ応募履歴はありません。「締切」タブで抽選を開き、応募したら「応募済み」を押してください。"}</div>`);
 }
 
 function renderList() {
@@ -519,7 +586,6 @@ function renderList() {
   renderGroup($("g-store"), "宮崎県内の店", rows.filter((r) => r.pickup === "store"),
     "いま一次情報で確認できた県内の店の抽選はありません。「未確認」タブに、裏が取れていない県内の情報があります。");
   renderGroup($("g-online"), "通販・アプリ（全国から応募）", rows.filter((r) => r.pickup === "online"), "条件に合う抽選・販売はありません。");
-  renderApplied();
   renderUpcoming();
 }
 
@@ -611,7 +677,7 @@ function renderLog() {
   }).join("");
 }
 
-function renderAll() { renderToday(); renderList(); renderStores(); renderMyEntries(); }
+function renderAll() { renderToday(); renderList(); renderHistory(); renderStores(); renderMyEntries(); }
 
 // ---- 店リスト：自分で追加した店・通販の取扱店 ----
 function renderMyStores() {
@@ -782,7 +848,7 @@ function saveUi() {
   try { localStorage.setItem("tcg-ui", JSON.stringify(Object.fromEntries(["f-card", "f-type", "f-pickup", "f-city"].map((id) => [id, $(id).value])))); } catch (e) {}
 }
 
-const VIEWS = ["list", "unv", "stores", "add", "log"];
+const VIEWS = ["list", "hist", "unv", "stores", "add", "log"];
 function show(view) {
   document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.view === view)));
   VIEWS.forEach((v) => { $("view-" + v).hidden = v !== view; });
@@ -798,9 +864,18 @@ document.addEventListener("click", (e) => {
     const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
     return;
   }
-  const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark);
+  const hf = e.target.closest("button[data-hf]");
+  if (hf) { histFilter = hf.dataset.hf; renderHistory(); return; }
+  const um = e.target.closest("button[data-unmark]");
+  if (um) {
+    if (um.dataset.confirm !== "1") { um.dataset.confirm = "1"; um.textContent = "本当に消す"; setTimeout(() => { um.dataset.confirm = ""; um.textContent = "履歴から消す"; }, 4000); return; }
+    unmark(um.dataset.unmark); return;
+  }
+  const b = e.target.closest("button[data-mark]"); if (b) setMark(b.dataset.id, b.dataset.mark, !!b.dataset.hist);
   const d = e.target.closest("button[data-del]"); if (d) deleteEntry(d.dataset.del, d);
 });
+document.addEventListener("change", (e) => { const t = e.target.closest && e.target.closest("textarea[data-memo]"); if (t) setMemo(t.dataset.memo, t.value); });
+document.addEventListener("focusout", (e) => { if (histDirty && e.target.classList && e.target.classList.contains("mem")) { histDirty = false; setTimeout(renderHistory, 0); } });
 window.addEventListener("hashchange", () => show((location.hash || "#list").slice(1)));
 
 setupFilters();
