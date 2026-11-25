@@ -624,6 +624,17 @@ function renderToday() {
 }
 
 // ---- 未確認 ----
+// 未確認の見出しから、商品名の見当を付ける（入力欄に最初から入れておく。違うときだけ直す）
+function guessProduct(u) {
+  const sh = u.shop || "";
+  let s = u.summary || "";
+  for (const x of [sh, sh.split("（")[0]].sort((a, b) => b.length - a.length)) { if (x && s.startsWith(x)) { s = s.slice(x.length); break; } }
+  const tail = (t) => t.split("（")[0].replace(/(の)?(WEB|アプリ|店頭受取の|店頭)?(抽選販売|抽選|招待エントリー|招待リクエスト|エントリー).*$/, "").trim();
+  s = s.replace(/^\s*(各店|オンラインショップ|店頭受取の|[（(][^）)]*[）)])\s*/, "");
+  let g = tail(s).replace(/^[\s　・]+|[\s　・]+$/g, "");
+  if (!g) { const k = (u.summary || "").lastIndexOf("："); if (k >= 0) g = tail((u.summary || "").slice(k + 1)).trim(); }
+  return g.slice(0, 120);
+}
 function unvList() {
   const done = new Set(entries.filter((e) => e.from_unv != null).map((e) => String(e.from_unv)));
   return DATA.unverified.filter((u) => !done.has(String(u.id)));
@@ -647,7 +658,7 @@ function renderUnv() {
         <details class="ed"><summary>確認できた（締切の一覧に移す）</summary>
           <div class="form unv-form" data-uid="${esc(String(u.id))}" style="margin-top:8px">
             <div class="small muted">自分で確認した内容を入れてください。「締切」タブの一覧に、確認できたものと同じように出ます（「未確認→自分で確認」の印が付きます）。</div>
-            ${fld("商品名", `<input name="product" required placeholder="例：ONE PIECEカードゲーム スタートデッキ ST-37">`)}
+            ${fld("商品名", `<input name="product" required value="${esc(guessProduct(u))}" placeholder="例：ONE PIECEカードゲーム スタートデッキ ST-37">`)}
             <div class="field two"><div><label>販売方法</label><select name="sale_type"><option value="lottery">抽選</option><option value="first_come">先着</option><option value="restock">再販</option><option value="store">店頭販売</option></select></div>
               <div><label>受取</label><select name="pickup"><option value="online">配送・通販</option><option value="store">宮崎の店で受取</option></select></div></div>
             <div class="field two"><div><label>受付開始</label><input name="start_at" type="datetime-local"></div><div><label>締切</label><input name="end_at" type="datetime-local"></div></div>
