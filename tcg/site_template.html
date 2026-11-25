@@ -655,6 +655,7 @@ function renderUnv() {
         <div class="stt st-unv">未確認</div></summary>
         <div class="det"><dl><dt>理由</dt><dd>${esc(u.reason || "")}</dd></dl>
         ${safeUrl(u.hint_url) || safeUrl(u.apply_url) ? `<div class="acts">${safeUrl(u.apply_url) ? `<a href="${esc(u.apply_url)}" target="_blank" rel="noopener">応募フォーム ↗</a>` : ""}${safeUrl(u.hint_url) ? `<a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a>` : ""}</div>` : ""}
+        <div class="acts"><button type="button" class="link" data-unv-hide="${esc(String(u.id))}">この未確認を消す</button><span class="small muted">いらないものを一覧から外します（あとで「追加」タブの「追加したもの」から戻せます）</span></div>
         <details class="ed"><summary>確認できた（締切の一覧に移す）</summary>
           <div class="form unv-form" data-uid="${esc(String(u.id))}" style="margin-top:8px">
             <div class="small muted">自分で確認した内容を入れてください。「締切」タブの一覧に、確認できたものと同じように出ます（「未確認→自分で確認」の印が付きます）。</div>
@@ -669,6 +670,19 @@ function renderUnv() {
           </div></details>
         </div></details>`;
     }).join("") + "</div>" : '<div class="empty">未確認の情報はありません。</div>');
+}
+async function hideUnv(id, btn) {
+  if (btn.dataset.confirm !== "1") { btn.dataset.confirm = "1"; btn.textContent = "本当に消す"; setTimeout(() => { btn.dataset.confirm = ""; btn.textContent = "この未確認を消す"; }, 4000); return; }
+  const u = DATA.unverified.find((x) => String(x.id) === String(id)); if (!u) return;
+  const doc = {kind: "unv_hide", shop: u.shop || "", product: u.summary || "", card_type: u.card_type, from_unv: u.id, created_at: new Date().toISOString(), imported: false};
+  try {
+    if (entryStore) await entryStore.add(doc);
+    else {
+      entries = [{...doc, _id: "local-" + Date.now()}, ...entries];
+      try { localStorage.setItem(LS_ENTRIES, JSON.stringify(entries)); } catch (e) {}
+      renderAll();
+    }
+  } catch (e) { btn.textContent = "消せませんでした"; }
 }
 async function confirmUnv(box) {
   const u = DATA.unverified.find((x) => String(x.id) === box.dataset.uid); if (!u) return;
@@ -880,12 +894,12 @@ async function deleteEntry(id, btn) {
   }
 }
 function renderMyEntries() {
-  const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ"};
+  const K = {store: "店", listing: "抽選・販売", memo: "店頭メモ", unv_hide: "未確認を消した"};
   $("my-entries").innerHTML = `<div class="ghead"><h2>追加したもの</h2><span class="count">${entries.length}件</span></div>` +
     (entries.length ? '<div class="panel">' + entries.map((e) => `
       <div class="store"><div class="row"><span class="tag">${K[e.kind] || ""}</span><span class="nm">${esc(e.shop)}</span>${e.product ? `<span class="small">${esc(e.product)}</span>` : ""}
         ${e.imported ? '<span class="pill st-ok">収集に反映済み</span>' : ""}
-        <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">削除</button></div>
+        <button type="button" class="link" data-del="${esc(e._id)}" style="margin-left:auto">${e.kind === "unv_hide" ? "元に戻す" : "削除"}</button></div>
         <div class="small muted">登録 ${fmt(e.created_at)}${e.note ? " ・ " + esc(e.note) : ""}</div></div>`).join("") + "</div>"
       : '<div class="empty">まだ何も追加していません。</div>');
 }
@@ -921,6 +935,8 @@ document.addEventListener("click", (e) => {
     const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
     return;
   }
+  const uh = e.target.closest("button[data-unv-hide]");
+  if (uh) { hideUnv(uh.dataset.unvHide, uh); return; }
   const uo = e.target.closest("button[data-unv-ok]");
   if (uo) { confirmUnv(uo.closest(".unv-form")); return; }
   const hf = e.target.closest("button[data-hf]");
