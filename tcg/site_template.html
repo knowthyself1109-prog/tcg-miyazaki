@@ -460,7 +460,7 @@ function entryListings() {
       id: "u-" + e._id, _entry: e._id, mine: memo ? "memo" : "listing",
       card_type: e.card_type, product_name: e.product || (memo ? "店頭メモ" : ""), shop: e.shop,
       sale_type: memo ? "store" : e.sale_type, status: memo ? "in_stock" : "open",
-      start_at: memo ? null : e.start_at, end_at: memo ? null : e.end_at, price: e.price || null, is_list_price: e.price ? null : undefined,
+      start_at: memo ? null : e.start_at, end_at: memo ? null : e.end_at, result_at: memo ? null : (e.result_at || null), from_unv: e.from_unv != null, price: e.price || null, is_list_price: e.price ? null : undefined,
       pickup: memo ? "store" : (e.pickup || "store"), pickup_area: (memo || e.pickup !== "online") ? "宮崎県 " + e.shop : null,
       cities: e.city ? [e.city] : [], conditions: memo ? null : e.note, note: memo ? e.note : null,
       source_url: e.url, last_checked_at: seen, first_seen_at: e.created_at, needs_check: 0,
@@ -513,7 +513,7 @@ function itemHTML(it) {
         <span class="tag">${it.pickup === "store" ? "店頭受取" : "配送"}</span>
         ${it.result_at && st.key !== "done" ? `<span class="tag">発表 ${esc(fmtResult(it.result_at))}</span>` : (it.result_at && marks[it.id] === "applied" ? `<span class="tag">発表 ${esc(fmtResult(it.result_at))}</span>` : "")}
         ${isNew && !it.mine ? '<span class="tag new">新着</span>' : ""}
-        ${it.mine ? `<span class="tag mine">${it.mine === "memo" ? "自分のメモ" : "自分で追加"}</span>` : ""}
+        ${it.mine ? `<span class="tag mine">${it.mine === "memo" ? "自分のメモ" : it.from_unv ? "未確認→自分で確認" : "自分で追加"}</span>` : ""}
         ${stale(it) ? '<span class="tag warn">要確認</span>' : ""}${it.memo_old ? '<span class="tag warn">古い情報</span>' : ""}
         ${m ? `<span class="mk">● ${MK[m]}</span>` : ""}</span></div>
       <div class="stt st-${st.key}">${st.label}${cd}</div>
@@ -618,23 +618,69 @@ function renderToday() {
   } else {
     $("next").innerHTML = `<div class="next none"><span class="l">次の締切</span><div class="big">受付中の抽選はありません</div></div>`;
   }
-  $("today").innerHTML = `<span><b>${all.length}</b>受付中・受付前</span><span class="hot"><b>${soon.length}</b>48時間以内</span><span><b>${DATA.unverified.length}</b>未確認</span>`;
+  $("today").innerHTML = `<span><b>${all.length}</b>受付中・受付前</span><span class="hot"><b>${soon.length}</b>48時間以内</span><span data-unv><b>${unvList().length}</b>未確認</span>`;
   const b = JPARTS(DATA.built_at);
   $("built").textContent = `${b.month}/${b.day} ${b.hour}:${b.minute} 更新`;
-  $("unv-n").textContent = DATA.unverified.length || "";
 }
 
 // ---- 未確認 ----
+function unvList() {
+  const done = new Set(entries.filter((e) => e.from_unv != null).map((e) => String(e.from_unv)));
+  return DATA.unverified.filter((u) => !done.has(String(u.id)));
+}
 function renderUnv() {
-  $("unv-list").innerHTML = `<div class="ghead"><h2>未確認の情報</h2><span class="count">${DATA.unverified.length}件</span></div>` +
-    (DATA.unverified.length ? `<div class="board">` + DATA.unverified.map((u) => {
+  const ae = document.activeElement;
+  if (ae && ae.closest && ae.closest("#unv-list") && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return;   // 入力中は描き直さない
+  const list = unvList();
+  $("unv-n").textContent = list.length || "";
+  const hint = $("today").querySelector("[data-unv]"); if (hint) hint.innerHTML = `<b>${list.length}</b>未確認`;
+  $("unv-list").innerHTML = `<div class="ghead"><h2>未確認の情報</h2><span class="count">${list.length}件</span></div>` +
+    (list.length ? `<div class="board">` + list.map((u) => {
       const r = JPARTS(u.reported_at);
+      const link = safeUrl(u.hint_url) || "";
+      const fld = (label, html) => `<div class="field"><label>${label}</label>${html}</div>`;
       return `<details class="rw"><summary><div class="tm plain">${r.month}/${r.day}<small>報告</small></div>
         <div class="wh"><b>${esc(u.shop || "")}</b><span class="p">${esc(u.summary)}</span><span class="tags"><span class="tag">${esc(DATA.card_names[u.card_type] || u.card_type)}</span></span></div>
         <div class="stt st-unv">未確認</div></summary>
         <div class="det"><dl><dt>理由</dt><dd>${esc(u.reason || "")}</dd></dl>
-        ${safeUrl(u.hint_url) || safeUrl(u.apply_url) ? `<div class="acts">${safeUrl(u.apply_url) ? `<a href="${esc(u.apply_url)}" target="_blank" rel="noopener">応募フォーム ↗</a>` : ""}${safeUrl(u.hint_url) ? `<a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a>` : ""}</div>` : ""}</div></details>`;
+        ${safeUrl(u.hint_url) || safeUrl(u.apply_url) ? `<div class="acts">${safeUrl(u.apply_url) ? `<a href="${esc(u.apply_url)}" target="_blank" rel="noopener">応募フォーム ↗</a>` : ""}${safeUrl(u.hint_url) ? `<a href="${esc(u.hint_url)}" target="_blank" rel="noopener">確認先 ↗</a>` : ""}</div>` : ""}
+        <details class="ed"><summary>確認できた（締切の一覧に移す）</summary>
+          <div class="form unv-form" data-uid="${esc(String(u.id))}" style="margin-top:8px">
+            <div class="small muted">自分で確認した内容を入れてください。「締切」タブの一覧に、確認できたものと同じように出ます（「未確認→自分で確認」の印が付きます）。</div>
+            ${fld("商品名", `<input name="product" required placeholder="例：ONE PIECEカードゲーム スタートデッキ ST-37">`)}
+            <div class="field two"><div><label>販売方法</label><select name="sale_type"><option value="lottery">抽選</option><option value="first_come">先着</option><option value="restock">再販</option><option value="store">店頭販売</option></select></div>
+              <div><label>受取</label><select name="pickup"><option value="online">配送・通販</option><option value="store">宮崎の店で受取</option></select></div></div>
+            <div class="field two"><div><label>受付開始</label><input name="start_at" type="datetime-local"></div><div><label>締切</label><input name="end_at" type="datetime-local"></div></div>
+            <div class="field two"><div><label>当選発表</label><input name="result_at" type="datetime-local"></div><div><label>価格（税込・円）</label><input name="price" type="number" inputmode="numeric" min="0"></div></div>
+            ${fld("確認したページのURL", `<input name="url" type="url" inputmode="url" value="${esc(link)}" placeholder="https://">`)}
+            ${fld("応募条件・メモ", `<textarea name="note" rows="3" placeholder="会員限定、受取期間など"></textarea>`)}
+            <div class="row"><button type="button" class="primary sm" data-unv-ok>確認できた</button><span class="small muted" data-unv-msg role="status"></span></div>
+          </div></details>
+        </div></details>`;
     }).join("") + "</div>" : '<div class="empty">未確認の情報はありません。</div>');
+}
+async function confirmUnv(box) {
+  const u = DATA.unverified.find((x) => String(x.id) === box.dataset.uid); if (!u) return;
+  const g = (n) => (box.querySelector(`[name="${n}"]`).value || "").trim();
+  const msg = box.querySelector("[data-unv-msg]");
+  const toIso = (v) => v ? new Date(v).toISOString() : null;
+  if (!g("product")) { msg.textContent = "商品名を入れてください。"; box.querySelector('[name="product"]').focus(); return; }
+  if (g("url") && !safeUrl(g("url"))) { msg.textContent = "URLは https:// から始まる形で入れてください。"; return; }
+  const doc = {kind: "listing", shop: u.shop || "", card_type: u.card_type, product: g("product"), sale_type: g("sale_type"), pickup: g("pickup"),
+    start_at: toIso(g("start_at")), end_at: toIso(g("end_at")), result_at: toIso(g("result_at")), price: g("price") ? Number(g("price")) : null,
+    url: g("url") || null, note: g("note") || null, created_at: new Date().toISOString(), imported: false, from_unv: u.id};
+  const btn = box.querySelector("[data-unv-ok]"); btn.disabled = true;
+  try {
+    if (entryStore) await entryStore.add(doc);
+    else {
+      entries = [{...doc, _id: "local-" + Date.now()}, ...entries];
+      try { localStorage.setItem(LS_ENTRIES, JSON.stringify(entries)); } catch (e) {}
+      renderAll();
+    }
+    msg.textContent = "締切の一覧に移しました。";
+  } catch (e) {
+    msg.textContent = e && e.code === "quota_exceeded" ? "保存できる件数の上限です。古い登録を削除してください。" : "保存できませんでした。通信を確認してもう一度押してください。";
+  } finally { btn.disabled = false; }
 }
 
 // ---- 宮崎の店 ----
@@ -677,7 +723,7 @@ function renderLog() {
   }).join("");
 }
 
-function renderAll() { renderToday(); renderList(); renderHistory(); renderStores(); renderMyEntries(); }
+function renderAll() { renderToday(); renderList(); renderHistory(); renderUnv(); renderStores(); renderMyEntries(); }
 
 // ---- 店リスト：自分で追加した店・通販の取扱店 ----
 function renderMyStores() {
@@ -864,6 +910,8 @@ document.addEventListener("click", (e) => {
     const n = $("a-shop").value.length; try { $("a-shop").setSelectionRange(n, n); } catch (er) {}
     return;
   }
+  const uo = e.target.closest("button[data-unv-ok]");
+  if (uo) { confirmUnv(uo.closest(".unv-form")); return; }
   const hf = e.target.closest("button[data-hf]");
   if (hf) { histFilter = hf.dataset.hf; renderHistory(); return; }
   const um = e.target.closest("button[data-unmark]");
