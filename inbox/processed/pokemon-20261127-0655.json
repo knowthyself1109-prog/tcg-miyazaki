@@ -1,0 +1,27 @@
+{
+ "card_type": "pokemon",
+ "run_at": "2026-11-27T06:55:00+09:00",
+ "products": [],
+ "unverified": [],
+ "listings": [
+  {
+   "product_name": "ポケモンカードゲーム 30th CELEBRATION カードセット（9種）・スターターセットex（3種）再入荷分／キャンセル分",
+   "product_code": null,
+   "sale_type": "lottery",
+   "shop": "トレカプラザ55通販",
+   "status": "open",
+   "start_at": "2026-11-23 20:00",
+   "end_at": "2026-11-30 23:59",
+   "result_at": "2026-12-01 00:00",
+   "price": null,
+   "is_list_price": null,
+   "conditions": "トレカプラザ55通販店の会員登録が必須（顧客ID 9桁を入力）。1人1回限り・同一人物と思われる複数応募は抽選対象外。回答後の編集・商品追加不可（希望商品はすべて選択）。当選者には12/1〜12/2にメール、12/4 23:59までに入金（クレカ・PayPay・銀行振込・atone・後払い）。落選の通知なし。受取はゆうパック（送料別）または大須アメ横店。対象と価格：30th CELEBRATION カードセット9種（各1,200円）、スターターセットex 3種（各1,800円）",
+   "pickup": "online",
+   "pickup_store_ids": [],
+   "apply_url": "https://docs.google.com/forms/d/e/1FAIpQLSfMYEQnQHZIXlZXRSR5pLb7glqN5fz9uBp-pVcEjKiMC4VfHg/viewform",
+   "source_url": "https://docs.google.com/forms/d/e/1FAIpQLSfMYEQnQHZIXlZXRSR5pLb7glqN5fz9uBp-pVcEjKiMC4VfHg/viewform",
+   "found_via": "定期収集（入荷Nowで発見→店のフォームで確認）",
+   "note": "店が作成したGoogleフォーム（本文で店名・締切・商品・価格を確認）。受付開始の日時はフォームに記載なし（開始日は入荷Nowの記載）。当選発表の時刻は未記載 / 11/27朝に店のフォームで受付中（締切 11/30 23:59）を再確認"
+  }
+ ]
+}
